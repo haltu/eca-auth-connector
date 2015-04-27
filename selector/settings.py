@@ -50,7 +50,14 @@ MIDDLEWARE_CLASSES = (
 
 ROOT_URLCONF = 'selector.urls'
 
+LOGIN_URL = '/saml/admin/'
+
 WSGI_APPLICATION = 'selector.wsgi.application'
+
+AUTHENTICATION_BACKENDS = (
+  'selector.authbackend.ShibbolethBackend',
+  'django.contrib.auth.backends.ModelBackend',
+)
 
 
 # Database

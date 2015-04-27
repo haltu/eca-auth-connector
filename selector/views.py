@@ -1,4 +1,5 @@
 
+import logging
 from django.conf import settings
 from django.http import Http404
 from django.http import HttpResponseRedirect
@@ -13,6 +14,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, REDIRECT_FIELD_NAME, login as auth_login
 from django.contrib.sites.models import get_current_site
 from selector.models import User
+
+LOG = logging.getLogger(__name__)
 
 
 class LoginRequiredMixin(object):
@@ -67,6 +70,7 @@ def login(request, template_name='registration/login.html',
         redirect_field_name: redirect_to,
         'site': current_site,
         'site_name': current_site.name,
+        'meta': request.META,
     }
     if extra_context is not None:
         context.update(extra_context)
