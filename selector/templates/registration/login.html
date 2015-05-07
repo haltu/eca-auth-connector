@@ -1,7 +1,8 @@
+<h1>Authenticated, unknown user</h1>
+<p>
+User is authenticated, but user is not yet known in the RoleDB. <a href="">Attach user</a>.
+</p>
 <ul>
-<li>EPPN: {{ meta.HTTP_EPPN }}</li>
-<li>AUTHNID: {{ meta.HTTP_AUTHNID }}</li>
-<li>AUTHENTICATOR: {{ meta.HTTP_AUTHENTICATOR }}</li>
-<li>USER_IDENTITY: {{ meta.HTTP_USER_IDENTITY }}</li>
+<li>EPPN: {{ meta.HTTP_USER_IDENTITY }}</li>
 </ul>
 

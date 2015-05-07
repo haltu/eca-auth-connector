@@ -24,7 +24,19 @@ class LoginRequiredMixin(object):
     return super(LoginRequiredMixin, self).dispatch(request, *args, **kwargs)
 
 
-class AdminView(LoginRequiredMixin, TemplateView):
+class IndexView(TemplateView):
+  template_name = 'index.html'
+
+  def get_context_data(self, **kwargs):
+    context = super(TemplateView, self).get_context_data(**kwargs)
+    context.update({
+      'meta_keys': self.request.META.keys(),
+      'meta': self.request.META,
+      'user': self.request.user,
+    })
+    return context
+
+class InvitatorView(TemplateView):
   template_name = 'admin.html'
 
   def get_context_data(self, **kwargs):
@@ -32,11 +44,22 @@ class AdminView(LoginRequiredMixin, TemplateView):
     context.update({
       'meta_keys': self.request.META.keys(),
       'meta': self.request.META,
+      'user': self.request.user,
     })
     return context
 
-class UserView(LoginRequiredMixin, TemplateView):
+  @method_decorator(login_required(login_url='/saml/admin/'))
+  def dispatch(self, request, *args, **kwargs):
+    return super(TemplateView, self).dispatch(request, *args, **kwargs)
+
+
+class InviteeView(TemplateView):
   template_name = 'user.html'
+  
+  @method_decorator(login_required(login_url='/saml/user/'))
+  def dispatch(self, request, *args, **kwargs):
+    return super(TemplateView, self).dispatch(request, *args, **kwargs)
+
 
 
 @sensitive_post_parameters()

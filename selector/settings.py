@@ -51,6 +51,7 @@ MIDDLEWARE_CLASSES = (
 ROOT_URLCONF = 'selector.urls'
 
 LOGIN_URL = '/saml/admin/'
+LOGIN_REDIRECT_URL = '/'
 
 WSGI_APPLICATION = 'selector.wsgi.application'
 
