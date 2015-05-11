@@ -3,16 +3,18 @@ import logging
 from django.conf import settings
 from django.http import Http404
 from django.http import HttpResponseRedirect
+from django import forms
 from django.template.response import TemplateResponse
 from django.shortcuts import get_object_or_404
 from django.utils.decorators import method_decorator
 from django.utils.http import is_safe_url
 from django.views.decorators.cache import never_cache
 from django.views.decorators.debug import sensitive_post_parameters
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, FormView
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, REDIRECT_FIELD_NAME, login as auth_login
 from django.contrib.sites.models import get_current_site
+import requests
 from selector.models import User
 
 LOG = logging.getLogger(__name__)
@@ -36,6 +38,30 @@ class IndexView(TemplateView):
     })
     return context
 
+
+class SearchForm(forms.Form):
+    school = forms.CharField()
+    group = forms.CharField(required=False)
+
+class SearchView(FormView):
+  template_name = 'search.html'
+  form_class = SearchForm
+
+  def form_valid(self, form):
+    headers = {'Authorization': 'Token e05d677f7114b391ab86b147192b68edbe12f170'}
+    params = form.cleaned_data
+    data = requests.get('https://eca-roledb.haltu.net/api/1/user/', params=params, headers=headers, verify=False)
+    context = {
+      'form': form,
+      'data': data.text,
+      }
+    return self.render_to_response(self.get_context_data(**context))
+
+  @method_decorator(login_required(login_url='/saml/admin/'))
+  def dispatch(self, request, *args, **kwargs):
+    return super(SearchView, self).dispatch(request, *args, **kwargs)
+
+
 class InvitatorView(TemplateView):
   template_name = 'admin.html'
 
@@ -55,7 +81,7 @@ class InvitatorView(TemplateView):
 
 class InviteeView(TemplateView):
   template_name = 'user.html'
-  
+
   @method_decorator(login_required(login_url='/saml/user/'))
   def dispatch(self, request, *args, **kwargs):
     return super(TemplateView, self).dispatch(request, *args, **kwargs)
