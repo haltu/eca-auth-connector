@@ -56,5 +56,38 @@ class User(AbstractBaseUser, PermissionsMixin):
         """
         send_mail(subject, message, from_email, [self.email], **kwargs)
 
+    def send_register_tokens(self):
+        for token in self.registertokens.filter(sent=False):
+            token.send_token()
+
+
+class RegisterToken(models.Model):
+    EMAIL = 'email'
+    METHOD_CHOICES = (
+        (EMAIL, _('#method-email')),
+    )
+    user = models.ForeignKey(User, related_name='registertokens')
+    token = models.CharField(max_length=200)
+    issued_at = models.DateTimeField(auto_now_add=True)
+    method = models.CharField(max_length=200, choices=METHOD_CHOICES, default=EMAIL)
+    sent = models.BooleanField(default=False)
+
+    def send_token(self):
+        if self.method == RegisterToken.EMAIL:
+            self.send_email()
+
+    def send_email(self):
+        from django.template.loader import select_template
+        template = select_template('registration_email.txt')
+        context = {
+          'user': self.user,
+          'register_token': self.token,
+          'issued_at': self.issued_at,
+        }
+        message = template.render(context)
+        from_email = _('#register-email-from-address')
+        self.user.email_user(_('#registration-email-subject'), message, from_email)
+        self.sent = True
+        self.save()
 
 
