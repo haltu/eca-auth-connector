@@ -40,8 +40,8 @@ class IndexView(TemplateView):
 
 
 class SearchForm(forms.Form):
-    school = forms.CharField()
-    group = forms.CharField(required=False)
+  school = forms.CharField()
+  group = forms.CharField(required=False)
 
 class SearchView(FormView):
   template_name = 'search.html'
