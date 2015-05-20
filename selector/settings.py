@@ -96,3 +96,9 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticroot')
 
 AUTH_USER_MODEL = 'selector.User'
 
+try:
+  from local_settings import *
+except ImportError:
+  pass
+
+
