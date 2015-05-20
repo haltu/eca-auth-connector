@@ -1,6 +1,5 @@
 
 import logging
-from django.conf import settings
 from django.http import Http404
 from django.http import HttpResponseRedirect
 from django import forms
@@ -16,6 +15,7 @@ from django.contrib.auth import authenticate, REDIRECT_FIELD_NAME, login as auth
 from django.contrib.sites.models import get_current_site
 import requests
 from selector.models import User
+from selector import settings
 
 LOG = logging.getLogger(__name__)
 
@@ -48,9 +48,9 @@ class SearchView(FormView):
   form_class = SearchForm
 
   def form_valid(self, form):
-    headers = {'Authorization': 'Token e05d677f7114b391ab86b147192b68edbe12f170'}
+    headers = {'Authorization': 'Token %s' % settings.ROLEDB_API_TOKEN}
     params = form.cleaned_data
-    data = requests.get('https://eca-roledb.haltu.net/api/1/user/', params=params, headers=headers, verify=False)
+    data = requests.get('%s/user/'% settings.ROLEDB_API_ROOT, params=params, headers=headers, verify=False)
     context = {
       'form': form,
       'data': data.text,
