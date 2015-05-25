@@ -124,6 +124,7 @@ class RegisterView(AdminLoginMixin, FormView):
       print repr(ts)
     context = {
       'form': form,
+      'search_form': SearchForm(),
       'tokens': tokens,
       }
     self.template_name = self.success_template_name
