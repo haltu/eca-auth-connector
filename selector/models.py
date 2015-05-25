@@ -40,6 +40,9 @@ class User(AbstractBaseUser, PermissionsMixin):
     class Meta:
         verbose_name = _('user')
         verbose_name_plural = _('users')
+        permissions = (
+            ('can_invite', 'Can invite users'),
+        )
 
     def get_full_name(self):
         """

@@ -5,8 +5,7 @@ from django.utils.text import capfirst
 from django.contrib.auth import authenticate, get_user_model
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
 from django.contrib.auth.hashers import UNUSABLE_PASSWORD_PREFIX
-
-from selector.models import User
+from selector.models import User, RegisterToken
 
 
 class SearchForm(forms.Form):
@@ -15,7 +14,7 @@ class SearchForm(forms.Form):
 
 
 class InviteForm(forms.Form):
-  users = forms.MultipleChoiceField(choices=set())
+  users = forms.MultipleChoiceField(choices=set(), widget=forms.CheckboxSelectMultiple)
 
   def __init__(self, *args, **kwargs):
     if 'users_choices' in kwargs:
@@ -31,6 +30,12 @@ class InviteForm(forms.Form):
 class RegisterForm(forms.Form):
   token = forms.CharField()
 
+  def clean_token(self):
+    try:
+      token = RegisterToken.objects.get(token=self.cleaned_data['token'], method=RegisterToken.EMAIL)
+      return token
+    except RegisterToken.DoesNotExist:
+      raise forms.ValidationError("Invalid token.")
 
 class AuthenticationForm(forms.Form):
     """

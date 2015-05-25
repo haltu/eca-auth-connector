@@ -1,18 +1,32 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+<h1>Search for users</h1>
+
+<p>You can search for users in Role Database by school and group name.
+When you are satisfied with the search results you can select to which users
+you would like to send invitation tokens.
+</p>
+
+{{ form.non_field_errors }}
+
 <form action="" method="post">{% csrf_token %}
   {{ form.as_p }}
   <input type="submit" value="Search" />
 </form>
 
-{% if data %}
-{{ data }}
-{% endif %}
-
 {% if invite_form %}
+<h2>Invite users</h2>
 <form action="{% url 'invite' %}" method="post">{% csrf_token %}
-  <table>
-  {{ invite_form.as_table }}
-  </table>
+  {{ invite_form.as_p }}
   <input type="submit" value="Invite" />
 </form>
 {% endif %}
+
+
+
+</div>
+{% endblock %}
 

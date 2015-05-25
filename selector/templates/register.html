@@ -1,10 +1,19 @@
 
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+<h1>Register with token</h1>
+
+<p>You've received registration token. Enter it below.</p>
+
 {{ form.non_field_errors }}
 
 <form action="{% url 'register' %}" method="post">{% csrf_token %}
-  <table>
-  {{ form.as_table }}
-  </table>
+  {{ form.as_p }}
   <input type="submit" value="Register" />
 </form>
+
+</div>
+{% endblock %}
 
