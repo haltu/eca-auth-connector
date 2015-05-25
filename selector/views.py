@@ -117,7 +117,7 @@ class RegisterView(AdminLoginMixin, FormView):
 
   def form_valid(self, form):
     tokens = []
-    for u in form.cleaned_data:
+    for u in form.cleaned_data['users']:
       user,_ = User.objects.get_or_create(username=u)
       ts = user.create_register_tokens()
       tokens.append(*ts)
