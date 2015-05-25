@@ -5,7 +5,7 @@ from selector.forms import AuthenticationForm
 
 admin.site.login_form = AuthenticationForm
 
-from selector.views import InvitatorView, InviteeView, IndexView, SearchView, login
+from selector.views import InvitatorView, InviteeView, IndexView, SearchView, RegisterView, login
 
 urlpatterns = patterns('',
     url(r'^$', IndexView.as_view(), name='index'),

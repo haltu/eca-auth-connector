@@ -106,4 +106,7 @@ class RegisterToken(models.Model):
         self.sent = True
         self.save()
 
+    def __unicode__(self):
+      return u'%s: %s: %s' % (self.user.username, self.method, self.token)
+
 

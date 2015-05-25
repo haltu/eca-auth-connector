@@ -50,24 +50,24 @@ def paged_query(*args, **kwargs):
   """ Compiles paginated query to the API.
   Fetches All objects.
   """
-  r = query(*args, **kwargs)
-  for o in r['objects']:
+  r = roledb_client(*args, **kwargs)
+  for o in r['results']:
     yield o
-  if 'meta' in r and 'next' in r['meta']:
-    while r['meta']['next']:
-      r = client('get', r['meta']['next'])
-      for o in r['objects']:
+  if 'next' in r:
+    while r['next']:
+      r = client('get', r['next'])
+      for o in r['results']:
         yield o
 
 
 class AdminLoginMixin(object):
-  @method_decorator(login_required(login_url=reverse('login.admin')))
+  @method_decorator(login_required(login_url='/saml/admin/'))#reverse('login.admin')))
   def dispatch(self, request, *args, **kwargs):
     return super(AdminLoginMixin, self).dispatch(request, *args, **kwargs)
 
 
 class UserLoginMixin(object):
-  @method_decorator(login_required(login_url=reverse('login.user')))
+  @method_decorator(login_required(login_url='/saml/user/'))#reverse('login.user')))
   def dispatch(self, request, *args, **kwargs):
     return super(AdminLoginMixin, self).dispatch(request, *args, **kwargs)
 
@@ -94,9 +94,10 @@ class SearchView(AdminLoginMixin, FormView):
     for d in paged_query('get', 'user', params=form.cleaned_data):
       users.append((d['username'], d['username']))
     self.request.session['registerform_users_choices'] = users
+    # TODO: Or we could just send the user to RegisterView here
     register_form = RegisterForm(users_choices=users)
     context = {
-      'search_form': form,
+      'form': form,
       'register_form': register_form,
       'data': json.dumps(users), # for debug
       }
@@ -104,22 +105,23 @@ class SearchView(AdminLoginMixin, FormView):
 
 
 class RegisterView(AdminLoginMixin, FormView):
-  template_name = 'register.html'
+  #template_name = 'register.html'
   success_template_name = 'registered.html'
+  template_name = 'registered.html'
   form_class = RegisterForm
 
   def get_form_kwargs(self):
-    kwargs = super(RegisterForm, self).get_form_kwargs()
-    kwargs['users_choices'] = self.session.get('registerform_users_choices')
+    kwargs = super(RegisterView, self).get_form_kwargs()
+    kwargs['users_choices'] = self.request.session.get('registerform_users_choices')
     return kwargs
 
   def form_valid(self, form):
     tokens = []
     for u in form.cleaned_data:
-      try:
-        user = User.objects.get(username=u)
-        tokens = user.create_register_token()
-        tokens.append(*tokens)
+      user,_ = User.objects.get_or_create(username=u)
+      ts = user.create_register_tokens()
+      tokens.append(*ts)
+      print repr(ts)
     context = {
       'form': form,
       'tokens': tokens,

@@ -15,11 +15,12 @@ class SearchForm(forms.Form):
 
 
 class RegisterForm(forms.Form):
-  users = forms.MultipleChoiceField(choices=(,))
+  users = forms.MultipleChoiceField(choices=set())
 
   def __init__(self, *args, **kwargs):
+    users_choices = kwargs.pop('users_choices', set())
     super(RegisterForm, self).__init__(*args, **kwargs)
-    self.fields['users'].choices = kwargs.get(['users_choices'], (,))
+    self.fields['users'].choices = users_choices
 
 
 class AuthenticationForm(forms.Form):

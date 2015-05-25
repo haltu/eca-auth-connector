@@ -1,4 +1,6 @@
 
+{{ form.non_field_errors }}
+
 <form action="{% url 'register' %}" method="post">{% csrf_token %}
   <table>
   {{ form.as_table }}

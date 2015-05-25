@@ -1,5 +1,5 @@
 <form action="" method="post">{% csrf_token %}
-  {{ search_form.as_p }}
+  {{ form.as_p }}
   <input type="submit" value="Search" />
 </form>
 
@@ -7,10 +7,12 @@
 {{ data }}
 {% endif %}
 
+{% if register_form %}
 <form action="{% url 'register' %}" method="post">{% csrf_token %}
   <table>
   {{ register_form.as_table }}
   </table>
   <input type="submit" value="Register" />
 </form>
+{% endif %}
 
