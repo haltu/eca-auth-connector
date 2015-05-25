@@ -1,7 +1,9 @@
 
 import logging
+import json
 from django.http import Http404
 from django.http import HttpResponseRedirect
+from django.core.urlresolvers import reverse
 from django import forms
 from django.template.response import TemplateResponse
 from django.shortcuts import get_object_or_404
@@ -15,15 +17,59 @@ from django.contrib.auth import authenticate, REDIRECT_FIELD_NAME, login as auth
 from django.contrib.sites.models import get_current_site
 import requests
 from selector.models import User
+from selector.forms import SearchForm, RegisterForm
 from selector import settings
 
 LOG = logging.getLogger(__name__)
 
+class APIResponse(Exception):
+  def __init__(self, resp):
+    self.r = resp
 
-class LoginRequiredMixin(object):
-  @method_decorator(login_required)
+def roledb_client(method, api, **kwargs):
+  kwargs['headers'] = {
+    'Authorization': 'Token %s' % settings.ROLEDB_API_TOKEN,
+    'Content-Type': 'application/json',
+    }
+  kwargs['verify'] = False # Disabled SSL certificate checks
+  url = settings.ROLEDB_API_ROOT + api
+  if not '?' in url and not url.endswith('/'):
+    url = url + '/'
+  if 'data' in kwargs:
+    kwargs['data'] = json.dumps(kwargs['data'])
+  print repr(url), repr(kwargs)
+  method = getattr(requests, method)
+  resp = method(url, **kwargs)
+  if resp.status_code != 200:
+    raise APIResponse(resp)
+  content = resp.content
+  return json.loads(content)
+
+
+def paged_query(*args, **kwargs):
+  """ Compiles paginated query to the API.
+  Fetches All objects.
+  """
+  r = query(*args, **kwargs)
+  for o in r['objects']:
+    yield o
+  if 'meta' in r and 'next' in r['meta']:
+    while r['meta']['next']:
+      r = client('get', r['meta']['next'])
+      for o in r['objects']:
+        yield o
+
+
+class AdminLoginMixin(object):
+  @method_decorator(login_required(login_url=reverse('login.admin')))
   def dispatch(self, request, *args, **kwargs):
-    return super(LoginRequiredMixin, self).dispatch(request, *args, **kwargs)
+    return super(AdminLoginMixin, self).dispatch(request, *args, **kwargs)
+
+
+class UserLoginMixin(object):
+  @method_decorator(login_required(login_url=reverse('login.user')))
+  def dispatch(self, request, *args, **kwargs):
+    return super(AdminLoginMixin, self).dispatch(request, *args, **kwargs)
 
 
 class IndexView(TemplateView):
@@ -39,30 +85,50 @@ class IndexView(TemplateView):
     return context
 
 
-class SearchForm(forms.Form):
-  school = forms.CharField()
-  group = forms.CharField(required=False)
-
-class SearchView(FormView):
+class SearchView(AdminLoginMixin, FormView):
   template_name = 'search.html'
   form_class = SearchForm
 
   def form_valid(self, form):
-    headers = {'Authorization': 'Token %s' % settings.ROLEDB_API_TOKEN}
-    params = form.cleaned_data
-    data = requests.get('%s/user/'% settings.ROLEDB_API_ROOT, params=params, headers=headers, verify=False)
+    users = []
+    for d in paged_query('get', 'user', params=form.cleaned_data):
+      users.append((d['username'], d['username']))
+    self.request.session['registerform_users_choices'] = users
+    register_form = RegisterForm(users_choices=users)
     context = {
-      'form': form,
-      'data': data.text,
+      'search_form': form,
+      'register_form': register_form,
+      'data': json.dumps(users), # for debug
       }
     return self.render_to_response(self.get_context_data(**context))
 
-  @method_decorator(login_required(login_url='/saml/admin/'))
-  def dispatch(self, request, *args, **kwargs):
-    return super(SearchView, self).dispatch(request, *args, **kwargs)
+
+class RegisterView(AdminLoginMixin, FormView):
+  template_name = 'register.html'
+  success_template_name = 'registered.html'
+  form_class = RegisterForm
+
+  def get_form_kwargs(self):
+    kwargs = super(RegisterForm, self).get_form_kwargs()
+    kwargs['users_choices'] = self.session.get('registerform_users_choices')
+    return kwargs
+
+  def form_valid(self, form):
+    tokens = []
+    for u in form.cleaned_data:
+      try:
+        user = User.objects.get(username=u)
+        tokens = user.create_register_token()
+        tokens.append(*tokens)
+    context = {
+      'form': form,
+      'tokens': tokens,
+      }
+    self.template_name = self.success_template_name
+    return self.render_to_response(self.get_context_data(**context))
 
 
-class InvitatorView(TemplateView):
+class InvitatorView(AdminLoginMixin, TemplateView):
   template_name = 'admin.html'
 
   def get_context_data(self, **kwargs):
@@ -74,18 +140,9 @@ class InvitatorView(TemplateView):
     })
     return context
 
-  @method_decorator(login_required(login_url='/saml/admin/'))
-  def dispatch(self, request, *args, **kwargs):
-    return super(TemplateView, self).dispatch(request, *args, **kwargs)
 
-
-class InviteeView(TemplateView):
+class InviteeView(UserLoginMixin, TemplateView):
   template_name = 'user.html'
-
-  @method_decorator(login_required(login_url='/saml/user/'))
-  def dispatch(self, request, *args, **kwargs):
-    return super(TemplateView, self).dispatch(request, *args, **kwargs)
-
 
 
 @sensitive_post_parameters()

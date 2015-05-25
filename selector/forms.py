@@ -9,6 +9,19 @@ from django.contrib.auth.hashers import UNUSABLE_PASSWORD_PREFIX
 from selector.models import User
 
 
+class SearchForm(forms.Form):
+  school = forms.CharField()
+  group = forms.CharField(required=False)
+
+
+class RegisterForm(forms.Form):
+  users = forms.MultipleChoiceField(choices=(,))
+
+  def __init__(self, *args, **kwargs):
+    super(RegisterForm, self).__init__(*args, **kwargs)
+    self.fields['users'].choices = kwargs.get(['users_choices'], (,))
+
+
 class AuthenticationForm(forms.Form):
     """
     Base class for authenticating users. Extend this to get a form that accepts

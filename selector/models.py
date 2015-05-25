@@ -1,4 +1,6 @@
 
+import string
+from random import choice
 from django.utils.translation import ugettext_lazy as _
 from django.db import models
 from django.core import validators
@@ -56,6 +58,15 @@ class User(AbstractBaseUser, PermissionsMixin):
         """
         send_mail(subject, message, from_email, [self.email], **kwargs)
 
+    def create_register_tokens(self):
+        """ Create tokens for user
+        Tokens are create based on the information we have for the user.
+        Returns a list of all created tokens.
+        """
+        t = RegisterToken(user=self, method=RegisterToken.EMAIL)
+        t.save()
+        return [t]
+
     def send_register_tokens(self):
         for token in self.registertokens.filter(sent=False):
             token.send_token()
@@ -71,6 +82,11 @@ class RegisterToken(models.Model):
     issued_at = models.DateTimeField(auto_now_add=True)
     method = models.CharField(max_length=200, choices=METHOD_CHOICES, default=EMAIL)
     sent = models.BooleanField(default=False)
+
+    def save(self, *args, **kwargs):
+        if not self.token:
+            self.token = ''.join([choice(string.letters + string.digits) for i in range(30)])
+        return super(RegisterToken, self).save(*args, **kwargs)
 
     def send_token(self):
         if self.method == RegisterToken.EMAIL:
