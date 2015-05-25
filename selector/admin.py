@@ -3,7 +3,7 @@ from django.utils.translation import ugettext, ugettext_lazy as _
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as DjangoUserAdmin
 from selector.forms import UserChangeForm, UserCreationForm
-from selector.models import User
+from selector.models import User, RegisterToken
 
 class UserAdmin(DjangoUserAdmin):
     fieldsets = (
@@ -27,6 +27,9 @@ class UserAdmin(DjangoUserAdmin):
     form = UserChangeForm
     add_form = UserCreationForm
 
+class RegisterTokenAdmin(admin.ModelAdmin):
+  pass
 
 admin.site.register(User, UserAdmin)
+admin.site.register(RegisterToken, RegisterTokenAdmin)
 

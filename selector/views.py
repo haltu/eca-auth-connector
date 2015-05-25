@@ -3,10 +3,11 @@ import logging
 import json
 from django.http import Http404
 from django.http import HttpResponseRedirect
-from django.core.urlresolvers import reverse
+from django.core.urlresolvers import reverse_lazy
 from django import forms
 from django.template.response import TemplateResponse
 from django.shortcuts import get_object_or_404
+from django.utils.encoding import force_text
 from django.utils.decorators import method_decorator
 from django.utils.http import is_safe_url
 from django.views.decorators.cache import never_cache
@@ -16,8 +17,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, REDIRECT_FIELD_NAME, login as auth_login
 from django.contrib.sites.models import get_current_site
 import requests
-from selector.models import User
-from selector.forms import SearchForm, RegisterForm
+from selector.models import User, RegisterToken
+from selector.forms import SearchForm, InviteForm, RegisterForm
 from selector import settings
 
 LOG = logging.getLogger(__name__)
@@ -61,15 +62,15 @@ def paged_query(*args, **kwargs):
 
 
 class AdminLoginMixin(object):
-  @method_decorator(login_required(login_url='/saml/admin/'))#reverse('login.admin')))
+  @method_decorator(login_required(login_url=reverse_lazy('login.admin')))
   def dispatch(self, request, *args, **kwargs):
     return super(AdminLoginMixin, self).dispatch(request, *args, **kwargs)
 
 
 class UserLoginMixin(object):
-  @method_decorator(login_required(login_url='/saml/user/'))#reverse('login.user')))
+  @method_decorator(login_required(login_url=reverse_lazy('login.user')))
   def dispatch(self, request, *args, **kwargs):
-    return super(AdminLoginMixin, self).dispatch(request, *args, **kwargs)
+    return super(UserLoginMixin, self).dispatch(request, *args, **kwargs)
 
 
 class IndexView(TemplateView):
@@ -93,26 +94,25 @@ class SearchView(AdminLoginMixin, FormView):
     users = []
     for d in paged_query('get', 'user', params=form.cleaned_data):
       users.append((d['username'], d['username']))
-    self.request.session['registerform_users_choices'] = users
-    # TODO: Or we could just send the user to RegisterView here
-    register_form = RegisterForm(users_choices=users)
+    self.request.session['inviteform_users_choices'] = users
+    # TODO: Or we could just send the user to InviteView here
+    invite_form = InviteForm(users_choices=users)
     context = {
       'form': form,
-      'register_form': register_form,
+      'invite_form': invite_form,
       'data': json.dumps(users), # for debug
       }
     return self.render_to_response(self.get_context_data(**context))
 
 
-class RegisterView(AdminLoginMixin, FormView):
-  #template_name = 'register.html'
-  success_template_name = 'registered.html'
-  template_name = 'registered.html'
-  form_class = RegisterForm
+class InviteView(AdminLoginMixin, FormView):
+  template_name = 'invite.html'
+  success_template_name = 'invited.html'
+  form_class = InviteForm
 
   def get_form_kwargs(self):
-    kwargs = super(RegisterView, self).get_form_kwargs()
-    kwargs['users_choices'] = self.request.session.get('registerform_users_choices')
+    kwargs = super(InviteView, self).get_form_kwargs()
+    kwargs['users_choices'] = self.request.session.get('inviteform_users_choices')
     return kwargs
 
   def form_valid(self, form):
@@ -129,6 +129,38 @@ class RegisterView(AdminLoginMixin, FormView):
       }
     self.template_name = self.success_template_name
     return self.render_to_response(self.get_context_data(**context))
+
+
+class RegisterView(UserLoginMixin, FormView):
+  template_name = 'register.html'
+  success_url = reverse_lazy('register.success')
+  failed_url = reverse_lazy('register.failed')
+  form_class = RegisterForm
+
+  def form_valid(self, form):
+    token = RegisterToken.objects.get(token=form.cleaned_data['token'], method=RegisterToken.EMAIL)
+    if token.register(self.request.user, self.request.session.get('request_meta', None)):
+      return HttpResponseRedirect(self.get_success_url())
+    else:
+      return HttpResponseRedirect(force_text(self.failed_url))
+
+  def get(self, request, *args, **kwargs):
+    if 'token' in kwargs:
+      try:
+        token = RegisterToken.objects.get(token=kwargs.get('token'), method=RegisterToken.EMAIL)
+        if token.register(request.user, request.session.get('request_meta', None)):
+          return HttpResponseRedirect(self.get_success_url())
+      except RegisterToken.DoesNotExist:
+        pass
+    return super(RegisterView, self).get(request, *args, **kwargs)
+
+
+class RegisterSuccessView(UserLoginMixin, TemplateView):
+  template_name = 'register_success.html'
+
+
+class RegisterFailedView(UserLoginMixin, TemplateView):
+  template_name = 'register_failed.html'
 
 
 class InvitatorView(AdminLoginMixin, TemplateView):
@@ -172,6 +204,10 @@ def login(request, template_name='registration/login.html',
     if user:
         # Okay, security check complete. Log the user in.
         auth_login(request, user)
+        meta = {}
+        for k in ['HTTP_USER_IDENTITY',]:
+          meta[k] = request.META[k]
+        request.session['request_meta'] = meta
         return HttpResponseRedirect(redirect_to)
 
     current_site = get_current_site(request)

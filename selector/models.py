@@ -106,6 +106,15 @@ class RegisterToken(models.Model):
         self.sent = True
         self.save()
 
+    def register(self, user, meta):
+      if not self.user == user:
+        return False
+      print 'REGISTRATION', self.pk, repr(self.user.username)
+      # TODO
+      self.sent = True
+      self.save()
+      return True
+
     def __unicode__(self):
       return u'%s: %s: %s' % (self.user.username, self.method, self.token)
 

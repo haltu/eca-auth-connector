@@ -5,11 +5,11 @@
 </form>
 {% endif %}
 
-<form action="{% url 'register' %}" method="post">{% csrf_token %}
+<form action="{% url 'invite' %}" method="post">{% csrf_token %}
   <table>
   {{ form.as_table }}
   </table>
-  <input type="submit" value="Register" />
+  <input type="submit" value="Invite" />
 </form>
 
 <table>

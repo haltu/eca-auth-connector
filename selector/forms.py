@@ -14,13 +14,22 @@ class SearchForm(forms.Form):
   group = forms.CharField(required=False)
 
 
-class RegisterForm(forms.Form):
+class InviteForm(forms.Form):
   users = forms.MultipleChoiceField(choices=set())
 
   def __init__(self, *args, **kwargs):
-    users_choices = kwargs.pop('users_choices', set())
-    super(RegisterForm, self).__init__(*args, **kwargs)
+    if 'users_choices' in kwargs:
+      users_choices = kwargs.pop('users_choices')
+    else:
+      users_choices = set()
+    if users_choices == None:
+      users_choices = set()
+    super(InviteForm, self).__init__(*args, **kwargs)
     self.fields['users'].choices = users_choices
+
+
+class RegisterForm(forms.Form):
+  token = forms.CharField()
 
 
 class AuthenticationForm(forms.Form):
