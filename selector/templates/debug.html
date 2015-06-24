@@ -1,0 +1,13 @@
+{% extends 'base_info.html' %}
+
+{% block page %}
+<h1>Debug information</h1>
+
+<ul>
+{% for k,v in request_meta.items %}
+<li>{{ k }}: {{ v }}</li>
+{% endfor %}
+</ul>
+
+{% endblock %}
+

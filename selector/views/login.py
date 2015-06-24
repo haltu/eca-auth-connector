@@ -30,6 +30,8 @@ def login(request, template_name='registration/login.html',
     else:
         redirect_to = settings.LOGIN_REDIRECT_URL
 
+    print repr(request.META)
+
     user = authenticate(request_meta=request.META)
     if not user:
         LOG.info('Could not authenticate user from the headers')
@@ -37,8 +39,16 @@ def login(request, template_name='registration/login.html',
         # Okay, security check complete. Log the user in.
         auth_login(request, user)
         meta = {}
-        for k in ['HTTP_USER_IDENTITY',]:
-          meta[k] = request.META[k]
+        # We store the auth data in the session. It can be handy in
+        # other parts of the site.
+        keys = [
+          'HTTP_USER_AUTHENTICATOR',
+          'HTTP_USER_AUTHNID',
+          'HTTP_USER_OID',
+          'HTTP_SHIB_AUTHENTICATION_METHOD',
+          ]
+        for k in keys:
+          meta[k] = request.META.get(k, None)
         request.session['request_meta'] = meta
         return HttpResponseRedirect(redirect_to)
 

@@ -9,10 +9,10 @@ class ShibbolethBackend(ModelBackend):
   def authenticate(self, **credentials):
     if not 'request_meta' in credentials:
       return None
-    if not 'HTTP_USER_IDENTITY' in credentials['request_meta']:
-      LOG.debug('no HTTP_USER_IDENTITY in request.META')
+    if not 'HTTP_USER_OID' in credentials['request_meta']:
+      LOG.debug('no HTTP_USER_OID in request.META')
       return None
-    uid = credentials['request_meta']['HTTP_USER_IDENTITY']
+    uid = credentials['request_meta']['HTTP_USER_OID']
     LOG.debug('ShibbolethBackend.authenticate',
         extra={'data': {'uid': uid}})
     try:

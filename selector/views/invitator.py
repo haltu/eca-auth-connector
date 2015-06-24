@@ -52,8 +52,14 @@ class InviteView(AdminLoginMixin, FormView):
     tokens = []
     for u in form.cleaned_data['users']:
       user,_ = User.objects.get_or_create(username=u)
-      ts = user.create_register_tokens()
+      request_meta = self.request.session.get('request_meta', {})
+      issuer = {
+        'issuer_oid': request_meta.get('HTTP_USER_OID', None),
+        'issuer_auth_method': request_meta.get('HTTP_SHIB_AUTHENTICATION_METHOD', None),
+        }
+      ts = user.create_register_tokens(**issuer)
       tokens.append(*ts)
+      #user.send_register_tokens() # This could be handled in a background task or cronjob
     context = {
       'form': form,
       'search_form': SearchForm(),
@@ -63,15 +69,18 @@ class InviteView(AdminLoginMixin, FormView):
     return self.render_to_response(self.get_context_data(**context))
 
 
-class InvitatorView(AdminLoginMixin, TemplateView):
-  template_name = 'admin.html'
+class DebugView(AdminLoginMixin, TemplateView):
+  template_name = 'debug.html'
 
   def get_context_data(self, **kwargs):
-    context = super(InvitatorView, self).get_context_data(**kwargs)
+    context = super(DebugView, self).get_context_data(**kwargs)
     context.update({
-      'meta_keys': self.request.META.keys(),
-      'meta': self.request.META,
+      'request_meta': self.request.session['request_meta'],
       'user': self.request.user,
     })
     return context
+
+  @method_decorator(login_required(login_url=reverse_lazy('login.admin')))
+  def dispatch(self, request, *args, **kwargs):
+    return super(AdminLoginMixin, self).dispatch(request, *args, **kwargs)
 

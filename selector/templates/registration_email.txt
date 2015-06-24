@@ -1,0 +1,9 @@
+
+Welcome to Educloud!
+
+Your registration code is: {{ register_token }}
+
+Go to this URL to complete your registration: {{ register_url }}
+
+Thank you.
+
