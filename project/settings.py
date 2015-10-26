@@ -78,7 +78,7 @@ ROOT_URLCONF = 'selector.urls'
 LOGIN_URL = '/saml/admin/'
 LOGIN_REDIRECT_URL = '/'
 
-WSGI_APPLICATION = 'selector.wsgi.application'
+WSGI_APPLICATION = 'project.wsgi.application'
 
 AUTHENTICATION_BACKENDS = (
   'selector.authbackend.ShibbolethBackend',
