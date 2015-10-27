@@ -2,33 +2,33 @@
 
 <div class="invitee-list">
 {% for group_name, choices in optgroups %}{% for choice in choices %}
-<label for="{{ attrs.id }}_{{ forloop.counter }}">
-<div class="checkbox-container clearfix">
-  <input {% if choice.0 in value %}checked="checked" {% endif %}type="checkbox" id="{{ attrs.id }}_{{ forloop.counter }}" name="{{ name }}" value="{{ choice.0 }}">
-</div>
-<div class="panel panel-default user-data">
-  <div class="panel-heading">{{ choice.1.first_name }} {{ choice.1.last_name }} ({{ choice.1.username }})</div>
-    <table class="table">
-      <thead>
-        <tr>
-          <th>{% trans "Municipality" %}</th>
-          <th>{% trans "School" %}</th>
-          <th>{% trans "Role" %}</th>
-          <th>{% trans "Group" %}</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for role in choice.1.roles %}
+  <label for="{{ attrs.id }}_{{ forloop.counter }}">
+    <div class="checkbox-container clearfix">
+      <input {% if choice.0 in value %}checked="checked" {% endif %}type="checkbox" id="{{ attrs.id }}_{{ forloop.counter }}" name="{{ name }}" value="{{ choice.0 }}">
+    </div>
+    <div class="panel panel-default user-data">
+      <div class="panel-heading">{{ choice.1.first_name }} {{ choice.1.last_name }} ({{ choice.1.username }})</div>
+      <table class="table">
+        <thead>
           <tr>
-            <td>{{ role.municipality }}</td>
-            <td>{{ role.school }}</td>
-            <td>{{ role.role }}</td>
-            <td>{{ role.group }}</td>
+            <th>{% trans "Municipality" %}</th>
+            <th>{% trans "School" %}</th>
+            <th>{% trans "Role" %}</th>
+            <th>{% trans "Group" %}</th>
           </tr>
-        {% endfor %}
-      </tbody>
-    </table>
-</div>
+        </thead>
+        <tbody>
+          {% for role in choice.1.roles %}
+            <tr>
+              <td>{{ role.municipality }}</td>
+              <td>{{ role.school }}</td>
+              <td>{{ role.role }}</td>
+              <td>{{ role.group }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
   </label>
 {% endfor %}{% endfor %}
 </div>
