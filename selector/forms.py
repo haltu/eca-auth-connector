@@ -38,6 +38,7 @@ class UserSelectWidget(forms.CheckboxSelectMultiple):
 
 
 class SearchForm(forms.Form):
+  municipality = forms.CharField()
   school = forms.CharField()
   group = forms.CharField(required=False)
 

@@ -50,7 +50,9 @@ class SearchView(AdminLoginMixin, FormView):
 
   def form_valid(self, form):
     users = []
-    for d in paged_query('get', 'user', params=form.cleaned_data):
+    params = form.cleaned_data
+    params['page_size'] = 1000
+    for d in paged_query('get', 'user', params=params):
       users.append((d['username'], d))
     self.request.session['inviteform_users_choices'] = users
     # TODO: Or we could just send the user to InviteView here
