@@ -21,13 +21,15 @@
 
   {% if invite_form %}
     <h2>Invite users</h2>
-    <form action="{% url 'invite' %}" method="post" class="form-horizontal">
+    <form action="{% url 'invite' %}" method="post">
       {% csrf_token %}
-      {% include "form_fields.html" with form=form horizontal=1 %}
       <div class="form-group">
-        <div class="col-sm-offset-2 col-sm-10">
-          <button type="submit" class="btn btn-primary">Invite</button>
-        </div>
+        {% for field in invite_form %}
+          {{ field }}
+        {% endfor %}
+      </div>
+      <div class="form-group">
+        <button type="submit" class="btn btn-primary">Invite</button>
       </div>
     </form>
   {% endif %}
