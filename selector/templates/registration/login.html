@@ -1,18 +1,16 @@
 {% extends "base_info.html" %}
 
 {% block page %}
-<h1>Welcome, new unknown user!</h1>
-<p>
-You authenticated successfully, but you are not yet known in the Data Service.
-You should contact <a href="http://portal.educloudalliance.org">Educloud Alliance</a> and request access.
-</p>
-<ul>
-<li>HTTP_USER_IDENTITY: {{ meta.HTTP_USER_IDENTITY }}</li>
-<li>HTTP_USER_AUTHENTICATOR: {{ meta.HTTP_USER_AUTHENTICATOR }}</li>
-<li>HTTP_USER_AUTHNID: {{ meta.HTTP_USER_AUTHNID }}</li>
-<li>HTTP_USER_OID: {{ meta.HTTP_USER_OID }}</li>
-<li>HTTP_SHIB_AUTHENTICATION_METHOD {{ meta.HTTP_SHIB_AUTHENTICATION_METHOD }}</li>
-</ul>
-</div>
+  <div class="jumbotron">
+    <h2>Welcome, new unknown user!</h2>
+    <p>You authenticated successfully, but you are not yet known in the Data Service. You should contact <a href="http://portal.educloudalliance.org">Educloud Alliance</a> and request access.</p>
+    <ul>
+      <li>HTTP_USER_IDENTITY: {{ meta.HTTP_USER_IDENTITY }}</li>
+      <li>HTTP_USER_AUTHENTICATOR: {{ meta.HTTP_USER_AUTHENTICATOR }}</li>
+      <li>HTTP_USER_AUTHNID: {{ meta.HTTP_USER_AUTHNID }}</li>
+      <li>HTTP_USER_OID: {{ meta.HTTP_USER_OID }}</li>
+      <li>HTTP_SHIB_AUTHENTICATION_METHOD {{ meta.HTTP_SHIB_AUTHENTICATION_METHOD }}</li>
+    </ul>
+  </div>
 {% endblock %}
 
