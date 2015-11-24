@@ -3,35 +3,35 @@
 {% block content %}
 
   <div class="jumbotron">
-    <h1>Connector</h1>
-    <p>Educloud Alliance Connector service for inviting and registering new users.</p>
-    <p><a class="btn btn-primary btn-lg" href="http://portal.educloudalliance.org" role="button">Learn more about Educloud Alliance</a></p>
+    <h1>{% trans "Connector" %}</h1>
+    <p>{% trans "Educloud Alliance Connector service for inviting and registering new users." %}</p>
+    <p><a class="btn btn-primary btn-lg" href="http://portal.educloudalliance.org" role="button">{% trans "Learn more about Educloud Alliance" %}</a></p>
   </div>
 
   {% block page %}{% endblock %}
 
   <div class="row">
     <div class="col-md-4">
-      <h3>Invitator</h2>
-      <p>Invitator invites new users to the system by acting as trusted party and identifying the user.</p>
+      <h3>{% trans "Invitator" %}</h2>
+      <p>{% trans "Invitator invites new users to the system by acting as trusted party and identifying the user." %}</p>
       <ul>
-        <li><a href="/search">Invitee search</a>
-        <li><a href="/invite">Send registration tokens</a>
+        <li><a href="/search">{% trans "Invitee search" %}</a>
+        <li><a href="/invite">{% trans "Send registration tokens" %}</a>
       </ul>
     </div>
 
     <div class="col-md-4">
-      <h3>Invitee</h2>
-      <p>Invitee joins the system by authenticating with some auth source and using the registration token acquired by invitator.</p>
+      <h3>{% trans "Invitee" %}</h2>
+      <p>{% trans "Invitee joins the system by authenticating with some auth source and using the registration token acquired by invitator." %}</p>
       <ul>
-        <li><a href="/register">Use registration token</a>
+        <li><a href="/register">{% trans "Use registration token" %}</a>
       </ul>
     </div>
 
     <div class="col-md-4">
-      <h3>Debug</h2>
+      <h3>{% trans "Debug" %}</h2>
       <ul>
-        <li><a href="/debug">Debug</a>
+        <li><a href="/debug">{% trans "Debug" %}</a>
       </ul>
     </div>
   </div>

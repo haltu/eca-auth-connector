@@ -1,9 +1,9 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <h1>Invite users</h1>
+  <h1>{% trans "Invite users" %}</h1>
 
-  <p>Your previous search result is remembered and you can select to which users you would like to send invitation tokens.</p>
+  <p>{% trans "Your previous search result is remembered and you can select to which users you would like to send invitation tokens." %}</p>
 
   {% if form.non_field_errors %}
     <div class="alert alert-danger" role="alert">{{ form.non_field_errors }}</div>
@@ -17,7 +17,7 @@
       {% endfor %}
     </div>
     <div class="form-group">
-      <button type="submit" class="btn btn-primary">Invite</button>
+      <button type="submit" class="btn btn-primary">{% trans "Invite" %}</button>
     </div>
   </form>
 
