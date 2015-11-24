@@ -1,21 +1,19 @@
-
 {% extends "base.html" %}
 
 {% block content %}
-<div class="container">
-<h1>Invite users</h1>
+  <h1>Invite users</h1>
 
-<p>Your previous search result is remembered and you can select to which users
-you would like to send invitation tokens.
-</p>
+  <p>Your previous search result is remembered and you can select to which users you would like to send invitation tokens.</p>
 
-{{ form.non_field_errors }}
+  {% if form.non_field_errors %}
+    <div class="alert alert-danger" role="alert">{{ form.non_field_errors }}</div>
+  {% endif %}
 
-<form action="{% url 'invite' %}" method="post">{% csrf_token %}
-  {{ form.as_p }}
-  <input type="submit" value="Invite" />
-</form>
+  <form action="{% url 'invite' %}" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Invite</button>
+  </form>
 
-</div>
 {% endblock %}
 

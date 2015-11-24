@@ -1,32 +1,35 @@
-
 {% extends "base.html" %}
 
 {% block content %}
-<div class="container">
-<h1>Search for users</h1>
+  <h1>Search for users</h1>
 
-<p>You can search for users in Role Database by school and group name.
-When you are satisfied with the search results you can select to which users
-you would like to send invitation tokens.
-</p>
+  <p>You can search for users in Role Database by school and group name. When you are satisfied with the search results you can select to which users you would like to send invitation tokens.</p>
 
-{{ form.non_field_errors }}
+  {% if form.non_field_errors %}
+    <div class="alert alert-danger" role="alert">{{ form.non_field_errors }}</div>
+  {% endif %}
 
-<form action="" method="post">{% csrf_token %}
-  {{ form.as_p }}
-  <input type="submit" value="Search" />
-</form>
+  <form action="" method="post" class="form-horizontal">
+    {% csrf_token %}
+    {% include "form_fields.html" with form=form horizontal=1 %}
+    <div class="form-group">
+      <div class="col-sm-offset-2 col-sm-10">
+        <button type="submit" class="btn btn-primary">Search</button>
+      </div>
+    </div>
+  </form>
 
-{% if invite_form %}
-<h2>Invite users</h2>
-<form action="{% url 'invite' %}" method="post">{% csrf_token %}
-  {{ invite_form.as_p }}
-  <input type="submit" value="Invite" />
-</form>
-{% endif %}
+  {% if invite_form %}
+    <h2>Invite users</h2>
+    <form action="{% url 'invite' %}" method="post" class="form-horizontal">
+      {% csrf_token %}
+      {% include "form_fields.html" with form=form horizontal=1 %}
+      <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+          <button type="submit" class="btn btn-primary">Invite</button>
+        </div>
+      </div>
+    </form>
+  {% endif %}
 
-
-
-</div>
 {% endblock %}
-
