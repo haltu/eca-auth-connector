@@ -35,6 +35,10 @@ class APIResponse(Exception):
   def __init__(self, resp):
     self.r = resp
 
+  def __str__(self):
+    u = super(APIResponse, self).__str__()
+    return u + '\nResponse: %s' % self.r
+
 
 def make_request(method, url, **kwargs):
   kwargs['headers'] = {
@@ -44,8 +48,10 @@ def make_request(method, url, **kwargs):
   kwargs['verify'] = False # Disabled SSL certificate checks
   method = getattr(requests, method)
   resp = method(url, **kwargs)
-  if resp.status_code not in [200, 201]:
+  if resp.status_code not in [200, 201, 204]:
     raise APIResponse(resp)
+  if resp.status_code == 204:
+    return {}
   content = resp.content
   return json.loads(content)
 
