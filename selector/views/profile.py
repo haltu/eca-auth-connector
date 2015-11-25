@@ -25,17 +25,10 @@
 
 
 import logging
-from django.http import HttpResponse
-from django.http import HttpResponseRedirect
-from django.core.urlresolvers import reverse_lazy
-from django.utils.encoding import force_text
 from django.utils.decorators import method_decorator
-from django.views.generic import View, TemplateView, FormView
+from django.views.generic import TemplateView
 from django.contrib.auth.decorators import login_required
-from django.contrib.sites.models import get_current_site
-from selector.models import RegisterToken
-from selector.forms import RegisterForm
-from selector.roledb import roledb_client
+from selector.roledb import roledb_client, APIResponse
 
 LOG = logging.getLogger(__name__)
 
@@ -51,8 +44,11 @@ class ProfileView(UserLoginMixin, TemplateView):
 
   def get_context_data(self, **kwargs):
     context = super(ProfileView, self).get_context_data(**kwargs)
-    user_data = roledb_client('get', 'query/{username}'.format(username=self.request.user.username))
-    context['attributes'] = user_data.get('attributes', None)
+    try:
+      user_data = roledb_client('get', 'query/{username}'.format(username=self.request.user.username))
+      context['attributes'] = user_data.get('attributes', None)
+    except APIResponse:
+      context['attributes'] = []
     return context
 
 
