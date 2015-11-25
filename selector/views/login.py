@@ -70,6 +70,12 @@ def login(request, template_name='registration/login.html',
           'HTTP_AUTHENTICATOR',
           'HTTP_AUTHNID',
           'HTTP_MPASS_OID',
+          'HTTP_MPASS_GIVENNAME',
+          'HTTP_MPASS_SURNAME',
+          'HTTP_MPASS_GROUP',
+          'HTTP_MPASS_ROLE',
+          'HTTP_MPASS_SCHOOL',
+          'HTTP_MPASS_MUNICIPALITY',
           'HTTP_SHIB_AUTHENTICATION_METHOD',
           ]
         for k in keys:
