@@ -7,3 +7,4 @@ settings_local.py
 local_settings.py
 staticroot/
 venv
+*.orig
