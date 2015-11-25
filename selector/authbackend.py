@@ -35,9 +35,9 @@ class ShibbolethBackend(ModelBackend):
     if not 'request_meta' in credentials:
       return None
     if not 'HTTP_MPASS-OID' in credentials['request_meta']:
-      LOG.debug('no HTTP_USER_OID in request.META')
+      LOG.debug('no HTTP_MPASS-OID in request.META')
       return None
-    uid = credentials['request_meta']['HTTP_USER_OID']
+    uid = credentials['request_meta']['HTTP_MPASS-OID']
     LOG.debug('ShibbolethBackend.authenticate',
         extra={'data': {'uid': uid}})
     try:

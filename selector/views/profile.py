@@ -41,7 +41,7 @@ LOG = logging.getLogger(__name__)
 
 
 class UserLoginMixin(object):
-  @method_decorator(login_required(login_url=reverse_lazy('register.user')))
+  @method_decorator(login_required)
   def dispatch(self, request, *args, **kwargs):
     return super(UserLoginMixin, self).dispatch(request, *args, **kwargs)
 
