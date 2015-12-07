@@ -35,6 +35,7 @@ from selector.views.invitator import SearchView, InviteView
 from selector.views.invitator import DebugView
 from selector.views.invitee import RegisterTokenView, RegisterUserView, RegisterSuccessView, RegisterFailedView
 from selector.views.profile import ProfileView
+from selector.views.mepin import MePinInfoView, MePinAssociateView
 from selector.views.api import AttributeAPIView
 from selector.views.login import login
 
@@ -47,6 +48,8 @@ urlpatterns = patterns('',
     url(r'^register/success$', RegisterSuccessView.as_view(), name='register.success'),
     url(r'^register/failed$', RegisterFailedView.as_view(), name='register.failed'),
     url(r'^register/(?P<token>.*)$', RegisterTokenView.as_view(), name='register.token'),
+    url(r'^mepin$', MePinInfoView.as_view(), name='mepin.info'),
+    url(r'^mepin/register$', MePinAssociateView.as_view(), name='mepin.associate'),
     url(r'^permission$', PermissionView.as_view(), name='permission'),
     url(r'^debug$', DebugView.as_view()),
     url(r'^saml/admin/$', login, name='login.admin'),
