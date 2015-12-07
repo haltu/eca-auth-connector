@@ -30,6 +30,8 @@ ROLEDB_API_TOKEN = getattr(settings, 'SELECTOR_ROLEDB_API_TOKEN', '')
 ROLEDB_API_ROOT = getattr(settings, 'SELECTOR_ROLEDB_API_ROOT', '')
 TOKEN_EXPIRE = getattr(settings, 'SELECTOR_TOKEN_EXPIRE', 3*24*60*60)
 
+# automatically create users from SAML login attributes
+CREATE_SAML_USER = getattr(settings, 'SELECTOR_CREATE_SAML_USER', False)
 
 # FROM DJANGO
 
