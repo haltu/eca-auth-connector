@@ -67,7 +67,9 @@ class MePinAssociateView(TemplateView):
       # user has come without a token - start flow by generating a token
       token = MePinAssociationToken.objects.create(user=request.user)
       return_url = reverse('mepin.associate') + '?token=' + token.token
-      url = '/saml/mepin/Shibboleth.sso/Login?forceAuthn=True&target={return_url}'.format(return_url=urlquote(return_url))
+      #url = '/saml/mepin/Shibboleth.sso/Login?forceAuthn=True&target={return_url}'.format(return_url=urlquote(return_url))
+      # urlquote is disabled because Shibboleth or MePin idp does not seem to properly decode the target url
+      url = '/saml/mepin/Shibboleth.sso/Login?forceAuthn=True&target={return_url}'.format(return_url=return_url)
       return HttpResponseRedirect(url)
     else:
       # user is returning from MePin IdP with the token we generated and the mepin
