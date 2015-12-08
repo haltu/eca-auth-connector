@@ -81,7 +81,7 @@ class InviteView(AdminLoginMixin, FormView):
       user,_ = User.objects.get_or_create(username=u)
       request_meta = self.request.session.get('request_meta', {})
       issuer = {
-        'issuer_oid': request_meta.get('HTTP_USER_OID', None),
+        'issuer_oid': request_meta.get('HTTP_MPASS_OID', None),
         'issuer_auth_method': request_meta.get('HTTP_SHIB_AUTHENTICATION_METHOD', None),
         }
       ts = user.create_register_tokens(**issuer)

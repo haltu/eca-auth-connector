@@ -81,12 +81,12 @@ class RegisterUserView(View):
     f = RegisterForm({'token': request.session['registration_token']})
     if f.is_valid():
       print '1'
-      if 'HTTP_USER_AUTHNID' in request.META and 'HTTP_USER_AUTHENTICATOR' in request.META:
+      if 'HTTP_AUTHNID' in request.META and 'HTTP_AUTHENTICATOR' in request.META:
         print '2'
         token = f.cleaned_data['token']
         invitee = {
-          'eppn': request.META.get('HTTP_USER_AUTHNID', None),
-          'auth_method': request.META.get('HTTP_USER_AUTHENTICATOR', None),
+          'eppn': request.META.get('HTTP_AUTHNID', None),
+          'auth_method': request.META.get('HTTP_AUTHENTICATOR', None),
           }
         if token.register(token.user, **invitee):
           print '3'
