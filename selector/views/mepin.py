@@ -73,7 +73,7 @@ class MePinAssociateView(TemplateView):
       # user is returning from MePin IdP with the token we generated and the mepin
       # id as a SAML attribute
       try:
-        active_token = MePinAssociationToken.objects.get(user=request.user, token=token, is_used=False)
+        active_token = MePinAssociationToken.objects.get(token=token, is_used=False)
       except MePinAssociationToken.DoesNotExist:
         #TODO: error page
         raise Http404
