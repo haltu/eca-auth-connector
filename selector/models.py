@@ -179,11 +179,11 @@ class AuthAssociationToken(models.Model):
       self.token = ''.join([choice(string.letters + string.digits) for i in range(30)])
     return super(AuthAssociationToken, self).save(*args, **kwargs)
 
-  def associate(self, mepin_id):
+  def associate(self, attr_name, attr_value):
     data = {
       'user': self.user.username,
-      'attribute': 'mepin',
-      'value': mepin_id,
+      'attribute': attr_name,
+      'value': attr_value,
     }
     #TODO: error handling
     r = roledb_client('post', 'userattribute', data=data)
