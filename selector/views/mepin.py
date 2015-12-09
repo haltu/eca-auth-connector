@@ -60,7 +60,6 @@ class MePinAssociateView(View):
     return super(MePinAssociateView, self).dispatch(request, *args, **kwargs)
 
   def get(self, request, *args, **kwargs):
-    token = request.GET.get('token', None)
     #TODO: Check if user already has a mepin id associated?
     # user has come without a token - start flow by generating a token
     token = AuthAssociationToken.objects.create(user=request.user)

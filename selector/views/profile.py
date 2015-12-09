@@ -25,21 +25,25 @@
 
 
 import logging
+from django.core.urlresolvers import reverse_lazy, reverse
 from django.utils.decorators import method_decorator
+from django.http import HttpResponseRedirect
 from django.views.generic import TemplateView
+from django.views.generic.base import View
 from django.contrib.auth.decorators import login_required
 from selector.roledb import roledb_client, APIResponse
+from selector.models import AuthAssociationToken
 
 LOG = logging.getLogger(__name__)
 
 
-class UserLoginMixin(object):
-  @method_decorator(login_required)
+class AdminLoginMixin(object):
+  @method_decorator(login_required(login_url=reverse_lazy('login.admin')))
   def dispatch(self, request, *args, **kwargs):
-    return super(UserLoginMixin, self).dispatch(request, *args, **kwargs)
+    return super(AdminLoginMixin, self).dispatch(request, *args, **kwargs)
 
 
-class ProfileView(UserLoginMixin, TemplateView):
+class ProfileView(AdminLoginMixin, TemplateView):
   template_name = 'profile.html'
 
   def get_context_data(self, **kwargs):
@@ -51,6 +55,23 @@ class ProfileView(UserLoginMixin, TemplateView):
       context['attributes'] = []
     return context
 
+
+class AuthAssociateView(AdminLoginMixin, View):
+  """
+  Auth method association flow start point. Admin login is required to identify user
+  account. After admin login is finished, a registration token is created and
+  the user is redirected back to the login SAML endpoint force triggering a
+  new login. After completing login with a new authentication source,
+  user will return with the token and a SAML attribute identifying the new source.
+  The registration token is used by the login view to connect the new auth method
+  to the original user account and write that attribute to auth-data service.
+  """
+
+  def get(self, request, *args, **kwargs):
+    token = AuthAssociationToken.objects.create(user=request.user)
+    return_url = reverse('register.user') + '?token=' + token.token
+    url = reverse('mepin.callback') + 'Shibboleth.sso/Login?forceAuthn=True&target={return_url}'.format(return_url=return_url)
+    return HttpResponseRedirect(url)
 
 # vim: tabstop=2 expandtab shiftwidth=2 softtabstop=2
 
