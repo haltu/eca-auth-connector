@@ -165,29 +165,32 @@ class RegisterToken(models.Model):
       return u'%s: %s: %s' % (self.user.username, self.method, self.token)
 
 
-class MePinAssociationToken(models.Model):
-    user = models.ForeignKey(User, related_name='mepinassociationtokens')
-    token = models.CharField(max_length=200)
-    issued_at = models.DateTimeField(auto_now_add=True)
-    is_used = models.BooleanField(default=False)
+class AuthAssociationToken(models.Model):
+  """
+  Token used for associating new auth methods to existing user accounts.
+  """
+  user = models.ForeignKey(User, related_name='authassociationtokens')
+  token = models.CharField(max_length=200)
+  issued_at = models.DateTimeField(auto_now_add=True)
+  is_used = models.BooleanField(default=False)
 
-    def save(self, *args, **kwargs):
-      if not self.token:
-        self.token = ''.join([choice(string.letters + string.digits) for i in range(30)])
-      return super(MePinAssociationToken, self).save(*args, **kwargs)
+  def save(self, *args, **kwargs):
+    if not self.token:
+      self.token = ''.join([choice(string.letters + string.digits) for i in range(30)])
+    return super(AuthAssociationToken, self).save(*args, **kwargs)
 
-    def associate(self, mepin_id):
-      data = {
-        'user': self.user.username,
-        'attribute': 'mepin',
-        'value': mepin_id,
-      }
-      #TODO: error handling
-      r = roledb_client('post', 'userattribute', data=data)
-      self.is_used = True
-      self.save()
-      return True
+  def associate(self, mepin_id):
+    data = {
+      'user': self.user.username,
+      'attribute': 'mepin',
+      'value': mepin_id,
+    }
+    #TODO: error handling
+    r = roledb_client('post', 'userattribute', data=data)
+    self.is_used = True
+    self.save()
+    return True
 
-    def __unicode__(self):
-      return u'%s: %s' % (self.user.username, self.token)
+  def __unicode__(self):
+    return u'%s: %s' % (self.user.username, self.token)
 

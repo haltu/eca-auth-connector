@@ -31,7 +31,7 @@ from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView
 from django.views.generic.base import View
 from django.contrib.auth.decorators import login_required
-from selector.models import MePinAssociationToken
+from selector.models import AuthAssociationToken
 
 LOG = logging.getLogger(__name__)
 
@@ -63,7 +63,7 @@ class MePinAssociateView(View):
     token = request.GET.get('token', None)
     #TODO: Check if user already has a mepin id associated?
     # user has come without a token - start flow by generating a token
-    token = MePinAssociationToken.objects.create(user=request.user)
+    token = AuthAssociationToken.objects.create(user=request.user)
     return_url = reverse('mepin.callback') + '?token=' + token.token
     #url = '/saml/mepin/Shibboleth.sso/Login?forceAuthn=True&target={return_url}'.format(return_url=urlquote(return_url))
     # urlquote is disabled because Shibboleth or MePin idp does not seem to properly decode the target url
@@ -88,7 +88,7 @@ class MePinAssociateCallbackView(TemplateView):
     token = request.GET.get('token', None)
     if not token:
       # user has come without a token - start flow by generating a token
-      token = MePinAssociationToken.objects.create(user=request.user)
+      token = AuthAssociationToken.objects.create(user=request.user)
       return_url = reverse('mepin.callback') + '?token=' + token.token
       #url = '/saml/mepin/Shibboleth.sso/Login?forceAuthn=True&target={return_url}'.format(return_url=urlquote(return_url))
       # urlquote is disabled because Shibboleth or MePin idp does not seem to properly decode the target url
@@ -98,8 +98,8 @@ class MePinAssociateCallbackView(TemplateView):
       # user is returning from MePin IdP with the token we generated and the mepin
       # id as a SAML attribute
       try:
-        active_token = MePinAssociationToken.objects.get(token=token, is_used=False)
-      except MePinAssociationToken.DoesNotExist:
+        active_token = AuthAssociationToken.objects.get(token=token, is_used=False)
+      except AuthAssociationToken.DoesNotExist:
         #TODO: error page
         raise Http404
       #TODO: Check MePin SAML Attribute name
