@@ -82,7 +82,7 @@ class MePinAssociateCallbackView(TemplateView):
 
   @method_decorator(login_required(login_url=reverse_lazy('login.admin')))
   def dispatch(self, request, *args, **kwargs):
-    return super(MePinAssociateView, self).dispatch(request, *args, **kwargs)
+    return super(MePinAssociateCallbackView, self).dispatch(request, *args, **kwargs)
 
   def get(self, request, *args, **kwargs):
     token = request.GET.get('token', None)
@@ -109,7 +109,7 @@ class MePinAssociateCallbackView(TemplateView):
         return HttpResponse('Missing Mepin ID', status=400)
       active_token.associate(mepin_id)
       # MePin id successfully associated, render success page
-      return super(MePinAssociateView, self).get(request, *args, **kwargs)
+      return super(MePinAssociateCallbackView, self).get(request, *args, **kwargs)
 
 # vim: tabstop=2 expandtab shiftwidth=2 softtabstop=2
 
