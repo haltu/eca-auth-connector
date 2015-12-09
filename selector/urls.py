@@ -35,7 +35,7 @@ from selector.views.invitator import SearchView, InviteView
 from selector.views.invitator import DebugView
 from selector.views.invitee import RegisterTokenView, RegisterUserView, RegisterSuccessView, RegisterFailedView
 from selector.views.profile import ProfileView
-from selector.views.mepin import MePinInfoView, MePinAssociateView
+from selector.views.mepin import MePinInfoView, MePinAssociateView, MePinAssociateCallbackView
 from selector.views.api import AttributeAPIView
 from selector.views.login import login
 
@@ -49,11 +49,12 @@ urlpatterns = patterns('',
     url(r'^register/failed$', RegisterFailedView.as_view(), name='register.failed'),
     url(r'^register/(?P<token>.*)$', RegisterTokenView.as_view(), name='register.token'),
     url(r'^mepin$', MePinInfoView.as_view(), name='mepin.info'),
-    url(r'^mepin/register$', MePinAssociateView.as_view(), name='mepin.associate'),
+    url(r'^mepin/associate$', MePinAssociateView.as_view(), name='mepin.associate'),
     url(r'^permission$', PermissionView.as_view(), name='permission'),
     url(r'^debug$', DebugView.as_view()),
     url(r'^saml/admin/$', login, name='login.admin'),
     url(r'^saml/user/$', RegisterUserView.as_view(), name='register.user'),
+    url(r'^saml/mepin/$', MePinAssociateCallbackView.as_view(), name='mepin.callback'),
     url(r'^sysadmin/', include(admin.site.urls)),
     url(r'^api/1/me/attributes', AttributeAPIView.as_view(), name='api.attributes'),
 )

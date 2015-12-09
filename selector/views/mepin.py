@@ -28,8 +28,8 @@ import logging
 from django.core.urlresolvers import reverse_lazy, reverse
 from django.http import HttpResponseRedirect, HttpResponse, Http404
 from django.utils.decorators import method_decorator
-from django.utils.http import urlquote
 from django.views.generic import TemplateView
+from django.views.generic.base import View
 from django.contrib.auth.decorators import login_required
 from selector.models import MePinAssociationToken
 
@@ -44,13 +44,37 @@ class MePinInfoView(TemplateView):
   template_name = 'mepin_info.html'
 
 
-class MePinAssociateView(TemplateView):
+class MePinAssociateView(View):
   """
   MePin registration flow start point. Admin login is required to identify user
   account. After admin login is finished, a registration token is created and
   the user is redirected to the /saml/mepin SAML endpoint triggering a login
   with the MePin IdP. After completing login and/or registration in MePin,
   user will return with a MePin id SAML attribute. The registration token is
+  used to connect the MePin id to the original user account and write that
+  attribute to auth-data service.
+  """
+
+  @method_decorator(login_required(login_url=reverse_lazy('login.admin')))
+  def dispatch(self, request, *args, **kwargs):
+    return super(MePinAssociateView, self).dispatch(request, *args, **kwargs)
+
+  def get(self, request, *args, **kwargs):
+    token = request.GET.get('token', None)
+    #TODO: Check if user already has a mepin id associated?
+    # user has come without a token - start flow by generating a token
+    token = MePinAssociationToken.objects.create(user=request.user)
+    return_url = reverse('mepin.callback') + '?token=' + token.token
+    #url = '/saml/mepin/Shibboleth.sso/Login?forceAuthn=True&target={return_url}'.format(return_url=urlquote(return_url))
+    # urlquote is disabled because Shibboleth or MePin idp does not seem to properly decode the target url
+    url = reverse('mepin.callback') + 'Shibboleth.sso/Login?forceAuthn=True&target={return_url}'.format(return_url=return_url)
+    return HttpResponseRedirect(url)
+
+
+class MePinAssociateCallbackView(TemplateView):
+  """
+  MePin registration flow end point. After completing login and/or registration in MePin,
+  user will return with a MePin id SAML attribute to this view. The registration token is
   used to connect the MePin id to the original user account and write that
   attribute to auth-data service.
   """
@@ -62,14 +86,13 @@ class MePinAssociateView(TemplateView):
 
   def get(self, request, *args, **kwargs):
     token = request.GET.get('token', None)
-    #TODO: Check if user already has a mepin id associated
     if not token:
       # user has come without a token - start flow by generating a token
       token = MePinAssociationToken.objects.create(user=request.user)
-      return_url = reverse('mepin.associate') + '?token=' + token.token
+      return_url = reverse('mepin.callback') + '?token=' + token.token
       #url = '/saml/mepin/Shibboleth.sso/Login?forceAuthn=True&target={return_url}'.format(return_url=urlquote(return_url))
       # urlquote is disabled because Shibboleth or MePin idp does not seem to properly decode the target url
-      url = '/saml/mepin/Shibboleth.sso/Login?forceAuthn=True&target={return_url}'.format(return_url=return_url)
+      url = reverse('mepin.callback') + 'Shibboleth.sso/Login?forceAuthn=True&target={return_url}'.format(return_url=return_url)
       return HttpResponseRedirect(url)
     else:
       # user is returning from MePin IdP with the token we generated and the mepin
@@ -87,8 +110,6 @@ class MePinAssociateView(TemplateView):
       active_token.associate(mepin_id)
       # MePin id successfully associated, render success page
       return super(MePinAssociateView, self).get(request, *args, **kwargs)
-
-
 
 # vim: tabstop=2 expandtab shiftwidth=2 softtabstop=2
 
