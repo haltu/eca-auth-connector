@@ -8,3 +8,7 @@ local_settings.py
 staticroot/
 venv
 *.orig
+newrelic.ini
+.coverage
+.tox
+local_settings.*
