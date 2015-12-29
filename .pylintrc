@@ -9,14 +9,14 @@
 
 # Add files or directories to the blacklist. They should be base names, not
 # paths.
-ignore=CVS,management,migrations,tests
+ignore=CVS, management, migrations, tests
 
 # Pickle collected data for later comparisons.
 persistent=yes
 
 # List of plugins (as comma separated values of python modules names) to load,
 # usually to register additional checkers.
-load-plugins=
+load-plugins=pylint_django
 
 # Use multiple processes to speed up Pylint.
 jobs=1
