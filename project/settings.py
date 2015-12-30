@@ -61,6 +61,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'selector',
+    'floppyforms',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -78,7 +79,7 @@ ROOT_URLCONF = 'selector.urls'
 LOGIN_URL = '/saml/admin/'
 LOGIN_REDIRECT_URL = '/'
 
-WSGI_APPLICATION = 'selector.wsgi.application'
+WSGI_APPLICATION = 'project.wsgi.application'
 
 AUTHENTICATION_BACKENDS = (
   'selector.authbackend.ShibbolethBackend',
@@ -120,6 +121,8 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticroot')
 # ----------------------------
 
 AUTH_USER_MODEL = 'selector.User'
+
+SELECTOR_CREATE_SAML_USER = True
 
 try:
   from local_settings import *

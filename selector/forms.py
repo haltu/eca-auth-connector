@@ -24,7 +24,7 @@
 #
 
 
-from django import forms
+import floppyforms as forms
 from django.utils.translation import ugettext, ugettext_lazy as _
 from django.utils.text import capfirst
 from django.contrib.auth import authenticate, get_user_model
@@ -33,13 +33,18 @@ from django.contrib.auth.hashers import UNUSABLE_PASSWORD_PREFIX
 from selector.models import User, RegisterToken
 
 
+class UserSelectWidget(forms.CheckboxSelectMultiple):
+  template_name = 'forms/inviteform_user.html'
+
+
 class SearchForm(forms.Form):
+  municipality = forms.CharField()
   school = forms.CharField()
   group = forms.CharField(required=False)
 
 
 class InviteForm(forms.Form):
-  users = forms.MultipleChoiceField(choices=set(), widget=forms.CheckboxSelectMultiple)
+  users = forms.MultipleChoiceField(choices=set(), widget=UserSelectWidget)
 
   def __init__(self, *args, **kwargs):
     if 'users_choices' in kwargs:

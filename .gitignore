@@ -4,4 +4,7 @@ db.sqlite3
 *.pyc
 *.swp
 settings_local.py
+local_settings.py
 staticroot/
+venv
+*.orig

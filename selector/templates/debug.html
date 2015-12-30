@@ -1,13 +1,14 @@
 {% extends 'base_info.html' %}
+{% load i18n %}
 
 {% block page %}
-<h1>Debug information</h1>
-
-<ul>
-{% for k,v in request_meta.items %}
-<li>{{ k }}: {{ v }}</li>
-{% endfor %}
-</ul>
-
+  <div class="jumbotron">
+    <h2>{% trans "Debug information" %}</h2>
+    <ul>
+      {% for k,v in request_meta.items %}
+        <li>{{ k }}: {{ v }}</li>
+      {% endfor %}
+    </ul>
+  </div>
 {% endblock %}
 

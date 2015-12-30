@@ -50,8 +50,10 @@ class SearchView(AdminLoginMixin, FormView):
 
   def form_valid(self, form):
     users = []
-    for d in paged_query('get', 'user', params=form.cleaned_data):
-      users.append((d['username'], d['username']))
+    params = form.cleaned_data
+    params['page_size'] = 1000
+    for d in paged_query('get', 'user', params=params):
+      users.append((d['username'], d))
     self.request.session['inviteform_users_choices'] = users
     # TODO: Or we could just send the user to InviteView here
     invite_form = InviteForm(users_choices=users)
@@ -79,7 +81,7 @@ class InviteView(AdminLoginMixin, FormView):
       user,_ = User.objects.get_or_create(username=u)
       request_meta = self.request.session.get('request_meta', {})
       issuer = {
-        'issuer_oid': request_meta.get('HTTP_USER_OID', None),
+        'issuer_oid': request_meta.get('HTTP_MPASS_OID', None),
         'issuer_auth_method': request_meta.get('HTTP_SHIB_AUTHENTICATION_METHOD', None),
         }
       ts = user.create_register_tokens(**issuer)

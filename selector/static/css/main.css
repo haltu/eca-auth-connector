@@ -1,0 +1,342 @@
+
+/* BS Core */
+
+/* Primary color: #e02271 */
+
+body {
+  font-family: "Source Sans Pro", "Helvetica Neue", Arial, helvetica, sans-serif;
+  font-size: 18px;
+  line-height: 1.5;
+  background: #f9f9f9;
+  padding-top: 70px;
+  padding-bottom: 70px;
+  -webkit-font-smoothing: antialiased;
+}
+::-moz-selection {
+  background: #e02271;
+  color: #fff;
+  text-shadow: none;
+}
+::selection {
+  background: #e02271;
+  color: #fff;
+  text-shadow: none;
+}
+
+/* BS Links */
+
+a {
+  color: #0a58cc;
+  cursor: pointer;
+  text-decoration: underline;
+}
+a:hover {
+  color: #0d92ff;
+  text-decoration: none;
+}
+a:visited {
+  color: #804488;
+}
+a:focus {
+  color: #0a58cc;
+}
+
+/* BS Buttons */
+
+.btn {
+  display: inline-block;
+  vertical-align: top;
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 14px 16px;
+  text-align: center;
+  text-decoration: none;
+  line-height: 1;
+  margin: 0 6px 6px 0;
+  outline: 0;
+  box-shadow: none;
+  border-radius: 0;
+  -webkit-transition: all 0.2s ease;
+  -moz-transition: all 0.2s ease;
+  -ms-transition: all 0.2s ease;
+  -o-transition: all 0.2s ease;
+  transition: all 0.2s ease;
+}
+.btn.active.focus,
+.btn.active:focus,
+.btn.focus,
+.btn:active.focus,
+.btn:active:focus,
+.btn:focus {
+  outline: none;
+}
+.btn.active, .btn:active {
+  background-image: none;
+  outline: 0;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+
+.btn-primary {
+  color: #fff;
+  background: #0d92ff;
+  border: none;
+}
+.btn-primary.active,
+.btn-primary.focus,
+.btn-primary:active,
+.btn-primary:focus,
+.btn-primary:hover,
+.open>.dropdown-toggle.btn-primary {
+  color: #fff;
+  background: #0a77d1;
+  text-decoration: underline;
+  border: none;
+}
+
+.btn-default {
+  color: #0d92ff;
+  background: transparent;
+  border: 3px solid #0d92ff;
+  text-transform: uppercase;
+  padding: 11px 16px;
+}
+.btn-default.active,
+.btn-default.focus,
+.btn-default:active,
+.btn-default:focus,
+.btn-default:hover,
+.open>.dropdown-toggle.btn-default {
+  color: #fff;
+  background: #0d92ff;
+  border: 3px solid #0d92ff;
+  text-decoration: none;
+}
+
+/* BS Forms */
+
+.form-control {
+  display: block;
+  width: 100%;
+  height: auto;
+  min-height: 38px;
+  padding: 3px 10px;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.5625;
+  color: #333;
+  background-color: #fff;
+  background-image: none;
+  border: 2px solid #989c9f;
+  border-radius: 4px;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  -webkit-transition: all 0.2s ease;
+  -moz-transition: all 0.2s ease;
+  -ms-transition: all 0.2s ease;
+  -o-transition: all 0.2s ease;
+  transition: all 0.2s ease;
+}
+.form-control:focus {
+  border-color: #3da7ff;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+.form-control::-webkit-input-placeholder {
+  color: #616568;
+  font-style: italic;
+}
+.form-control:-moz-placeholder {
+  color: #616568;
+  font-style: italic;
+}
+.form-control::-moz-placeholder {
+  color: #616568;
+  font-style: italic;
+}
+.form-control:-ms-input-placeholder {
+  color: #616568;
+  font-style: italic;
+}
+.control-label {
+  font-weight: 400;
+}
+@media (min-width: 768px) {
+  .form-horizontal .control-label {
+    text-align: left;
+  }
+}
+
+/* BS Typography */
+
+.h1, h1,
+.h2, h2,
+.h3, h3,
+.h4, h4 {
+  font-family: "Roboto", "Helvetica Neue", Arial, helvetica, sans-serif;
+}
+.h1, h1 {
+  font-weight: 900;
+  font-size: 40px;
+  line-height: 1.1em;
+  margin-top: 18px;
+  margin-bottom: 40px;
+}
+@media (max-width: 767px) {
+  .h1, h1 {
+    font-size: 30px;
+    line-height: 1.1em;
+    margin-top: 14px;
+    margin-bottom: 30px;
+  }
+}
+.h2, h2 {
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 1.2em;
+  margin-top: 32px;
+  margin-bottom: 14px;
+}
+@media (max-width: 767px) {
+  .h2, h2 {
+    font-size: 24px;
+    line-height: 1.2em;
+    margin-top: 24px;
+    margin-bottom: 11px;
+  }
+}
+.h3, h3 {
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 1.2em;
+  margin-top: 20px;
+  margin-bottom: 9px;
+}
+.h4, h4 {
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 1.2em;
+  margin-top: 18px;
+  margin-bottom: 9px;
+}
+p {
+  margin-top: 7px;
+  margin-bottom: 14px;
+}
+
+/* BS Navbar */
+
+.navbar-inverse {
+  background-color: #f2f2f2;
+  border: 0;
+  box-shadow: 0 4px 0 0 rgba(0, 0, 0, 0.15);
+}
+.navbar-inverse .navbar-brand {
+  color: #333;
+  font-weight: 600;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+.navbar-inverse .navbar-brand:visited,
+.navbar-inverse .navbar-brand:active,
+.navbar-inverse .navbar-brand:focus {
+  color: #333;
+  text-decoration: none;
+}
+.navbar-inverse .navbar-brand:hover {
+  color: #e02271;
+  text-decoration: none;
+}
+
+/* BS Jumbotron */
+
+.jumbotron {
+  background-color: #fff;
+}
+
+/* Content limiter */
+
+.content-wrapper {
+  max-width: 45em;
+}
+
+/* Invite list */
+
+.invite-list {
+  width: 100%;
+}
+.invite-list .invite-item-spacer td {
+  padding: 0;
+  margin: 0;
+  height: 20px;
+}
+.invite-list .invite-item td {
+  position: relative;
+  vertical-align: top;
+  background: #fff;
+  border: 1px solid #dedede;
+  padding: 10px 15px;
+  cursor: pointer;
+}
+.invite-list .invite-item td:first-child {
+  border-left: 5px solid #e02271;
+}
+.invite-list .invite-item.active td:first-child {
+  border-left-color: #0d92ff;
+}
+.invite-list .invite-item.header td {
+  font-weight: 600;
+  padding-left: 40px;
+}
+.invite-list .invite-item.header input {
+  display: none;
+}
+.invite-list .invite-item.header .toggle {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 40px;
+  cursor: pointer;
+}
+.invite-list .invite-item.header .toggle i {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  display: inline-block;
+  vertical-align: top;
+  height: 30px;
+  width: 40px;
+  line-height: 30px;
+  margin: -15px 0 0 -20px;
+  text-align: center;
+}
+.invite-list .invite-item.header .toggle .unchecked {
+  color: #ccc;
+}
+.invite-list .invite-item.header .toggle .checked {
+  color: #0d92ff;
+}
+.invite-list .invite-item.header .toggle .checked {
+  display: none;
+}
+.invite-list .invite-item.header.active .toggle .checked {
+  display: inline-block;
+}
+.invite-list .invite-item.header.active .toggle .unchecked {
+  display: none;
+}
+.invite-list .invite-item.legend td {
+  font-size: 16px;
+  font-weight: 600;
+  color: #616568;
+}
+.invite-list .invite-item.main td {
+  font-size: 16px;
+}
+
+/* Attribute listing */
+.delete-attribute {
+  cursor: pointer;
+}

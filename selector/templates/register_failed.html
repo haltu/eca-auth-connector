@@ -1,12 +1,8 @@
-
 {% extends "base.html" %}
+{% load i18n %}
 
 {% block content %}
-<div class="container">
-<h1>Registration failed</h1>
-
-<p>There was some problem with your token.</p>
-
-</div>
+  <h1>{% trans "Registration failed" %}</h1>
+  <p>{% trans "There was some problem with your token." %}</p>
 {% endblock %}
 

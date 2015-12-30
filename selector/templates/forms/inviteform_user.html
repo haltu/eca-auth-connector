@@ -1,0 +1,36 @@
+{% load i18n %}
+
+<table class="invite-list">
+  <tbody>
+    {% for group_name, choices in optgroups %}
+      {% for choice in choices %}
+        <tr class="invite-item header" data-id="{{ choice.0 }}">
+          <td colspan="4">
+            <div class="toggle"><i class="unchecked material-icons">&#xE835;</i><i class="checked material-icons">&#xE834;</i></div>
+            <input {% if choice.0 in value %}checked="checked" {% endif %}type="checkbox" id="{{ attrs.id }}_{{ forloop.counter }}" name="{{ name }}" value="{{ choice.0 }}">
+            <div class="text">{{ choice.1.first_name }} {{ choice.1.last_name }} ({{ choice.1.username }})</div>
+          </td>
+        </tr>
+        <tr class="invite-item legend" data-id="{{ choice.0 }}">
+          <td>{% trans "Municipality" %}</td>
+          <td>{% trans "School" %}</td>
+          <td>{% trans "Role" %}</td>
+          <td>{% trans "Group" %}</td>
+        </tr>
+        {% for role in choice.1.roles %}
+          <tr class="invite-item main {% if forloop.last %}last{% endif %}" data-id="{{ choice.0 }}">
+            <td>{{ role.municipality }}</td>
+            <td>{{ role.school }}</td>
+            <td>{{ role.role }}</td>
+            <td>{{ role.group }}</td>
+          </tr>
+        {% endfor %}
+          <tr class="invite-item-spacer"><td colspan="4"></td></tr>
+      {% empty %}
+        <tr><td class="empty">{% trans "No users were found" %}</td></tr>
+      {% endfor %}
+    {% endfor %}
+  </tbody>
+</table>
+
+

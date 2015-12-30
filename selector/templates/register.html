@@ -1,19 +1,23 @@
-
 {% extends "base.html" %}
+{% load i18n %}
 
 {% block content %}
-<div class="container">
-<h1>Register with token</h1>
+  <div class="content-wrapper">
+    <h1>{% trans "Register with token" %}</h1>
 
-<p>You've received registration token. Enter it below.</p>
+    <p>{% trans "You've received registration token. Enter it below." %}</p>
 
-{{ form.non_field_errors }}
+    {% if form.non_field_errors %}
+      <div class="alert alert-danger" role="alert">{{ form.non_field_errors }}</div>
+    {% endif %}
 
-<form action="{% url 'register' %}" method="post">{% csrf_token %}
-  {{ form.as_p }}
-  <input type="submit" value="Register" />
-</form>
-
-</div>
+    <form action="{% url 'register' %}" method="post">
+      {% csrf_token %}
+      {% include "form_fields.html" with form=form placeholder=1 %}
+      <div class="form-group">
+        <button type="submit" class="btn btn-primary">{% trans "Register" %}</button>
+      </div>
+    </form>
+  </div>
 {% endblock %}
 
