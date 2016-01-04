@@ -67,8 +67,8 @@ def login(request, template_name='registration/login.html',
         # We store the auth data in the session. It can be handy in
         # other parts of the site.
         keys = [
-          'HTTP_AUTHENTICATOR',
-          'HTTP_AUTHNID',
+          'HTTP_MPASS_AUTHENTICATOR',
+          'HTTP_MPASS_AUTHNID',
           'HTTP_MPASS_OID',
           'HTTP_MPASS_GIVENNAME',
           'HTTP_MPASS_SURNAME',
@@ -76,8 +76,9 @@ def login(request, template_name='registration/login.html',
           'HTTP_MPASS_ROLE',
           'HTTP_MPASS_SCHOOL',
           'HTTP_MPASS_MUNICIPALITY',
+          'HTTP_MPASS_STRUCTUREDROLE',
           'HTTP_SHIB_AUTHENTICATION_METHOD',
-          ]
+        ]
         for k in keys:
           meta[k] = request.META.get(k, None)
         request.session['request_meta'] = meta
