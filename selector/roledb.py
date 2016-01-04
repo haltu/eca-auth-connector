@@ -47,7 +47,11 @@ def make_request(method, url, **kwargs):
     }
   kwargs['verify'] = False # Disabled SSL certificate checks
   method = getattr(requests, method)
-  resp = method(url, **kwargs)
+  try:
+    resp = method(url, **kwargs)
+  except requests.exceptions.RequestException:
+    LOG.exception('Auth Data API call failed')
+    raise APIResponse('Auth Data API call failed')
   if resp.status_code not in [200, 201, 204]:
     raise APIResponse(resp)
   if resp.status_code == 204:
