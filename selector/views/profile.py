@@ -85,14 +85,13 @@ class AuthAssociateCallbackView(View):
   used to connect the authentication method to the original user account and write that
   attribute to auth-data service.
   """
-  #template_name = 'mepin_associate_success.html'
 
   @method_decorator(login_required(login_url=reverse_lazy('login.admin')))
   def dispatch(self, request, *args, **kwargs):
     return super(AuthAssociateCallbackView, self).dispatch(request, *args, **kwargs)
 
   def get(self, request, *args, **kwargs):
-    token = request.kwargs.get('token', None)
+    token = kwargs.get('token', None)
     # user is returning from Auth Proxy with the token we generated and the new
     # authentication method as a SAML attribute
     try:
