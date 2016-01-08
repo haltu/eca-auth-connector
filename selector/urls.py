@@ -37,7 +37,7 @@ from selector.views.invitee import RegisterTokenView, RegisterUserView, Register
 from selector.views.profile import ProfileView, AuthAssociateView, AuthAssociateCallbackView
 from selector.views.mepin import MePinInfoView, MePinAssociateView, MePinAssociateCallbackView
 from selector.views.api import AttributeAPIView
-from selector.views.login import login
+from selector.views.login import login, user_redirect
 
 urlpatterns = patterns('',
     url(r'^$', IndexView.as_view(), name='index'),
@@ -45,6 +45,7 @@ urlpatterns = patterns('',
     url(r'^invite$', InviteView.as_view(), name='invite'),
     url(r'^profile$', ProfileView.as_view(), name='profile'),
     url(r'^register$', RegisterTokenView.as_view(), name='register'),
+    url(r'^register/associate$', RegisterUserView.as_view(), name='register.user'),
     url(r'^register/success$', RegisterSuccessView.as_view(), name='register.success'),
     url(r'^register/failed$', RegisterFailedView.as_view(), name='register.failed'),
     url(r'^register/(?P<token>.*)$', RegisterTokenView.as_view(), name='register.token'),
@@ -53,7 +54,7 @@ urlpatterns = patterns('',
     url(r'^permission$', PermissionView.as_view(), name='permission'),
     url(r'^debug$', DebugView.as_view()),
     url(r'^saml/admin/$', login, name='login.admin'),
-    url(r'^saml/user/$', RegisterUserView.as_view(), name='register.user'),
+    url(r'^saml/user/$', user_redirect, name='login.user'),
     url(r'^saml/mepin/$', MePinAssociateCallbackView.as_view(), name='mepin.callback'),
     url(r'^auth/associate$', AuthAssociateView.as_view(), name='auth.associate'),
     url(r'^auth/associate/callback/(?P<token>.*)$', AuthAssociateCallbackView.as_view(), name='auth.associate.callback'),

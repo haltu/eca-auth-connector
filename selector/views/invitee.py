@@ -25,15 +25,13 @@
 
 
 import logging
-from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse_lazy
 from django.utils.encoding import force_text
 from django.utils.decorators import method_decorator
 from django.views.generic import View, TemplateView, FormView
 from django.contrib.auth.decorators import login_required
-from django.contrib.sites.models import get_current_site
-from selector.models import RegisterToken
+from django.contrib.auth import REDIRECT_FIELD_NAME
 from selector.forms import RegisterForm
 
 LOG = logging.getLogger(__name__)
@@ -54,7 +52,7 @@ class ClearSessionMixin(object):
 
 class RegisterTokenView(FormView):
   template_name = 'register.html'
-  success_url = reverse_lazy('register.user')
+  success_url = reverse_lazy('login.user') + '?%s=' % REDIRECT_FIELD_NAME + reverse_lazy('register.user')
   form_class = RegisterForm
 
   def store_token(self, token):
@@ -80,16 +78,14 @@ class RegisterUserView(View):
   def get(self, request, *args, **kwargs):
     f = RegisterForm({'token': request.session['registration_token']})
     if f.is_valid():
-      print '1'
-      if 'HTTP_AUTHNID' in request.META and 'HTTP_AUTHENTICATOR' in request.META:
-        print '2'
+      meta = request.session.get('request_meta', {})
+      if 'HTTP_MPASS_AUTHNID' in meta and 'HTTP_MPASS_AUTHENTICATOR' in meta:
         token = f.cleaned_data['token']
         invitee = {
-          'eppn': request.META.get('HTTP_AUTHNID', None),
-          'auth_method': request.META.get('HTTP_AUTHENTICATOR', None),
+          'eppn': meta.get('HTTP_MPASS_AUTHNID', None),
+          'auth_method': meta.get('HTTP_MPASS_AUTHENTICATOR', None),
           }
         if token.register(token.user, **invitee):
-          print '3'
           return HttpResponseRedirect(self.success_url)
     return HttpResponseRedirect(force_text(self.failed_url))
 
