@@ -25,7 +25,8 @@
 
 while true
 do
-  tox
+  clear
+  tox -e py27
   inotifywait --exclude .git -r . -e move -e close_write
 done
 
