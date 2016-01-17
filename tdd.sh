@@ -1,8 +1,8 @@
-# -*- encoding: utf-8 -*-
+#!/usr/bin/env bash
 
 # The MIT License (MIT)
 #
-# Copyright (c) 2015 Haltu Oy, http://haltu.fi
+# Copyright (c) 2014-2015 Haltu Oy, http://haltu.fi
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -23,4 +23,10 @@
 # THE SOFTWARE.
 #
 
+while true
+do
+  clear
+  tox -e py27
+  inotifywait --exclude .git -r . -e move -e close_write
+done
 
