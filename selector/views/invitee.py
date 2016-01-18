@@ -52,8 +52,10 @@ class ClearSessionMixin(object):
 
 class RegisterTokenView(FormView):
   template_name = 'register.html'
-  success_url = reverse_lazy('login.user') + '?%s=' % REDIRECT_FIELD_NAME + reverse_lazy('register.user')
   form_class = RegisterForm
+
+  def get_success_url(self):
+    return reverse_lazy('login.user') + '?%s=' % REDIRECT_FIELD_NAME + reverse_lazy('register.user')
 
   def store_token(self, token):
     self.request.session['registration_token'] = token.token

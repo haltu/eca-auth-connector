@@ -98,8 +98,7 @@ def login(request, template_name='registration/login.html',
 
 @sensitive_post_parameters()
 @never_cache
-def user_redirect(request, template_name='registration/login.html',
-                  redirect_field_name=REDIRECT_FIELD_NAME):
+def user_redirect(request, redirect_field_name=REDIRECT_FIELD_NAME):
   """
   Handles the /saml/user SAML endpoint. Does not log in the user, only saves
   the SAML attributes to session and redirects to the next view.

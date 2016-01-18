@@ -73,8 +73,8 @@ class AuthAssociateView(AdminLoginMixin, View):
     token = AuthAssociationToken.objects.create(user=request.user)
     # Shibboleth should return to login view for storing the SAML attributes to session
     # then redirect to the callback view with the token in URL
-    return_url = reverse('login.admin') + '?%s=' % REDIRECT_FIELD_NAME + reverse('auth.associate.callback', kwargs={'token': token.token})
-    url = reverse('login.admin') + 'Shibboleth.sso/Login?forceAuthn=true&target={return_url}'.format(return_url=return_url)
+    return_url = reverse('login.user') + '?%s=' % REDIRECT_FIELD_NAME + reverse('auth.associate.callback', kwargs={'token': token.token})
+    url = reverse('login.user') + 'Shibboleth.sso/Login?forceAuthn=true&target={return_url}'.format(return_url=return_url)
     return HttpResponseRedirect(url)
 
 
