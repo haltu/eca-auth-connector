@@ -22,7 +22,8 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
-#
+# pylint: disable=locally-disabled, no-member, unused-argument, no-init, old-style-class, too-few-public-methods, unnecessary-lambda
+
 
 import string
 import factory
@@ -40,6 +41,19 @@ class UserFactory(factory.django.DjangoModelFactory):
       '{0}.{1}@example.com'.format(u.first_name, u.last_name))
   username = factory.fuzzy.FuzzyText(length=11, chars=string.digits, prefix='1.2.246.562.24.')
 
+
+class RegisterTokenFactory(factory.django.DjangoModelFactory):
+  class Meta:
+    model = models.RegisterToken
+
+  user = factory.SubFactory(UserFactory)
+
+
+class AuthAssociationTokenFactory(factory.django.DjangoModelFactory):
+  class Meta:
+    model = models.AuthAssociationToken
+
+  user = factory.SubFactory(UserFactory)
 
 # vim: tabstop=2 expandtab shiftwidth=2 softtabstop=2
 

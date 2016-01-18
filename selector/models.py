@@ -30,6 +30,8 @@ from django.db import models
 from django.core import validators
 from django.core.mail import send_mail
 from django.utils import timezone
+from django.template.loader import select_template
+from django.template import Context
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, UserManager
 from selector.roledb import roledb_client
 
@@ -77,7 +79,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     return full_name.strip()
 
   def get_short_name(self):
-    "Returns the short name for the user."
+    """ Returns the short name for the user."""
     return self.first_name
 
   def email_user(self, subject, message, from_email=None, **kwargs):
@@ -96,7 +98,7 @@ class User(AbstractBaseUser, PermissionsMixin):
       'issuer_oid': issuer_oid,
       'issuer_auth_method': issuer_auth_method,
       'method': RegisterToken.EMAIL,
-      }
+    }
     t = RegisterToken(**data)
     t.save()
     return [t]
@@ -122,7 +124,7 @@ class RegisterToken(models.Model):
 
   def save(self, *args, **kwargs):
     if not self.token:
-      self.token = ''.join([choice(string.letters + string.digits) for i in range(30)])
+      self.token = ''.join([choice(string.letters + string.digits) for _ in range(30)])
     return super(RegisterToken, self).save(*args, **kwargs)
 
   def send_token(self):
@@ -130,7 +132,6 @@ class RegisterToken(models.Model):
       self.send_email()
 
   def send_email(self):
-    from django.template.loader import select_template
     template = select_template(['registration_email.txt'])
     context = {
       'user': self.user,
@@ -138,6 +139,7 @@ class RegisterToken(models.Model):
       'register_url': self.token,  # TODO reverse the full url
       'issued_at': self.issued_at,
     }
+    context = Context(context)
     message = template.render(context)
     from_email = _('#register-email-from-address')
     self.user.email_user(_('#registration-email-subject'), message, from_email)
@@ -177,7 +179,7 @@ class AuthAssociationToken(models.Model):
 
   def save(self, *args, **kwargs):
     if not self.token:
-      self.token = ''.join([choice(string.letters + string.digits) for i in range(30)])
+      self.token = ''.join([choice(string.letters + string.digits) for _ in range(30)])
     return super(AuthAssociationToken, self).save(*args, **kwargs)
 
   def associate(self, attr_name, attr_value):
