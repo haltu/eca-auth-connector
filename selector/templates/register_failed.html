@@ -1,8 +1,14 @@
 {% extends "base.html" %}
 {% load i18n %}
 
+{% block nav-register %}active{% endblock %}
+
 {% block content %}
-  <h1>{% trans "Registration failed" %}</h1>
-  <p>{% trans "There was some problem with your token." %}</p>
+  <div class="block">
+    <div class="container">
+      <h1>{% trans "Registration failed" %}</h1>
+      <p>{% trans "There was some problem with your token." %}</p>
+    </div>
+  </div>
 {% endblock %}
 

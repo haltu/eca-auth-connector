@@ -2,11 +2,11 @@
 {% load i18n %}
 
 {% block content %}
-
-  <div class="jumbotron">
-    <h1>{% trans "MePin" %}</h1>
-    <p>{% trans "Associate your MePin ID to Educloud. You will be asked to log in to Educloud and then to MePin." %}</p>
-    <p><a class="btn btn-primary btn-lg" href="{% url 'mepin.associate' %}" role="button">{% trans "Start association" %}</a></p>
+  <div class="block">
+    <div class="container">
+      <h1>{% trans "MePin" %}</h1>
+      <p>{% trans "Associate your MePin ID to Educloud. You will be asked to log in to Educloud and then to MePin." %}</p>
+      <p><a class="btn btn-primary btn-lg" href="{% url 'mepin.associate' %}" role="button">{% trans "Start association" %}</a></p>
+    </div>
   </div>
-
 {% endblock %}

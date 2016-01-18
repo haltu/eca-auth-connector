@@ -1,38 +1,45 @@
 {% extends "base.html" %}
 {% load i18n %}
 
+{% block nav-search %}active{% endblock %}
+
 {% block content %}
-  <h1>{% trans "Search for users" %}</h1>
+  <div class="block">
+    <div class="container">
 
-  <p>{% trans "You can search for users in Role Database by school and group name. When you are satisfied with the search results you can select to which users you would like to send invitation tokens." %}</p>
+      <h1>{% trans "Search for users" %}</h1>
 
-  {% if form.non_field_errors %}
-    <div class="alert alert-danger" role="alert">{{ form.non_field_errors }}</div>
-  {% endif %}
+      <p>{% trans "You can search for users in Role Database by school and group name. When you are satisfied with the search results you can select to which users you would like to send invitation tokens." %}</p>
 
-  <form action="" method="post" class="form-horizontal">
-    {% csrf_token %}
-    {% include "form_fields.html" with form=form horizontal=1 %}
-    <div class="form-group">
-      <div class="col-sm-offset-2 col-sm-10">
-        <button type="submit" class="btn btn-primary">{% trans "Search" %}</button>
-      </div>
+      {% if form.non_field_errors %}
+        <div class="alert alert-danger" role="alert">{{ form.non_field_errors }}</div>
+      {% endif %}
+
+      <form action="" method="post" class="form-horizontal">
+        {% csrf_token %}
+        {% include "form_fields.html" with form=form horizontal=1 %}
+        <div class="form-group">
+          <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn btn-primary">{% trans "Search" %}</button>
+          </div>
+        </div>
+      </form>
+
+      {% if invite_form %}
+        <h2>{% trans "Invite users" %}</h2>
+        <form action="{% url 'invite' %}" method="post">
+          {% csrf_token %}
+          <div class="form-group">
+            {% for field in invite_form %}
+              {{ field }}
+            {% endfor %}
+          </div>
+          <div class="form-group">
+            <button type="submit" class="btn btn-primary">{% trans "Invite" %}</button>
+          </div>
+        </form>
+      {% endif %}
+
     </div>
-  </form>
-
-  {% if invite_form %}
-    <h2>{% trans "Invite users" %}</h2>
-    <form action="{% url 'invite' %}" method="post">
-      {% csrf_token %}
-      <div class="form-group">
-        {% for field in invite_form %}
-          {{ field }}
-        {% endfor %}
-      </div>
-      <div class="form-group">
-        <button type="submit" class="btn btn-primary">{% trans "Invite" %}</button>
-      </div>
-    </form>
-  {% endif %}
-
+  </div>
 {% endblock %}

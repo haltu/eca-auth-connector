@@ -1,8 +1,14 @@
 {% extends "base.html" %}
 {% load i18n %}
 
+{% block nav-register %}active{% endblock %}
+
 {% block content %}
-  <h1>{% trans "Registration success" %}</h1>
-  <p>{% trans "The registration was successful." %}</p>
+  <div class="block">
+    <div class="container">
+      <h1>{% trans "Registration success" %}</h1>
+      <p>{% trans "The registration was successful." %}</p>
+    </div>
+  </div>
 {% endblock %}
 

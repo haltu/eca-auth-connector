@@ -1,29 +1,39 @@
 {% extends "base.html" %}
 {% load i18n %}
 
+{% block nav-profile %}active{% endblock %}
+
 {% block content %}
-  <div class="content-wrapper">
+  <div class="block">
+    <div class="container">
 
-    <h1>{% trans 'My authentication methods' %}</h1>
+      <div class="content-wrapper">
 
-    <table class="table">
-      <thead>
-        <th>{% trans 'Attribute name' %}</th>
-        <th>{% trans 'Attribute value' %}</th>
-        <th>{% trans 'Remove' %}</th>
-      </thead>
-      <tbody>
-        {% for attr in attributes %}
-          <tr>
-            <td>{{ attr.name }}</td>
-            <td>{{ attr.value }}</td>
-            <td><span class="glyphicon glyphicon-remove delete-attribute" aria-hidden="true" data-confirm-msg="{% trans 'Are you sure you want delete attribute ' %}" data-attribute="{{ attr.name }}" data-url="{% url 'api.attributes' %}"></span></td>
-          </tr>
-        {% endfor %}
-      </tbody>
-    </table>
-    <button type="button" class="btn btn-primary">{% trans 'Add' %}</button>
-    <a type="button" class="btn btn-primary" href="{% url 'mepin.info' %}">{% trans 'Associate MePin' %}</a>
+        <h1>{% trans 'My authentication methods' %}</h1>
+
+        <table class="table">
+          <thead>
+            <th>{% trans 'Attribute name' %}</th>
+            <th>{% trans 'Attribute value' %}</th>
+            <th>{% trans 'Remove' %}</th>
+          </thead>
+          <tbody>
+            {% for attr in attributes %}
+              <tr>
+                <td>{{ attr.name }}</td>
+                <td>{{ attr.value }}</td>
+                <td><span class="glyphicon glyphicon-remove delete-attribute" aria-hidden="true" data-confirm-msg="{% trans 'Are you sure you want delete attribute ' %}" data-attribute="{{ attr.name }}" data-url="{% url 'api.attributes' %}"></span></td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+
+        <button type="button" class="btn btn-primary">{% trans 'Add' %}</button>
+        <a type="button" class="btn btn-primary" href="{% url 'mepin.info' %}">{% trans 'Associate MePin' %}</a>
+
+      </div>
+
+    </div>
   </div>
 {% endblock %}
 
