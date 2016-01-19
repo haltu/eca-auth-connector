@@ -99,11 +99,11 @@ class AuthAssociateCallbackView(View):
     except AuthAssociationToken.DoesNotExist:
       #TODO: error page
       raise Http404
-    auth_method_name = request.session['request_meta'].get('HTTP_MPASS_AUTHENTICATOR', None)
+    auth_method_name = request.session['request_meta'].get('HTTP_AUTHENTICATOR', None)
     if not auth_method_name:
       LOG.error('Authentication association attempted but authentication method missing', extra={'data': {'meta': request.session['request_meta'], 'user': request.user.username}})
       return HttpResponse('Authentication method missing', status=400)
-    authn_id = request.session['request_meta'].get('HTTP_MPASS_AUTHNID', None)
+    authn_id = request.session['request_meta'].get('HTTP_AUTHNID', None)
     if not authn_id:
       LOG.error('Authentication association attempted but authentication id missing', extra={'data': {'meta': request.session['request_meta'], 'user': request.user.username}})
       return HttpResponse('Authentication id missing', status=400)

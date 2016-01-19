@@ -81,11 +81,11 @@ class RegisterUserView(View):
     f = RegisterForm({'token': request.session['registration_token']})
     if f.is_valid():
       meta = request.session.get('request_meta', {})
-      if 'HTTP_MPASS_AUTHNID' in meta and 'HTTP_MPASS_AUTHENTICATOR' in meta:
+      if 'HTTP_AUTHNID' in meta and 'HTTP_AUTHENTICATOR' in meta:
         token = f.cleaned_data['token']
         invitee = {
-          'eppn': meta.get('HTTP_MPASS_AUTHNID', None),
-          'auth_method': meta.get('HTTP_MPASS_AUTHENTICATOR', None),
+          'eppn': meta.get('HTTP_AUTHNID', None),
+          'auth_method': meta.get('HTTP_AUTHENTICATOR', None),
           }
         if token.register(token.user, **invitee):
           return HttpResponseRedirect(self.success_url)

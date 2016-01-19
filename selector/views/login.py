@@ -67,8 +67,8 @@ def login(request, template_name='registration/login.html',
         # We store the auth data in the session. It can be handy in
         # other parts of the site.
         keys = [
-          'HTTP_MPASS_AUTHENTICATOR',
-          'HTTP_MPASS_AUTHNID',
+          'HTTP_AUTHENTICATOR',
+          'HTTP_AUTHNID',
           'HTTP_MPASS_OID',
           'HTTP_MPASS_GIVENNAME',
           'HTTP_MPASS_SURNAME',
@@ -113,8 +113,8 @@ def user_redirect(request, redirect_field_name=REDIRECT_FIELD_NAME):
     return HttpResponse('Invalid redirect url', status=400)
 
   keys = [
-    'HTTP_MPASS_AUTHENTICATOR',
-    'HTTP_MPASS_AUTHNID',
+    'HTTP_AUTHENTICATOR',
+    'HTTP_AUTHNID',
   ]
   meta = request.session.get('request_meta', {})
   for k in keys:
