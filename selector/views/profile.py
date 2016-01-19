@@ -97,7 +97,6 @@ class AuthAssociateCallbackView(View):
     try:
       active_token = AuthAssociationToken.objects.get(token=token, is_used=False)
     except AuthAssociationToken.DoesNotExist:
-      #TODO: error page
       raise Http404
     auth_method_name = request.session['request_meta'].get('HTTP_AUTHENTICATOR', None)
     if not auth_method_name:
@@ -110,7 +109,10 @@ class AuthAssociateCallbackView(View):
 
     # Associate new authentication method to the active user account and redirect
     # back to the profile view
-    active_token.associate(auth_method_name, authn_id)
+    associate_success = active_token.associate(request.user, auth_method_name, authn_id)
+    if not associate_success:
+      return redirect('auth.associate.failed')
+
     return redirect('profile')
 
 

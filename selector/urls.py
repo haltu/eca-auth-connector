@@ -26,6 +26,7 @@
 
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
+from django.views.generic import TemplateView
 from selector.forms import AuthenticationForm
 
 admin.site.login_form = AuthenticationForm
@@ -58,6 +59,7 @@ urlpatterns = patterns('',
     url(r'^saml/mepin/$', MePinAssociateCallbackView.as_view(), name='mepin.callback'),
     url(r'^auth/associate$', AuthAssociateView.as_view(), name='auth.associate'),
     url(r'^auth/associate/callback/(?P<token>.*)$', AuthAssociateCallbackView.as_view(), name='auth.associate.callback'),
+    url(r'^auth/associate/failed$', TemplateView.as_view(template_name='associate_failed.html'), name='auth.associate'),
     url(r'^sysadmin/', include(admin.site.urls)),
     url(r'^api/1/me/attributes', AttributeAPIView.as_view(), name='api.attributes'),
 )

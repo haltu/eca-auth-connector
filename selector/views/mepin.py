@@ -106,7 +106,7 @@ class MePinAssociateCallbackView(TemplateView):
       if not mepin_id:
         #TODO: error page
         return HttpResponse('Missing Mepin ID', status=400)
-      active_token.associate('mepin', mepin_id)
+      active_token.associate(request.user, 'mepin', mepin_id)
       # MePin id successfully associated, render success page
       return super(MePinAssociateCallbackView, self).get(request, *args, **kwargs)
 

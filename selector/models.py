@@ -31,7 +31,8 @@ from django.db import models
 from django.core import validators
 from django.utils import timezone
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, UserManager
-from selector.roledb import roledb_client
+from selector.roledb import roledb_client, APIResponse
+
 
 class User(AbstractBaseUser, PermissionsMixin):
     """
@@ -179,14 +180,18 @@ class AuthAssociationToken(models.Model):
       self.token = ''.join([choice(string.letters + string.digits) for i in range(30)])
     return super(AuthAssociationToken, self).save(*args, **kwargs)
 
-  def associate(self, attr_name, attr_value):
+  def associate(self, user, attr_name, attr_value):
+    if not self.user == user:
+      return False
     data = {
       'user': self.user.username,
       'attribute': attr_name,
       'value': attr_value,
     }
-    #TODO: error handling
-    r = roledb_client('post', 'userattribute', data=data)
+    try:
+      r = roledb_client('post', 'userattribute', data=data)
+    except APIResponse:
+      return False
     self.is_used = True
     self.save()
     return True
