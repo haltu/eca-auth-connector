@@ -57,7 +57,7 @@ urlpatterns = patterns('',
   url(r'^saml/mepin/$', MePinAssociateCallbackView.as_view(), name='mepin.callback'),
   url(r'^auth/associate$', AuthAssociateView.as_view(), name='auth.associate'),
   url(r'^auth/associate/callback/(?P<token>.*)$', AuthAssociateCallbackView.as_view(), name='auth.associate.callback'),
-  url(r'^auth/associate/failed$', TemplateView.as_view(template_name='associate_failed.html'), name='auth.associate'),
+  url(r'^auth/associate/failed$', TemplateView.as_view(template_name='associate_failed.html'), name='auth.associate.failed'),
   url(r'^sysadmin/', include(admin.site.urls)),
   url(r'^api/1/me/attributes', AttributeAPIView.as_view(), name='api.attributes'),
 )
