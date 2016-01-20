@@ -26,6 +26,7 @@
 import logging
 from django.core.urlresolvers import reverse_lazy, reverse
 from django.http import HttpResponseRedirect, HttpResponse, Http404
+from django.shortcuts import redirect
 from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView
 from django.views.generic.base import View
@@ -69,14 +70,13 @@ class MePinAssociateView(View):
     return HttpResponseRedirect(url)
 
 
-class MePinAssociateCallbackView(TemplateView):
+class MePinAssociateCallbackView(View):
   """
   MePin registration flow end point. After completing login and/or registration in MePin,
   user will return with a MePin id SAML attribute to this view. The registration token is
   used to connect the MePin id to the original user account and write that
   attribute to auth-data service.
   """
-  template_name = 'mepin_associate_success.html'
 
   @method_decorator(login_required(login_url=reverse_lazy('login.admin')))
   def dispatch(self, request, *args, **kwargs):
@@ -106,8 +106,8 @@ class MePinAssociateCallbackView(TemplateView):
         # TODO: error page
         return HttpResponse('Missing Mepin ID', status=400)
       active_token.associate(request.user, 'mepin', mepin_id)
-      # MePin id successfully associated, render success page
-      return super(MePinAssociateCallbackView, self).get(request, *args, **kwargs)
+      # MePin id successfully associated, redirect to auth association success page
+      return redirect('auth.associate.success')
 
 # vim: tabstop=2 expandtab shiftwidth=2 softtabstop=2
 

@@ -113,7 +113,7 @@ class AuthAssociateCallbackView(View):
     if not associate_success:
       return redirect('auth.associate.failed')
 
-    return redirect('profile')
+    return redirect('auth.associate.success')
 
 
 

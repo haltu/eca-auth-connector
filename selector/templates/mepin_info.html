@@ -4,8 +4,9 @@
 {% block content %}
   <div class="block">
     <div class="container">
-      <h1>{% trans "MePin" %}</h1>
-      <p>{% trans "Associate your MePin ID to Educloud. You will be asked to log in to Educloud and then to MePin." %}</p>
+      <h1>{% trans "Associating services" %}</h1>
+      <p>{% trans "MPASS takes care of authentication using other services such as MePIN. This is a safe way for you, as you do not need to tell ECA any of the passwords to your existing services in order to use them for entering ECA." %}</p>
+      <p>{% trans "Press Continue and authenticate with MePIN. After this, you have associated the service, and can use it from now on for login into ECA." %}</p>
       <p><a class="btn btn-primary btn-lg" href="{% url 'mepin.associate' %}" role="button">{% trans "Start association" %}</a></p>
     </div>
   </div>
