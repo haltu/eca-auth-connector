@@ -22,26 +22,46 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
-# pylint: disable=locally-disabled, no-member
 
-from django.test import TestCase
+from django.test import TestCase, RequestFactory
 from selector.tests import factories as f
+import selector.views.base
 
 
-class TestSysadmin(TestCase):
+class TestBaseIndexView(TestCase):
 
   def setUp(self):
+    self.factory = RequestFactory()
     self.user = f.UserFactory(username='foo', password='bar')
-    self.user.is_staff = True
-    self.user.is_superuser = True
-    self.user.save()
-    self.client.login(username='foo', password='bar')
-    self.url = u'/sysadmin/'
 
-  def test_get(self):
-    response = self.client.get(self.url)
+  def test_get_context_data(self):
+    request = self.factory.get('/index')
+    request.user = self.user
+    view = selector.views.base.IndexView()
+    view.request = request
+    context = view.get_context_data()
+    self.assertEqual(context['user'], self.user)
+    self.assertEqual(context['meta'], request.META)
+    self.assertEqual(context['meta_keys'], request.META.keys())
+    response = selector.views.base.IndexView.as_view()(request)
     self.assertEqual(response.status_code, 200)
+    with self.assertTemplateUsed('index.html'):
+      response.render()
 
+
+class TestBasePermissionView(TestCase):
+
+  def setUp(self):
+    self.factory = RequestFactory()
+    self.user = f.UserFactory(username='foo', password='bar')
+
+  def test_get_context_data(self):
+    request = self.factory.get('/index')
+    request.user = self.user
+    response = selector.views.base.PermissionView.as_view()(request)
+    self.assertEqual(response.status_code, 200)
+    with self.assertTemplateUsed('permission.html'):
+      response.render()
 
 # vim: tabstop=2 expandtab shiftwidth=2 softtabstop=2
 
