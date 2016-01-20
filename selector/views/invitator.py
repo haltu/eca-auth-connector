@@ -1,19 +1,19 @@
 # -*- encoding: utf-8 -*-
 
 # The MIT License (MIT)
-# 
+#
 # Copyright (c) 2015 Haltu Oy, http://haltu.fi
-# 
+#
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
 # in the Software without restriction, including without limitation the rights
 # to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 # copies of the Software, and to permit persons to whom the Software is
 # furnished to do so, subject to the following conditions:
-# 
+#
 # The above copyright notice and this permission notice shall be included in
 # all copies or substantial portions of the Software.
-# 
+#
 # THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 # IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 # FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -21,7 +21,6 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
-#
 
 
 import logging
@@ -60,8 +59,8 @@ class SearchView(AdminLoginMixin, FormView):
     context = {
       'form': form,
       'invite_form': invite_form,
-      'data': json.dumps(users), # for debug
-      }
+      'data': json.dumps(users),  # for debug
+    }
     return self.render_to_response(self.get_context_data(**context))
 
 
@@ -78,20 +77,20 @@ class InviteView(AdminLoginMixin, FormView):
   def form_valid(self, form):
     tokens = []
     for u in form.cleaned_data['users']:
-      user,_ = User.objects.get_or_create(username=u)
+      user, _ = User.objects.get_or_create(username=u)
       request_meta = self.request.session.get('request_meta', {})
       issuer = {
         'issuer_oid': request_meta.get('HTTP_MPASS_OID', None),
         'issuer_auth_method': request_meta.get('HTTP_SHIB_AUTHENTICATION_METHOD', None),
-        }
+      }
       ts = user.create_register_tokens(**issuer)
       tokens.append(*ts)
-      #user.send_register_tokens() # This could be handled in a background task or cronjob
+      # user.send_register_tokens() # This could be handled in a background task or cronjob
     context = {
       'form': form,
       'search_form': SearchForm(),
       'tokens': tokens,
-      }
+    }
     self.template_name = self.success_template_name
     return self.render_to_response(self.get_context_data(**context))
 
@@ -110,4 +109,6 @@ class DebugView(AdminLoginMixin, TemplateView):
   @method_decorator(login_required(login_url=reverse_lazy('login.admin')))
   def dispatch(self, request, *args, **kwargs):
     return super(AdminLoginMixin, self).dispatch(request, *args, **kwargs)
+
+# vim: tabstop=2 expandtab shiftwidth=2 softtabstop=2
 

@@ -2,7 +2,7 @@
 
 # The MIT License (MIT)
 #
-# Copyright (c) 2015 Haltu Oy, http://haltu.fi
+# Copyright (c) 2014-2015 Haltu Oy, http://haltu.fi
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -21,6 +21,34 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
-#
 
+import sys
+from project.settings import *
+
+DEBUG = True
+TEMPLATE_DEBUG = True
+
+if 'test' in sys.argv:
+  DATABASES['default'] = {'ENGINE': 'django.db.backends.sqlite3', 'NAME': ':memory:'}
+  TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
+  BROKER_BACKEND = 'memory'
+  CELERY_ALWAYS_EAGER = True
+
+  PASSWORD_HASHERS = (
+    'django.contrib.auth.hashers.MD5PasswordHasher',
+    'django.contrib.auth.hashers.SHA1PasswordHasher',
+  )
+
+  EMAIL_BACKEND = 'django.core.mail.backend.locmem.EmailBackend'
+
+  NOSE_ARGS = [
+      '--verbosity=2',
+      '--detailed-errors',
+      '--nocapture',
+  ]
+
+# try:
+#   from local_settings import *
+# except ImportError:
+#   pass
 

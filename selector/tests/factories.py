@@ -1,8 +1,9 @@
-# -*- encoding: utf-8 -*-
+
+# -*- coding: utf-8 -*-
 
 # The MIT License (MIT)
 #
-# Copyright (c) 2015 Haltu Oy, http://haltu.fi
+# Copyright (c) 2014-2015 Haltu Oy, http://haltu.fi
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -23,4 +24,22 @@
 # THE SOFTWARE.
 #
 
+import string
+import factory
+import factory.fuzzy
+from selector import models
+
+
+class UserFactory(factory.django.DjangoModelFactory):
+  class Meta:
+    model = models.User
+
+  first_name = factory.Sequence(lambda n: 'First{0}'.format(n))
+  last_name = factory.Sequence(lambda n: 'Last{0}'.format(n))
+  email = factory.LazyAttribute(lambda u:
+      '{0}.{1}@example.com'.format(u.first_name, u.last_name))
+  username = factory.fuzzy.FuzzyText(length=11, chars=string.digits, prefix='1.2.246.562.24.')
+
+
+# vim: tabstop=2 expandtab shiftwidth=2 softtabstop=2
 
