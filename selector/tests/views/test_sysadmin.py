@@ -3,7 +3,7 @@
 
 # The MIT License (MIT)
 #
-# Copyright (c) 2014-2015 Haltu Oy, http://haltu.fi
+# Copyright (c) 2015 Haltu Oy, http://haltu.fi
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -22,43 +22,12 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
-# pylint: disable=locally-disabled, no-member, unused-argument, no-init, old-style-class, too-few-public-methods, unnecessary-lambda
+
+import mock
+from rest_framework.test import APITestCase
+from selector.tests import factories as f
 
 
-import string
-import factory
-import factory.fuzzy
-from selector import models
-
-
-class UserFactory(factory.django.DjangoModelFactory):
-  class Meta:
-    model = models.User
-
-  first_name = factory.Sequence(lambda n: 'First{0}'.format(n))
-  last_name = factory.Sequence(lambda n: 'Last{0}'.format(n))
-  email = factory.LazyAttribute(lambda u:
-      '{0}.{1}@example.com'.format(u.first_name, u.last_name))
-  username = factory.fuzzy.FuzzyText(length=11, chars=string.digits, prefix='1.2.246.562.24.')
-
-  @classmethod
-  def _create(cls, model_class, *args, **kwargs):
-    manager = cls._get_manager(model_class)
-    return manager.create_user(*args, **kwargs)
-
-
-class RegisterTokenFactory(factory.django.DjangoModelFactory):
-  class Meta:
-    model = models.RegisterToken
-
-  user = factory.SubFactory(UserFactory)
-
-
-class AuthAssociationTokenFactory(factory.django.DjangoModelFactory):
-  class Meta:
-    model = models.AuthAssociationToken
-
-  user = factory.SubFactory(UserFactory)
 
 # vim: tabstop=2 expandtab shiftwidth=2 softtabstop=2
 

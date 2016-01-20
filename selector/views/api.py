@@ -21,7 +21,7 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
-#
+# pylint: disable=too-few-public-methods
 
 
 import logging
@@ -45,7 +45,7 @@ class AttributeAPIView(UserLoginMixin, View):
   def post(self, request, *args, **kwargs):
     action = self.request.POST.get('action', None)
     name = self.request.POST.get('name', None)
-    value = self.request.POST.get('value', None)
+    #value = self.request.POST.get('value', None)
     user = self.request.user
 
     if action == 'delete':
@@ -66,8 +66,7 @@ class AttributeAPIView(UserLoginMixin, View):
       # add attribute with value
       # TODO: auth-data sets UserAttributes always for request.user
       pass
-    else:
-      return HttpResponse('Invalid action', status=400)
+    return HttpResponse('Invalid action', status=400)
 
 # vim: tabstop=2 expandtab shiftwidth=2 softtabstop=2
 
