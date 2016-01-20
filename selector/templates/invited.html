@@ -1,13 +1,19 @@
 {% extends "base.html" %}
 {% load i18n %}
 
+{% block nav-invite %}active{% endblock %}
+
 {% block content %}
-  <h1>{% trans "Invite users" %}</h1>
-  <p>{% trans "Invite successfull. Registration tokens have been sent for the users." %}</p>
-  <p>{% trans "Here are the registration tokens, for debugging purposes:" %}</p>
-  <ul>
-    {% for t in tokens %}
-      <li>{{ t.user }}: {{ t.method }} {{ t.token }}</li>
-    {% endfor %}
-  </ul>
+  <div class="block">
+    <div class="container">
+      <h1>{% trans "Invite users" %}</h1>
+      <p>{% trans "Invite successfull. Registration tokens have been sent for the users." %}</p>
+      <p>{% trans "Here are the registration tokens, for debugging purposes:" %}</p>
+      <ul>
+        {% for t in tokens %}
+          <li>{{ t.user }}: {{ t.method }} {{ t.token }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
 {% endblock %}
