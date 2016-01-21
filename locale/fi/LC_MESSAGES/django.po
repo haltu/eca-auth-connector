@@ -1,0 +1,374 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-01-21 14:22+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: project/settings.py:106
+msgid "Finnish"
+msgstr "Suomi"
+
+#: project/settings.py:107
+msgid "English"
+msgstr "Englanti"
+
+#: selector/admin.py:36
+msgid "Personal info"
+msgstr ""
+
+#: selector/admin.py:37
+msgid "Permissions"
+msgstr ""
+
+#: selector/admin.py:39
+msgid "Important dates"
+msgstr ""
+
+#: selector/forms.py:76 selector/forms.py:192
+msgid "Password"
+msgstr "Salasana"
+
+#: selector/forms.py:79
+#, python-format
+msgid ""
+"Please enter a correct %(username)s and password. Note that both fields may "
+"be case-sensitive."
+msgstr ""
+"Syötä oikea %(username)s ja salasana. Huomaa että molemmat kentät "
+"voivatsisältää isoja kirjaimia."
+
+#: selector/forms.py:81
+msgid "This account is inactive."
+msgstr "Tämä tili ei ole aktiivinen."
+
+#: selector/forms.py:149
+msgid "A user with that username already exists."
+msgstr "Tällä nimellä on jo olemassa käyttäjätili."
+
+#: selector/forms.py:150
+msgid "The two password fields didn't match."
+msgstr "Salasanakentät eivät täsmää."
+
+#: selector/forms.py:152 selector/forms.py:186
+msgid "Username"
+msgstr "Käyttäjätunnus"
+
+#: selector/forms.py:154 selector/forms.py:187 selector/models.py:43
+msgid "Required. 2048 characters or fewer. Letters, digits and @/./+/-/_ only."
+msgstr ""
+"Vaaditaan. 2048 merkkiä tai vähemmän. Ainoastaan kirjaimia, numeroita ja @/./"
+"+/-/_"
+
+#: selector/forms.py:157 selector/forms.py:190
+msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
+msgstr ""
+"Tämä arvo voi sisältää ainoastaan kirjaimia, numeroita tai merkkejä @/./+/-/"
+"_."
+
+#: selector/forms.py:193
+msgid ""
+"Raw passwords are not stored, so there is no way to see this user's "
+"password, but you can change the password using <a href=\"password/\">this "
+"form</a>."
+msgstr ""
+
+#: selector/models.py:42
+msgid "username"
+msgstr "käyttäjätunnus"
+
+#: selector/models.py:46
+msgid "Enter a valid username."
+msgstr "Syötä hyväksyttävä käyttäjätunnus."
+
+#: selector/models.py:48
+msgid "first name"
+msgstr "etunimi"
+
+#: selector/models.py:49
+msgid "last name"
+msgstr "sukunimi"
+
+#: selector/models.py:50
+msgid "email address"
+msgstr "sähköpostiosoite"
+
+#: selector/models.py:51
+msgid "staff status"
+msgstr ""
+
+#: selector/models.py:52
+msgid "Designates whether the user can log into this admin site."
+msgstr ""
+
+#: selector/models.py:54
+msgid "active"
+msgstr ""
+
+#: selector/models.py:55
+msgid ""
+"Designates whether this user should be treated as active. Unselect this "
+"instead of deleting accounts."
+msgstr ""
+
+#: selector/models.py:57
+msgid "date joined"
+msgstr ""
+
+#: selector/models.py:65
+msgid "user"
+msgstr ""
+
+#: selector/models.py:66
+msgid "users"
+msgstr ""
+
+#: selector/models.py:111
+msgid "#method-email"
+msgstr ""
+
+#: selector/models.py:141
+msgid "#register-email-from-address"
+msgstr ""
+
+#: selector/models.py:142
+msgid "#registration-email-subject"
+msgstr ""
+
+#: selector/templates/base.html:8
+msgid "Educloud Alliance Connector Service"
+msgstr "Educloud Alliance Linkitin"
+
+#: selector/templates/base.html:29 selector/templates/base_info.html:8
+msgid "Connector"
+msgstr "Linkitin"
+
+#: selector/templates/base.html:33 selector/templates/search.html:23
+msgid "Search"
+msgstr "Hae"
+
+#: selector/templates/base.html:34 selector/templates/invite.html:26
+#: selector/templates/search.html:38
+msgid "Invite"
+msgstr "Kutsu"
+
+#: selector/templates/base.html:35 selector/templates/register.html:22
+msgid "Register"
+msgstr "Rekisteröidy"
+
+#: selector/templates/base.html:36 selector/templates/base_info.html:50
+msgid "Profile"
+msgstr "Profiili"
+
+#: selector/templates/base.html:37 selector/templates/base_info.html:47
+#: selector/templates/base_info.html:51
+msgid "Debug"
+msgstr ""
+
+#: selector/templates/base_info.html:9
+msgid ""
+"Educloud Alliance Connector service for inviting and registering new users."
+msgstr ""
+"Educloud Alliancen Linkitin on palvelu jonka avulla voi kutsua ja "
+"rekisteröidä uusia käyttäjiä."
+
+#: selector/templates/base_info.html:10
+msgid "Learn more about Educloud Alliance"
+msgstr "Lue lisää Educloud Alliancesta"
+
+#: selector/templates/base_info.html:22
+msgid "Invitator"
+msgstr "Kutsuja"
+
+#: selector/templates/base_info.html:24
+msgid ""
+"Invitator invites new users to the system by acting as trusted party and "
+"identifying the user."
+msgstr ""
+"Kutsuja kutsuu uusia käyttäjiä järjestelmään toimimalla luotettavana tahona "
+"ja tunnistamalla käyttäjän."
+
+#: selector/templates/base_info.html:26
+msgid "Invitee search"
+msgstr "Kutsuttavan haku"
+
+#: selector/templates/base_info.html:27
+msgid "Send registration tokens"
+msgstr "Lähetä rekisteröintitunniste"
+
+#: selector/templates/base_info.html:35
+msgid "Invitee"
+msgstr "Kutsuttava"
+
+#: selector/templates/base_info.html:37
+msgid ""
+"Invitee joins the system by authenticating with some auth source and using "
+"the registration token acquired by invitator."
+msgstr ""
+"Kutsuttava liittyy järjestelmään tunnistautumalla jonkin tunnistuspalvelun "
+"avulla ja käyttämällä kutsujan toimittamaa rekisteröintitunnistetta."
+
+#: selector/templates/base_info.html:39
+msgid "Use registration token"
+msgstr "Käytä rekisteröintitunniste"
+
+#: selector/templates/debug.html:9
+msgid "Debug information"
+msgstr ""
+
+#: selector/templates/forms/inviteform_user.html:15
+msgid "Municipality"
+msgstr "Kunta"
+
+#: selector/templates/forms/inviteform_user.html:16
+msgid "School"
+msgstr "Koulu"
+
+#: selector/templates/forms/inviteform_user.html:17
+msgid "Role"
+msgstr "Rooli"
+
+#: selector/templates/forms/inviteform_user.html:18
+msgid "Group"
+msgstr "Ryhmä"
+
+#: selector/templates/forms/inviteform_user.html:30
+msgid "No users were found"
+msgstr "Käyttäjiä ei löytynyt"
+
+#: selector/templates/invite.html:10 selector/templates/invited.html:9
+#: selector/templates/search.html:29
+msgid "Invite users"
+msgstr "Kutsu käyttäjiä"
+
+#: selector/templates/invite.html:12
+msgid ""
+"Your previous search result is remembered and you can select to which users "
+"you would like to send invitation tokens."
+msgstr ""
+"Aikaisempi hakutuloksesti on muistissa ja voit valita käyttäjät joille "
+"haluat lähettää rekisteröintitunnisteet."
+
+#: selector/templates/invited.html:10
+msgid "Invite successfull. Registration tokens have been sent for the users."
+msgstr "Kutsu onnistui. Rekisteröintitunnisteet on lähetetty käyttäjille."
+
+#: selector/templates/invited.html:11
+msgid "Here are the registration tokens, for debugging purposes:"
+msgstr "Tässä ovat rekisteröintitunnisteet virheentarkistusta varten:"
+
+#: selector/templates/mepin_associate_success.html:7
+msgid "MePin association success"
+msgstr "MePIN on liitetty onnistuneesti"
+
+#: selector/templates/mepin_associate_success.html:8
+msgid ""
+"Your MePin ID was successfully associated. You may now log in with MePin."
+msgstr ""
+"MePIN ID:si on liitetty onnistuneesti. Voit nyt kirjautua sisään MePINin "
+"avulla."
+
+#: selector/templates/mepin_info.html:7
+msgid "MePin"
+msgstr "MePIN"
+
+#: selector/templates/mepin_info.html:8
+msgid ""
+"Associate your MePin ID to Educloud. You will be asked to log in to Educloud "
+"and then to MePin."
+msgstr ""
+"Liitä MePIN ID:si Educloudiin. Sinua pyydetään seuraavaksi kirjautumaan "
+"MePIN-järjestelmään."
+
+#: selector/templates/mepin_info.html:9
+msgid "Start association"
+msgstr "Aloita liittäminen"
+
+#: selector/templates/permission.html:7
+msgid "Permission denied"
+msgstr "Lupa evätty"
+
+#: selector/templates/permission.html:8
+msgid ""
+"You need to have permissions to access any other than registration token "
+"page."
+msgstr ""
+"Sinulla täytyy olla lupa muiden kuin rekisteröintitunnistesivun käyttöön."
+
+#: selector/templates/profile.html:12
+msgid "My authentication methods"
+msgstr "Minun tunnistautumistapani"
+
+#: selector/templates/profile.html:16
+msgid "Attribute name"
+msgstr "Tunnistautumistavan nimi"
+
+#: selector/templates/profile.html:17
+msgid "Attribute value"
+msgstr ""
+
+#: selector/templates/profile.html:18
+msgid "Remove"
+msgstr "Poista"
+
+#: selector/templates/profile.html:25
+msgid "Are you sure you want delete attribute "
+msgstr "Oletko varma että haluat poistaa tunnistautumistavan "
+
+#: selector/templates/profile.html:31
+msgid "Add"
+msgstr "Lisää"
+
+#: selector/templates/profile.html:32
+msgid "Associate MePin"
+msgstr "Liitä MePIN"
+
+#: selector/templates/register.html:10
+msgid "Register with token"
+msgstr "Rekisteröidy tunnisteella"
+
+#: selector/templates/register.html:12
+msgid "You've received registration token. Enter it below."
+msgstr "Olet saanut rekisteröintitunnisteen. Syötä se alle."
+
+#: selector/templates/register_failed.html:9
+msgid "Registration failed"
+msgstr "Rekisteröinti epäonnistui"
+
+#: selector/templates/register_failed.html:10
+msgid "There was some problem with your token."
+msgstr "Tunnisteessasi oli ongelma."
+
+#: selector/templates/register_success.html:9
+msgid "Registration success"
+msgstr "Rekisteröinti onnistui"
+
+#: selector/templates/register_success.html:10
+msgid "The registration was successful."
+msgstr "Olet rekisteröitynyt palveluun onnistuneesti."
+
+#: selector/templates/search.html:10
+msgid "Search for users"
+msgstr "Etsi käyttäjiä"
+
+#: selector/templates/search.html:12
+msgid ""
+"You can search for users in Role Database by school and group name. When you "
+"are satisfied with the search results you can select to which users you "
+"would like to send invitation tokens."
+msgstr ""
+"Voit etsiä käyttäjiä kunnan, koulun ja ryhmän nimillä. Kun olet tyytyväinen "
+"hakutuloksiin voit valita mille käyttäjille haluat lähettää kutsun."
