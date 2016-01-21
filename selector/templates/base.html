@@ -1,6 +1,6 @@
 {% load i18n %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="content-size-3">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,7 +8,7 @@
     <title>{% trans "Educloud Alliance Connector Service" %}</title>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400italic,600,600italic|Roboto:900,900italic,700italic,700,300,300italic' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="{{ STATIC_URL }}css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/bootstrap.css">
     <link rel="stylesheet" href="{{ STATIC_URL }}css/main.css">
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -18,6 +18,14 @@
     <![endif]-->
   </head>
   <body>
+    <div class="darkbar">
+      <div class="container">
+        <div class="content-sizer">
+          <div class="content-sizer-action content-sizer-decrease">A-</div>
+          <div class="content-sizer-action content-sizer-increase">A+</div>
+        </div>
+      </div>
+    </div>
     <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container">
         <div class="navbar-header">
@@ -45,33 +53,6 @@
     <script src="{{ STATIC_URL }}js/jquery.min.js"></script>
     <script src="{{ STATIC_URL }}js/bootstrap.min.js"></script>
     <script src="{{ STATIC_URL }}js/main.js"></script>
-    <script>
-      $(function () {
-
-        var
-        $inviteList = $('.invite-list'),
-        $items = $inviteList.find('.invite-item');
-
-        $items.on('click', function (e) {
-
-          var
-          $this = $(this),
-          sectionId = $this.attr('data-id'),
-          $sections = $items.filter('[data-id="' + sectionId + '"]'),
-          $checkbox = $sections.find('input[type="checkbox"]');
-
-          // Toggle checkbox
-          if (!$(e.target).is($checkbox)) {
-            $checkbox.prop('checked', !$checkbox.prop('checked'));
-          }
-
-          // Toggle item sections class
-          $sections.toggleClass('active');
-
-        });
-
-      });
-    </script>
   </body>
 </html>
 
