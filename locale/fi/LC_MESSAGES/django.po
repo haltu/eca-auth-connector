@@ -306,7 +306,7 @@ msgid ""
 "You need to have permissions to access any other than registration token "
 "page."
 msgstr ""
-"Sinulla täytyy olla lupa muiden kuin rekisteröintitunnistesivun käyttöön."
+"Sinulla täytyy olla lupa kutsujen lähettämiseen."
 
 #: selector/templates/profile.html:12
 msgid "My authentication methods"
