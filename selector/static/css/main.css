@@ -23,9 +23,13 @@ body {
   font-size: 1.8rem;
   line-height: 1.5;
   background: #fff;
-  padding-top: 5.0rem;
-  padding-bottom: 7.0rem;
+  padding-top: 7.6rem;
+  padding-bottom: 5.0rem;
   -webkit-font-smoothing: antialiased;
+}
+html.no-header body {
+  padding-top: 0;
+  padding-bottom: 0;
 }
 ::-moz-selection {
   background: #e02271;
@@ -185,6 +189,7 @@ a:hover {
 .h3, h3,
 .h4, h4 {
   font-family: "Roboto", "Helvetica Neue", Arial, helvetica, sans-serif;
+  word-break: break-word;
 }
 .h1, h1 {
   font-weight: 900;
@@ -254,6 +259,18 @@ ol, ul {
   font-weight: 600;
   text-transform: uppercase;
   text-decoration: none;
+  height: 4.4rem;
+  padding: 1.2rem 1.5rem;
+}
+@media (max-width: 47.9375rem) {
+  .navbar-inverse .navbar-brand {
+    display: inline-block;
+    max-width: 100%;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    padding-right: 7.5rem;
+  }
 }
 .navbar-inverse .navbar-brand:visited,
 .navbar-inverse .navbar-brand:active,
@@ -264,10 +281,6 @@ ol, ul {
 .navbar-inverse .navbar-brand:hover {
   color: #e02271;
   text-decoration: none;
-}
-.navbar-brand {
-  height: 4.4rem;
-  padding: 1.2rem 1.5rem;
 }
 .navbar-inverse .navbar-nav > li > a {
   color: #333;
@@ -289,6 +302,28 @@ ol, ul {
   background: #e02271;
   color: #fff;
   text-decoration: none;
+}
+.navbar-inverse .navbar-nav > .login-link > a {
+  text-transform: none;
+}
+.navbar-inverse .navbar-nav > .login-link > a:focus,
+.navbar-inverse .navbar-nav > .login-link > a:hover {
+  background: #0d92ff;
+  color: #fff;
+}
+.navbar-inverse .navbar-nav > .login-link > a > span {
+  display: inline-block;
+  width: 2.8rem;
+  height: 2.8rem;
+  line-height: 2.8rem;
+  margin-top: -0.6rem;
+  margin-bottom: -0.6rem;
+  margin-right: 0.7rem;
+  font-size: 1.4rem;
+  text-align: center;
+  background: #0d92ff;
+  color: #fff;
+  border-radius: 50%;
 }
 @media (max-width: 47.9375rem) {
   .navbar-inverse .navbar-collapse,
@@ -313,6 +348,18 @@ ol, ul {
     color: #fff;
     text-decoration: none;
   }
+  .navbar-inverse .navbar-nav > .login-link > a {
+    background: #0d92ff;
+    color: #fff;
+  }
+  .navbar-inverse .navbar-nav > .login-link > a:focus,
+  .navbar-inverse .navbar-nav > .login-link > a:hover {
+    background: #0B80E0;
+    color: #fff;
+  }
+  .navbar-inverse .navbar-nav > .login-link > a > span {
+    background: transparent;
+  }
 }
 .navbar-toggle {
   padding: 1.5rem 1.0rem;
@@ -320,6 +367,14 @@ ol, ul {
   margin-bottom: 0;
   border: 0;
   border-radius: 0;
+}
+@media (max-width: 47.9375rem) {
+  .navbar-toggle {
+    position: absolute;
+    right: 0;
+    top: 0;
+    float: none;
+  }
 }
 .navbar-inverse .navbar-toggle:focus,
 .navbar-inverse .navbar-toggle:hover {
@@ -488,6 +543,12 @@ ol, ul {
 
 .delete-attribute {
   cursor: pointer;
+  font-size: 24px;
+}
+.delete-attribute:hover,
+.delete-attribute:focus {
+  text-decoration: none;
+  color: #e02271;
 }
 
 /* Block */
@@ -519,12 +580,28 @@ ol, ul {
   font-weight: 300;
   margin: 0;
 }
+@media (max-width: 47.9375rem) {
+  .block.splash h1 {
+    font-size: 3.0rem;
+  }
+}
 .splash-description {
   margin-top: 1.5rem;
   font-size: 2.0rem;
+  word-break: break-word;
+}
+@media (max-width: 47.9375rem) {
+  .splash-description {
+    font-size: 1.8rem;
+  }
 }
 .splash-actions {
   margin-top: 4.0rem;
+}
+@media (max-width: 47.9375rem) {
+  .splash-actions {
+    margin-top: 2.0rem;
+  }
 }
 .splash-actions .btn:last-child {
   margin-right: 0;
@@ -555,3 +632,89 @@ ol, ul {
   }
 }
 .featbox-content {}
+
+/* Auth modal */
+
+#auth-modal {}
+#auth-modal .modal-dialog {
+  position: absolute;
+  width: 95.2rem;
+  height: auto;
+  top: 2.0rem;
+  bottom: 2.0rem;
+  left: 50%;
+  margin: 0;
+  padding: 0;
+  margin-left: -47.6rem;
+}
+#auth-modal .modal-content {
+  height: 100%;
+  border-radius: 0;
+}
+#auth-modal .modal-header {
+  position: relative;
+  z-index: 2;
+  height: 56px;
+  border: 0;
+  background: #e02271;
+  color: #fff;
+}
+#auth-modal .modal-header .close {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  margin: 0;
+  margin-top: -20px;
+  display: inline-block;
+  height: 40px;
+  width: 40px;
+  line-height: 40px;
+  padding: 0;
+  color: #fff;
+  font-size: 40px;
+  filter: alpha(opacity=70);
+  opacity: .7;
+  cursor: pointer;
+}
+#auth-modal .modal-header .close:hover,
+#auth-modal .modal-header .close:focus {
+  color: #fff;
+  filter: alpha(opacity=100);
+  opacity: 1;
+}
+#auth-modal .modal-body {
+  height: 100%;
+  margin-top: -5.6rem;
+  padding: 0;
+  z-index: 1;
+  background-color: #fff;
+}
+#auth-modal .auth-iframe-container {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 5.6rem;
+  bottom: 0;
+  overflow: hidden;
+}
+#auth-modal .auth-iframe {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  border: 5px solid #e02271;
+}
+@media (max-width: 61.9375rem) {
+  #auth-modal .modal-dialog {
+    position: absolute;
+    width: auto;
+    height: auto;
+    top: 2.0rem;
+    bottom: 2.0rem;
+    left: 2.0rem;
+    right: 2.0rem;
+    margin: 0;
+    padding: 0;
+  }
+}
