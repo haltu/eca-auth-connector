@@ -21,7 +21,6 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
-#
 
 
 import logging
@@ -60,11 +59,11 @@ class MePinAssociateView(View):
     return super(MePinAssociateView, self).dispatch(request, *args, **kwargs)
 
   def get(self, request, *args, **kwargs):
-    #TODO: Check if user already has a mepin id associated?
+    # TODO: Check if user already has a mepin id associated?
     # user has come without a token - start flow by generating a token
     token = AuthAssociationToken.objects.create(user=request.user)
     return_url = reverse('mepin.callback') + '?token=' + token.token
-    #url = '/saml/mepin/Shibboleth.sso/Login?forceAuthn=True&target={return_url}'.format(return_url=urlquote(return_url))
+    # url = '/saml/mepin/Shibboleth.sso/Login?forceAuthn=True&target={return_url}'.format(return_url=urlquote(return_url))
     # urlquote is disabled because Shibboleth or MePin idp does not seem to properly decode the target url
     url = reverse('mepin.callback') + 'Shibboleth.sso/Login?forceAuthn=True&target={return_url}'.format(return_url=return_url)
     return HttpResponseRedirect(url)
@@ -89,7 +88,7 @@ class MePinAssociateCallbackView(TemplateView):
       # user has come without a token - start flow by generating a token
       token = AuthAssociationToken.objects.create(user=request.user)
       return_url = reverse('mepin.callback') + '?token=' + token.token
-      #url = '/saml/mepin/Shibboleth.sso/Login?forceAuthn=True&target={return_url}'.format(return_url=urlquote(return_url))
+      # url = '/saml/mepin/Shibboleth.sso/Login?forceAuthn=True&target={return_url}'.format(return_url=urlquote(return_url))
       # urlquote is disabled because Shibboleth or MePin idp does not seem to properly decode the target url
       url = reverse('mepin.callback') + 'Shibboleth.sso/Login?forceAuthn=True&target={return_url}'.format(return_url=return_url)
       return HttpResponseRedirect(url)
@@ -99,12 +98,12 @@ class MePinAssociateCallbackView(TemplateView):
       try:
         active_token = AuthAssociationToken.objects.get(token=token, is_used=False)
       except AuthAssociationToken.DoesNotExist:
-        #TODO: error page
+        # TODO: error page
         raise Http404
-      #TODO: Check MePin SAML Attribute name
+      # TODO: Check MePin SAML Attribute name
       mepin_id = request.META.get('HTTP_MEPIN_ID', None)
       if not mepin_id:
-        #TODO: error page
+        # TODO: error page
         return HttpResponse('Missing Mepin ID', status=400)
       active_token.associate('mepin', mepin_id)
       # MePin id successfully associated, render success page
