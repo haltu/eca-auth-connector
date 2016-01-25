@@ -23,8 +23,8 @@ body {
   font-size: 1.8rem;
   line-height: 1.5;
   background: #fff;
-  padding-top: 5.0rem;
-  padding-bottom: 7.0rem;
+  padding-top: 7.6rem;
+  padding-bottom: 5.0rem;
   -webkit-font-smoothing: antialiased;
 }
 ::-moz-selection {
@@ -185,6 +185,7 @@ a:hover {
 .h3, h3,
 .h4, h4 {
   font-family: "Roboto", "Helvetica Neue", Arial, helvetica, sans-serif;
+  word-break: break-word;
 }
 .h1, h1 {
   font-weight: 900;
@@ -254,6 +255,18 @@ ol, ul {
   font-weight: 600;
   text-transform: uppercase;
   text-decoration: none;
+  height: 4.4rem;
+  padding: 1.2rem 1.5rem;
+}
+@media (max-width: 47.9375rem) {
+  .navbar-inverse .navbar-brand {
+    display: inline-block;
+    max-width: 100%;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    padding-right: 7.5rem;
+  }
 }
 .navbar-inverse .navbar-brand:visited,
 .navbar-inverse .navbar-brand:active,
@@ -264,10 +277,6 @@ ol, ul {
 .navbar-inverse .navbar-brand:hover {
   color: #e02271;
   text-decoration: none;
-}
-.navbar-brand {
-  height: 4.4rem;
-  padding: 1.2rem 1.5rem;
 }
 .navbar-inverse .navbar-nav > li > a {
   color: #333;
@@ -289,6 +298,28 @@ ol, ul {
   background: #e02271;
   color: #fff;
   text-decoration: none;
+}
+.navbar-inverse .navbar-nav > .login-link > a {
+  text-transform: none;
+}
+.navbar-inverse .navbar-nav > .login-link > a:focus,
+.navbar-inverse .navbar-nav > .login-link > a:hover {
+  background: #0d92ff;
+  color: #fff;
+}
+.navbar-inverse .navbar-nav > .login-link > a > span {
+  display: inline-block;
+  width: 2.8rem;
+  height: 2.8rem;
+  line-height: 2.8rem;
+  margin-top: -0.6rem;
+  margin-bottom: -0.6rem;
+  margin-right: 0.7rem;
+  font-size: 1.4rem;
+  text-align: center;
+  background: #0d92ff;
+  color: #fff;
+  border-radius: 50%;
 }
 @media (max-width: 47.9375rem) {
   .navbar-inverse .navbar-collapse,
@@ -313,6 +344,18 @@ ol, ul {
     color: #fff;
     text-decoration: none;
   }
+  .navbar-inverse .navbar-nav > .login-link > a {
+    background: #0d92ff;
+    color: #fff;
+  }
+  .navbar-inverse .navbar-nav > .login-link > a:focus,
+  .navbar-inverse .navbar-nav > .login-link > a:hover {
+    background: #0B80E0;
+    color: #fff;
+  }
+  .navbar-inverse .navbar-nav > .login-link > a > span {
+    background: transparent;
+  }
 }
 .navbar-toggle {
   padding: 1.5rem 1.0rem;
@@ -320,6 +363,14 @@ ol, ul {
   margin-bottom: 0;
   border: 0;
   border-radius: 0;
+}
+@media (max-width: 47.9375rem) {
+  .navbar-toggle {
+    position: absolute;
+    right: 0;
+    top: 0;
+    float: none;
+  }
 }
 .navbar-inverse .navbar-toggle:focus,
 .navbar-inverse .navbar-toggle:hover {
@@ -519,12 +570,28 @@ ol, ul {
   font-weight: 300;
   margin: 0;
 }
+@media (max-width: 47.9375rem) {
+  .block.splash h1 {
+    font-size: 3.0rem;
+  }
+}
 .splash-description {
   margin-top: 1.5rem;
   font-size: 2.0rem;
+  word-break: break-word;
+}
+@media (max-width: 47.9375rem) {
+  .splash-description {
+    font-size: 1.8rem;
+  }
 }
 .splash-actions {
   margin-top: 4.0rem;
+}
+@media (max-width: 47.9375rem) {
+  .splash-actions {
+    margin-top: 2.0rem;
+  }
 }
 .splash-actions .btn:last-child {
   margin-right: 0;

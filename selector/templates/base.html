@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{% trans "MPASS Connector Service" %}</title>
+    <title>{% trans "Educloud Alliance Connector Service" %}</title>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400italic,600,600italic|Roboto:900,900italic,700italic,700,300,300italic' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="{{ STATIC_URL }}css/bootstrap.css">
@@ -34,15 +34,20 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="/">{% trans "Connector" %}</a>
+          <a class="navbar-brand" href="/">{% trans "MPASS" %}</a>
         </div>
         <div class="collapse navbar-collapse" id="navbar">
           <ul class="nav navbar-nav navbar-right">
-            <li class="{% block nav-search %}{% endblock %}"><a href="/search">{% trans "Search" %}</a></li>
-            <li class="{% block nav-invite %}{% endblock %}"><a href="/invite">{% trans "Invite" %}</a></li>
+            {% if user.is_authenticated %}
+              <li class="{% block nav-search %}{% endblock %}"><a href="/search">{% trans "Search" %}</a></li>
+              <li class="{% block nav-invite %}{% endblock %}"><a href="/invite">{% trans "Invite" %}</a></li>
+              <li class="{% block nav-profile %}{% endblock %}"><a href="/profile">{% trans "Profile" %}</a></li>
+            {% endif %}
             <li class="{% block nav-register %}{% endblock %}"><a href="/register">{% trans "Register" %}</a></li>
-            <li class="{% block nav-profile %}{% endblock %}"><a href="/profile">{% trans "Profile" %}</a></li>
             <li class="{% block nav-debug %}{% endblock %}"><a href="/debug">{% trans "Debug" %}</a></li>
+            {% if not user.is_authenticated %}
+              <li class="login-link"><a href="{% url 'login.admin' %}"><span class="glyphicon glyphicon-log-in"></span>{% trans "Log in" %}</a></li>
+            {% endif %}
           </ul>
         </div>
       </div>
