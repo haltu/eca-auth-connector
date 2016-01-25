@@ -22,10 +22,12 @@
             <h3 class="featbox-title">{% trans "Invitator" %}</h3>
             <div class="featbox-content">
               <p>{% trans "Invitator invites new users to the system by acting as trusted party and identifying the user." %}</p>
-              <ul>
-                <li><a href="/search">{% trans "Invitee search" %}</a>
-                <li><a href="/invite">{% trans "Send registration tokens" %}</a>
-              </ul>
+              {% if user.is_authenticated %}
+                <ul>
+                  <li><a href="/search">{% trans "Invitee search" %}</a>
+                  <li><a href="/invite">{% trans "Send registration tokens" %}</a>
+                </ul>
+              {% endif %}
             </div>
           </div>
         </div>
@@ -47,7 +49,9 @@
             <h3 class="featbox-title">{% trans "Debug" %}</h3>
             <div class="featbox-content">
               <ul>
-                <li><a href="/profile">{% trans "Profile" %}</a>
+                {% if user.is_authenticated %}
+                  <li><a href="/profile">{% trans "Profile" %}</a>
+                {% endif %}
                 <li><a href="/debug">{% trans "Debug" %}</a>
               </ul>
             </div>

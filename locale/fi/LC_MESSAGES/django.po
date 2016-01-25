@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-01-21 14:22+0000\n"
+"POT-Creation-Date: 2016-01-22 12:12+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -149,45 +149,49 @@ msgid "#registration-email-subject"
 msgstr ""
 
 #: selector/templates/base.html:8
-msgid "Educloud Alliance Connector Service"
-msgstr "Educloud Alliance Linkitin"
+#| msgid "Educloud Alliance Connector Service"
+msgid "MPASS Connector Service"
+msgstr "MPASS tunnistusvälineiden hallinta"
 
-#: selector/templates/base.html:29 selector/templates/base_info.html:8
+#: selector/templates/base.html:37 selector/templates/base_info.html:8
 msgid "Connector"
-msgstr "Linkitin"
+msgstr "Tunnistusvälineiden hallinta"
 
-#: selector/templates/base.html:33 selector/templates/search.html:23
+#: selector/templates/base.html:41 selector/templates/search.html:23
 msgid "Search"
 msgstr "Hae"
 
-#: selector/templates/base.html:34 selector/templates/invite.html:26
+#: selector/templates/base.html:42 selector/templates/invite.html:26
 #: selector/templates/search.html:38
 msgid "Invite"
 msgstr "Kutsu"
 
-#: selector/templates/base.html:35 selector/templates/register.html:22
+#: selector/templates/base.html:43 selector/templates/register.html:22
 msgid "Register"
 msgstr "Rekisteröidy"
 
-#: selector/templates/base.html:36 selector/templates/base_info.html:50
+#: selector/templates/base.html:44 selector/templates/base_info.html:50
 msgid "Profile"
 msgstr "Profiili"
 
-#: selector/templates/base.html:37 selector/templates/base_info.html:47
+#: selector/templates/base.html:45 selector/templates/base_info.html:47
 #: selector/templates/base_info.html:51
 msgid "Debug"
 msgstr ""
 
 #: selector/templates/base_info.html:9
-msgid ""
-"Educloud Alliance Connector service for inviting and registering new users."
+#| msgid ""
+#| "Educloud Alliance Connector service for inviting and registering new "
+#| "users."
+msgid "MPASS Connector service for inviting and registering new users."
 msgstr ""
-"Educloud Alliancen Linkitin on palvelu jonka avulla voi kutsua ja "
+"MPASS tunnistusvälineiden hallinta on palvelu jonka avulla voi kutsua ja "
 "rekisteröidä uusia käyttäjiä."
 
 #: selector/templates/base_info.html:10
-msgid "Learn more about Educloud Alliance"
-msgstr "Lue lisää Educloud Alliancesta"
+#| msgid "Learn more about Educloud Alliance"
+msgid "Learn more about MPASS"
+msgstr "Lue lisää MPASSista"
 
 #: selector/templates/base_info.html:22
 msgid "Invitator"
@@ -305,8 +309,7 @@ msgstr "Lupa evätty"
 msgid ""
 "You need to have permissions to access any other than registration token "
 "page."
-msgstr ""
-"Sinulla täytyy olla lupa muiden kuin rekisteröintitunnistesivun käyttöön."
+msgstr "Sinulla täytyy olla lupa kutsujen lähettämiseen."
 
 #: selector/templates/profile.html:12
 msgid "My authentication methods"
