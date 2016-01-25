@@ -1,23 +1,24 @@
 {% extends "base_info.html" %}
 
 {% block page %}
-  <div class="jumbotron">
-    <h2>Welcome, new unknown user!</h2>
-    <p>You authenticated successfully, but you are not yet known in the Data Service. You should contact <a href="http://portal.educloudalliance.org">Educloud Alliance</a> and request access.</p>
-    <ul>
-      <li>HTTP_USER_IDENTITY: {{ meta.HTTP_USER_IDENTITY }}</li>
-      <li>HTTP_AUTHENTICATOR: {{ meta.HTTP_AUTHENTICATOR }}</li>
-      <li>HTTP_AUTHNID: {{ meta.HTTP_AUTHNID }}</li>
-      <li>HTTP_MPASS_OID: {{ meta.HTTP_MPASS_OID }}</li>
-      <li>HTTP_MPASS_GIVENNAME: {{ meta.HTTP_MPASS_GIVENNAME }}</li>
-      <li>HTTP_MPASS_SURNAME: {{ meta.HTTP_MPASS_SURNAME }}</li>
-      <li>HTTP_MPASS_GROUP: {{ meta.HTTP_MPASS_GROUP }}</li>
-      <li>HTTP_MPASS_ROLE: {{ meta.HTTP_MPASS_ROLE }}</li>
-      <li>HTTP_MPASS_SCHOOL: {{ meta.HTTP_MPASS_SCHOOL }}</li>
-      <li>HTTP_MPASS_MUNICIPALITY: {{ meta.HTTP_MPASS_MUNICIPALITY }}</li>
-
-      <li>HTTP_SHIB_AUTHENTICATION_METHOD {{ meta.HTTP_SHIB_AUTHENTICATION_METHOD }}</li>
-    </ul>
+  <div class="block">
+    <div class="container">
+      <h2>Welcome, new unknown user!</h2>
+      <p>You authenticated successfully, but you are not yet known in the Data Service. You should contact <a href="http://portal.educloudalliance.org">Educloud Alliance</a> and request access.</p>
+      <ul>
+        <li>HTTP_USER_IDENTITY: {{ meta.HTTP_USER_IDENTITY }}</li>
+        <li>HTTP_AUTHENTICATOR: {{ meta.HTTP_AUTHENTICATOR }}</li>
+        <li>HTTP_AUTHNID: {{ meta.HTTP_AUTHNID }}</li>
+        <li>HTTP_MPASS_OID: {{ meta.HTTP_MPASS_OID }}</li>
+        <li>HTTP_MPASS_GIVENNAME: {{ meta.HTTP_MPASS_GIVENNAME }}</li>
+        <li>HTTP_MPASS_SURNAME: {{ meta.HTTP_MPASS_SURNAME }}</li>
+        <li>HTTP_MPASS_GROUP: {{ meta.HTTP_MPASS_GROUP }}</li>
+        <li>HTTP_MPASS_ROLE: {{ meta.HTTP_MPASS_ROLE }}</li>
+        <li>HTTP_MPASS_SCHOOL: {{ meta.HTTP_MPASS_SCHOOL }}</li>
+        <li>HTTP_MPASS_MUNICIPALITY: {{ meta.HTTP_MPASS_MUNICIPALITY }}</li>
+        <li>HTTP_SHIB_AUTHENTICATION_METHOD {{ meta.HTTP_SHIB_AUTHENTICATION_METHOD }}</li>
+      </ul>
+    </div>
   </div>
 {% endblock %}
 

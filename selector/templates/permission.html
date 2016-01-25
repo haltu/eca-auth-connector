@@ -2,7 +2,11 @@
 {% load i18n %}
 
 {% block content %}
-  <h1>{% trans "Permission denied" %}</h1>
-  <p>{% trans "You need to have permissions to access any other than registration token page." %}</p>
+  <div class="block">
+    <div class="container">
+      <h1>{% trans "Permission denied" %}</h1>
+      <p>{% trans "You need to have permissions to access any other than registration token page." %}</p>
+    </div>
+  </div>
 {% endblock %}
 
