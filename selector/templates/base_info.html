@@ -17,22 +17,24 @@
     <div class="container">
 
       <div class="row">
-        <div class="col-sm-4">
+        <div class="col-sm-6">
           <div class="featbox">
             <h3 class="featbox-title">{% trans "Invitator" %}</h3>
             <div class="featbox-content">
               <p>{% trans "Invitator invites new users to the system by acting as trusted party and identifying the user." %}</p>
               {% if user.is_authenticated %}
+                {% if perms.selector.can_invite %}
                 <ul>
                   <li><a href="/search">{% trans "Invitee search" %}</a>
                   <li><a href="/invite">{% trans "Send registration tokens" %}</a>
                 </ul>
+                {% endif %}
               {% endif %}
             </div>
           </div>
         </div>
 
-        <div class="col-sm-4">
+        <div class="col-sm-6">
           <div class="featbox">
             <h3 class="featbox-title">{% trans "Invitee" %}</h3>
             <div class="featbox-content">
@@ -44,19 +46,6 @@
           </div>
         </div>
 
-        <div class="col-sm-4">
-          <div class="featbox">
-            <h3 class="featbox-title">{% trans "Debug" %}</h3>
-            <div class="featbox-content">
-              <ul>
-                {% if user.is_authenticated %}
-                  <li><a href="/profile">{% trans "Profile" %}</a>
-                {% endif %}
-                <li><a href="/debug">{% trans "Debug" %}</a>
-              </ul>
-            </div>
-          </div>
-        </div>
       </div>
 
     </div>

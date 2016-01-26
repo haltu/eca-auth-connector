@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-01-26 08:08+0000\n"
+"POT-Creation-Date: 2016-01-26 14:09+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -67,7 +67,7 @@ msgstr "Salasanakentät eivät täsmää."
 msgid "Username"
 msgstr "Käyttäjätunnus"
 
-#: selector/forms.py:152 selector/forms.py:185 selector/models.py:44
+#: selector/forms.py:152 selector/forms.py:185 selector/models.py:48
 msgid "Required. 2048 characters or fewer. Letters, digits and @/./+/-/_ only."
 msgstr ""
 "Vaaditaan. 2048 merkkiä tai vähemmän. Ainoastaan kirjaimia, numeroita ja @/./"
@@ -86,97 +86,93 @@ msgid ""
 "form</a>."
 msgstr ""
 
-#: selector/models.py:43
+#: selector/models.py:47
 msgid "username"
 msgstr "käyttäjätunnus"
 
-#: selector/models.py:47
+#: selector/models.py:51
 msgid "Enter a valid username."
 msgstr "Syötä hyväksyttävä käyttäjätunnus."
 
-#: selector/models.py:49
+#: selector/models.py:53
 msgid "first name"
 msgstr "etunimi"
 
-#: selector/models.py:50
+#: selector/models.py:54
 msgid "last name"
 msgstr "sukunimi"
 
-#: selector/models.py:51
+#: selector/models.py:55
 msgid "email address"
 msgstr "sähköpostiosoite"
 
-#: selector/models.py:52
+#: selector/models.py:56
 msgid "staff status"
 msgstr ""
 
-#: selector/models.py:53
+#: selector/models.py:57
 msgid "Designates whether the user can log into this admin site."
 msgstr ""
 
-#: selector/models.py:55
+#: selector/models.py:59
 msgid "active"
 msgstr ""
 
-#: selector/models.py:56
+#: selector/models.py:60
 msgid ""
 "Designates whether this user should be treated as active. Unselect this "
 "instead of deleting accounts."
 msgstr ""
 
-#: selector/models.py:58
+#: selector/models.py:62
 msgid "date joined"
 msgstr ""
 
-#: selector/models.py:66
+#: selector/models.py:70
 msgid "user"
 msgstr ""
 
-#: selector/models.py:67
+#: selector/models.py:71
 msgid "users"
 msgstr ""
 
-#: selector/models.py:112
+#: selector/models.py:116
 msgid "#method-email"
 msgstr ""
 
-#: selector/models.py:142
+#: selector/models.py:146
 msgid "#register-email-from-address"
 msgstr ""
 
-#: selector/models.py:143
+#: selector/models.py:147
 msgid "#registration-email-subject"
 msgstr ""
 
 #: selector/templates/associate_failed.html:10
-#| msgid "Registration failed"
 msgid "Association failed"
 msgstr "Kirjautumistavan lisäys epäonnistui"
 
 #: selector/templates/associate_failed.html:11
-#| msgid "There was some problem with your token."
 msgid ""
 "There was some problem with your token, authentication server or data "
 "service."
-msgstr "Rekisteröintitunnisteessasi, kirjautumispalvelussa tai tietopalvelussa oli ongelma."
+msgstr ""
+"Rekisteröintitunnisteessasi, kirjautumispalvelussa tai tietopalvelussa oli "
+"ongelma."
 
 #: selector/templates/auth_associate_success.html:10
-#| msgid "MePin association success"
 msgid "Service association success"
 msgstr "Kirjautumispalvelu on liitetty onnistuneesti"
 
 #: selector/templates/auth_associate_success.html:11
-#| msgid ""
-#| "Your MePin ID was successfully associated. You may now log in with MePin."
 msgid ""
 "Your authentication service was successfully associated. You may now log in "
 "using the service."
 msgstr ""
-"Kirjautumispalvelu on liitetty tiliisi onnistuneesti. Voit nyt kirjautua sisään liitetyn palvelun "
-"avulla."
+"Kirjautumispalvelu on liitetty tiliisi onnistuneesti. Voit nyt kirjautua "
+"sisään liitetyn palvelun avulla."
 
 #: selector/templates/auth_info.html:10
-#| msgid "Associate MePin"
 msgid "Associating services"
 msgstr "Kirjautumispalveluiden liittäminen"
 
@@ -186,7 +182,11 @@ msgid ""
 "Twitter etc. This is a safe way for you, as you do not need to tell ECA any "
 "of the passwords to your existing services in order to use them for entering "
 "ECA."
-msgstr "MPASS huolehtii turvallisesta tunnistautumisesta muiden palveluiden kuten Facebook, Twitter jne. tunnuksilla. Näin sinun ei tarvitse kertoa ECA:lle palveluidesi salasanoja, mutta voit silti hyödyntää niitä sisäänkirjautumisessa."
+msgstr ""
+"MPASS huolehtii turvallisesta tunnistautumisesta muiden palveluiden kuten "
+"Facebook, Twitter jne. tunnuksilla. Näin sinun ei tarvitse kertoa ECA:lle "
+"palveluidesi salasanoja, mutta voit silti hyödyntää niitä "
+"sisäänkirjautumisessa."
 
 #: selector/templates/auth_info.html:12
 msgid ""
@@ -195,14 +195,18 @@ msgid ""
 "confirm from you, what you allow ECA to do with your information. After "
 "this, you have associated the service, and can use it from now on for login "
 "into ECA."
-msgstr "Paina Jatka ja valitse haluamasi palvelu listalta. Jos et ole jo kirjautuneena, palvelu pyytää sinua kirjautumaan sisään. Palvelu saattaa vielä varmistaa sinulta, mitä ECA:n on lupa tehdä tiedoillasi. Tämän jälkeen olet liittänyt kyseisen palvelun ja voit käyttää sitä jatkossa kirjautumiseen!"
+msgstr ""
+"Paina Jatka ja valitse haluamasi palvelu listalta. Jos et ole jo "
+"kirjautuneena, palvelu pyytää sinua kirjautumaan sisään. Palvelu saattaa "
+"vielä varmistaa sinulta, mitä ECA:n on lupa tehdä tiedoillasi. Tämän jälkeen "
+"olet liittänyt kyseisen palvelun ja voit käyttää sitä jatkossa "
+"kirjautumiseen!"
 
 #: selector/templates/auth_info.html:13
 msgid "Continue"
 msgstr "Jatka"
 
 #: selector/templates/base.html:8
-#| msgid "MPASS Connector Service"
 msgid "Educloud Alliance Connector Service"
 msgstr "MPASS tunnistusvälineiden hallinta"
 
@@ -210,29 +214,28 @@ msgstr "MPASS tunnistusvälineiden hallinta"
 msgid "MPASS"
 msgstr ""
 
-#: selector/templates/base.html:48 selector/templates/search.html:23
+#: selector/templates/base.html:49 selector/templates/search.html:23
 msgid "Search"
 msgstr "Hae"
 
-#: selector/templates/base.html:49 selector/templates/invite.html:26
+#: selector/templates/base.html:50 selector/templates/invite.html:26
 #: selector/templates/search.html:38
 msgid "Invite"
 msgstr "Kutsu"
 
-#: selector/templates/base.html:50 selector/templates/base_info.html:53
+#: selector/templates/base.html:52
 msgid "Profile"
 msgstr "Profiili"
 
-#: selector/templates/base.html:52 selector/templates/register.html:22
+#: selector/templates/base.html:54 selector/templates/register.html:22
 msgid "Register"
 msgstr "Rekisteröidy"
 
-#: selector/templates/base.html:53 selector/templates/base_info.html:49
-#: selector/templates/base_info.html:55
+#: selector/templates/base.html:55
 msgid "Debug"
 msgstr ""
 
-#: selector/templates/base.html:55
+#: selector/templates/base.html:57
 msgid "Log in"
 msgstr "Kirjaudu"
 
@@ -241,7 +244,6 @@ msgid "Connector"
 msgstr "Tunnistusvälineiden hallinta"
 
 #: selector/templates/base_info.html:9
-#| msgid "MPASS Connector service for inviting and registering new users."
 msgid ""
 "Educloud Alliance Connector service for inviting and registering new users."
 msgstr ""
@@ -249,8 +251,9 @@ msgstr ""
 "rekisteröidä uusia käyttäjiä."
 
 #: selector/templates/base_info.html:10
-#| msgid "Learn more about MPASS"
-msgid "Learn more about Educloud Alliance"
+#, fuzzy
+#| msgid "Learn more about Educloud Alliance"
+msgid "Learn more about MPASS"
 msgstr "Lue lisää MPASSista"
 
 #: selector/templates/base_info.html:22
@@ -265,19 +268,19 @@ msgstr ""
 "Kutsuja kutsuu uusia käyttäjiä järjestelmään toimimalla luotettavana tahona "
 "ja tunnistamalla käyttäjän."
 
-#: selector/templates/base_info.html:27
+#: selector/templates/base_info.html:28
 msgid "Invitee search"
 msgstr "Kutsuttavan haku"
 
-#: selector/templates/base_info.html:28
+#: selector/templates/base_info.html:29
 msgid "Send registration tokens"
 msgstr "Lähetä rekisteröintitunniste"
 
-#: selector/templates/base_info.html:37
+#: selector/templates/base_info.html:39
 msgid "Invitee"
 msgstr "Kutsuttava"
 
-#: selector/templates/base_info.html:39
+#: selector/templates/base_info.html:41
 msgid ""
 "Invitee joins the system by authenticating with some auth source and using "
 "the registration token acquired by invitator."
@@ -285,7 +288,7 @@ msgstr ""
 "Kutsuttava liittyy järjestelmään tunnistautumalla jonkin tunnistuspalvelun "
 "avulla ja käyttämällä kutsujan toimittamaa rekisteröintitunnistetta."
 
-#: selector/templates/base_info.html:41
+#: selector/templates/base_info.html:43
 msgid "Use registration token"
 msgstr "Käytä rekisteröintitunniste"
 
@@ -362,15 +365,15 @@ msgstr "Sinulla täytyy olla lupa kutsujen lähettämiseen."
 
 #: selector/templates/profile.html:12
 msgid "My authentication methods"
-msgstr "Minun tunnistautumistapani"
+msgstr "Minun tunnistautumisvälineeni"
 
 #: selector/templates/profile.html:16
 msgid "Attribute name"
-msgstr "Tunnistautumistavan nimi"
+msgstr "Tunnistautumisvälineen nimi"
 
 #: selector/templates/profile.html:17
 msgid "Attribute value"
-msgstr ""
+msgstr "Tunnisteen arvo"
 
 #: selector/templates/profile.html:18
 msgid "Remove"
@@ -381,18 +384,14 @@ msgid "Are you sure you want delete attribute "
 msgstr "Oletko varma että haluat poistaa tunnistautumistavan "
 
 #: selector/templates/profile.html:31
-#| msgid "Start association"
 msgid "Add other association"
-msgstr "Liitä muita palveluita"
+msgstr "Liitä muita tunnistusvälineitä"
 
 #: selector/templates/profile.html:32
-
-#| msgid "MePin association success"
 msgid "Add MePIN association"
-msgstr "Liitä MePIN"
+msgstr "Liitä Oppijan Avain"
 
 #: selector/templates/profile.html:44
-#| msgid "Start association"
 msgid "Add association"
 msgstr "Liitä palvelu"
 

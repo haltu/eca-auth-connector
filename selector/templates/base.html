@@ -45,12 +45,14 @@
           <div class="collapse navbar-collapse" id="navbar">
             <ul class="nav navbar-nav navbar-right">
             {% if user.is_authenticated %}
-              <li class="{% block nav-search %}{% endblock %}"><a href="/search">{% trans "Search" %}</a></li>
-              <li class="{% block nav-invite %}{% endblock %}"><a href="/invite">{% trans "Invite" %}</a></li>
+              {% if perms.selector.can_invite %}
+                <li class="{% block nav-search %}{% endblock %}"><a href="/search">{% trans "Search" %}</a></li>
+                <li class="{% block nav-invite %}{% endblock %}"><a href="/invite">{% trans "Invite" %}</a></li>
+              {% endif %}
               <li class="{% block nav-profile %}{% endblock %}"><a href="/profile">{% trans "Profile" %}</a></li>
             {% endif %}
             <li class="{% block nav-register %}{% endblock %}"><a href="/register">{% trans "Register" %}</a></li>
-            <li class="{% block nav-debug %}{% endblock %}"><a href="/debug">{% trans "Debug" %}</a></li>
+            <!--<li class="{% block nav-debug %}{% endblock %}"><a href="/debug">{% trans "Debug" %}</a></li>-->
             {% if not user.is_authenticated %}
               <li class="login-link"><a href="{% url 'login.admin' %}"><span class="glyphicon glyphicon-log-in"></span>{% trans "Log in" %}</a></li>
             {% endif %}
