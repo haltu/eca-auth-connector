@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-01-26 14:09+0000\n"
+"POT-Creation-Date: 2016-01-26 14:19+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -244,14 +244,15 @@ msgid "Connector"
 msgstr "Tunnistusvälineiden hallinta"
 
 #: selector/templates/base_info.html:9
-msgid ""
-"Educloud Alliance Connector service for inviting and registering new users."
+#| msgid ""
+#| "Educloud Alliance Connector service for inviting and registering new "
+#| "users."
+msgid "MPASS Connector service for inviting and registering new users."
 msgstr ""
 "MPASS tunnistusvälineiden hallinta on palvelu jonka avulla voi kutsua ja "
 "rekisteröidä uusia käyttäjiä."
 
 #: selector/templates/base_info.html:10
-#, fuzzy
 #| msgid "Learn more about Educloud Alliance"
 msgid "Learn more about MPASS"
 msgstr "Lue lisää MPASSista"
