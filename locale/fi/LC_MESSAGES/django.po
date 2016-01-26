@@ -157,7 +157,7 @@ msgid ""
 "There was some problem with your token, authentication server or data "
 "service."
 msgstr ""
-"Rekisteröintitunnisteessasi, kirjautumispalvelussa tai tietopalvelussa oli "
+"Rekisteröintikutsussasi, kirjautumispalvelussa tai tietopalvelussa oli "
 "ongelma."
 
 #: selector/templates/auth_associate_success.html:10
@@ -275,7 +275,7 @@ msgstr "Kutsuttavan haku"
 
 #: selector/templates/base_info.html:29
 msgid "Send registration tokens"
-msgstr "Lähetä rekisteröintitunniste"
+msgstr "Lähetä rekisteröintikutsu"
 
 #: selector/templates/base_info.html:39
 msgid "Invitee"
@@ -287,11 +287,11 @@ msgid ""
 "the registration token acquired by invitator."
 msgstr ""
 "Kutsuttava liittyy järjestelmään tunnistautumalla jonkin tunnistuspalvelun "
-"avulla ja käyttämällä kutsujan toimittamaa rekisteröintitunnistetta."
+"avulla ja käyttämällä kutsujan toimittamaa rekisteröintikutsua."
 
 #: selector/templates/base_info.html:43
 msgid "Use registration token"
-msgstr "Käytä rekisteröintitunniste"
+msgstr "Käytä rekisteröintikutsu"
 
 #: selector/templates/debug.html:9
 msgid "Debug information"
@@ -328,15 +328,15 @@ msgid ""
 "you would like to send invitation tokens."
 msgstr ""
 "Aikaisempi hakutuloksesti on muistissa ja voit valita käyttäjät joille "
-"haluat lähettää rekisteröintitunnisteet."
+"haluat lähettää rekisteröintikutsut."
 
 #: selector/templates/invited.html:10
 msgid "Invite successfull. Registration tokens have been sent for the users."
-msgstr "Kutsu onnistui. Rekisteröintitunnisteet on lähetetty käyttäjille."
+msgstr "Kutsu onnistui. Rekisteröintikutsut on lähetetty käyttäjille."
 
 #: selector/templates/invited.html:11
 msgid "Here are the registration tokens, for debugging purposes:"
-msgstr "Tässä ovat rekisteröintitunnisteet virheentarkistusta varten:"
+msgstr "Tässä ovat rekisteröintikutsut virheentarkistusta varten:"
 
 #: selector/templates/mepin_info.html:10
 msgid "MePin"
@@ -398,11 +398,11 @@ msgstr "Liitä palvelu"
 
 #: selector/templates/register.html:10
 msgid "Register with token"
-msgstr "Rekisteröidy tunnisteella"
+msgstr "Rekisteröidy kutsulla"
 
 #: selector/templates/register.html:12
 msgid "You've received registration token. Enter it below."
-msgstr "Olet saanut rekisteröintitunnisteen. Syötä se alle."
+msgstr "Olet saanut rekisteröintikutsun. Syötä se alle."
 
 #: selector/templates/register_failed.html:9
 msgid "Registration failed"
@@ -410,7 +410,7 @@ msgstr "Rekisteröinti epäonnistui"
 
 #: selector/templates/register_failed.html:10
 msgid "There was some problem with your token."
-msgstr "Tunnisteessasi oli ongelma."
+msgstr "Kutsussasi oli ongelma."
 
 #: selector/templates/register_success.html:9
 msgid "Registration success"
