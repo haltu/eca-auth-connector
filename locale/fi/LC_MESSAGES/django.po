@@ -279,14 +279,14 @@ msgstr "Lähetä rekisteröintikutsu"
 
 #: selector/templates/base_info.html:39
 msgid "Invitee"
-msgstr "Kutsuttava"
+msgstr "Uusi käyttäjä"
 
 #: selector/templates/base_info.html:41
 msgid ""
 "Invitee joins the system by authenticating with some auth source and using "
 "the registration token acquired by invitator."
 msgstr ""
-"Kutsuttava liittyy järjestelmään tunnistautumalla jonkin tunnistuspalvelun "
+"Uusi käyttäjä liittyy järjestelmään tunnistautumalla jonkin tunnistuspalvelun "
 "avulla ja käyttämällä kutsujan toimittamaa rekisteröintikutsua."
 
 #: selector/templates/base_info.html:43
