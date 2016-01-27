@@ -174,8 +174,7 @@ msgstr ""
 
 #: selector/templates/auth_info.html:9 selector/templates/profile.html:63
 msgid "Associating services"
-msgstr "Tunnistusvälineiden liittäminen
-"
+msgstr "Tunnistusvälineiden liittäminen"
 
 #: selector/templates/auth_info.html:10
 msgid ""
