@@ -28,8 +28,8 @@
           </tbody>
         </table>
 
-        <a type="button" class="open-authmodal btn btn-primary" href="{% url 'auth.info' %}" data-modal="#mepin-info">{% trans 'Add other association' %}</a>
-        <a type="button" class="open-authmodal btn btn-primary" href="{% url 'mepin.info' %}" data-modal="#association-info">{% trans 'Add MePIN association' %}</a>
+        <a type="button" class="open-authmodal btn btn-primary" href="{% url 'auth.info' %}" data-modal="#association-info">{% trans 'Add other association' %}</a>
+        <a type="button" class="open-authmodal btn btn-primary" href="{% url 'mepin.info' %}" data-modal="#mepin-info">{% trans 'Add MePIN association' %}</a>
 
       </div>
 
@@ -41,10 +41,11 @@
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="{% trans 'Close' %}"><span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title">{% trans "MePin" %}</h4>
+          <h4 class="modal-title">{% trans "MePIN" %}</h4>
         </div>
         <div class="modal-body">
-          <p>{% trans "Associate your MePin ID to Educloud. You will be asked to log in to Educloud and then to MePin." %}</p>
+          <p>{% trans "MPASS takes care of secure authentication using the accounts of other supported services. This is a safe way for you, as you do not need to tell MPASS any of the passwords to your existing services, but you can still use them for login." %}</p>
+          <p>{% trans "Press Continue to use MePIN service for login. If you are not already logged in to the service, it requests you to log in. Then the service may confirm from you what you allow MPASS to do with your information. After this, you have associated the service, and can use it from now on for login!" %}</p>
         </div>
         <div class="modal-footer clearfix">
           <a class="btn btn-primary" href="{% url 'mepin.associate' %}">{% trans "Continue" %}</a>
@@ -62,8 +63,8 @@
           <h4 class="modal-title">{% trans 'Associating services' %}</h4>
         </div>
         <div class="modal-body">
-          <p>{% trans "MPASS takes care of authentication using other services such as Facebook, Twitter etc. This is a safe way for you, as you do not need to tell ECA any of the passwords to your existing services in order to use them for entering ECA." %}</p>
-          <p>{% trans "Press Continue and select a service of your choice. If you are not already logged in to the service, it requests you to log in. Then the service may confirm from you, what you allow ECA to do with your information. After this, you have associated the service, and can use it from now on for login into ECA." %}</p>
+          <p>{% trans "MPASS takes care of secure authentication using the accounts of other supported services. This is a safe way for you, as you do not need to tell MPASS any of the passwords to your existing services, but you can still use them for login." %}</p>
+          <p>{% trans "Press Continue and select a service of your choice. If you are not already logged in to the service, it requests you to log in. Then the service may confirm from you what you allow MPASS to do with your information. After this, you have associated the service, and can use it from now on for login!" %}</p>
         </div>
         <div class="modal-footer clearfix">
           <a class="btn btn-primary" href="{% url 'auth.associate' %}">{% trans "Continue" %}</a>
