@@ -364,11 +364,11 @@ msgstr "Sinulla täytyy olla lupa kutsujen lähettämiseen."
 
 #: selector/templates/profile.html:12
 msgid "My authentication methods"
-msgstr "Minun tunnistautumisvälineeni"
+msgstr "Minun tunnistusvälineeni"
 
 #: selector/templates/profile.html:16
 msgid "Attribute name"
-msgstr "Tunnistautumisvälineen nimi"
+msgstr "Tunnistusvälineen nimi"
 
 #: selector/templates/profile.html:17
 msgid "Attribute value"
@@ -447,11 +447,11 @@ msgstr ""
 
 #: selector/templates/register.html:10
 msgid "Register with token"
-msgstr "Rekisteröidy kutsulla"
+msgstr "Rekisteröityminen"
 
 #: selector/templates/register.html:12
 msgid "You've received registration token. Enter it below."
-msgstr "Olet saanut rekisteröintikutsun. Syötä se alle."
+msgstr "Olet saanut rekisteröintikutsun ja sinulle on lähetetty rekisteröintikoodi. Syötä saamasi rekisteröintikoodi alle."
 
 #: selector/templates/register_failed.html:9
 msgid "Registration failed"
