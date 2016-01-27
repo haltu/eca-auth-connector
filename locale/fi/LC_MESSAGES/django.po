@@ -289,7 +289,7 @@ msgstr ""
 
 #: selector/templates/base_info.html:43
 msgid "Use registration token"
-msgstr "Käytä rekisteröintikutsu"
+msgstr "Rekisteröidy"
 
 #: selector/templates/debug.html:9
 msgid "Debug information"
