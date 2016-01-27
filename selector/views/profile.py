@@ -27,10 +27,12 @@
 import logging
 from django.core.urlresolvers import reverse_lazy, reverse
 from django.utils.decorators import method_decorator
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse, Http404
+from django.shortcuts import redirect
 from django.views.generic import TemplateView
 from django.views.generic.base import View
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import REDIRECT_FIELD_NAME
 from selector.roledb import roledb_client, APIResponse
 from selector.models import AuthAssociationToken
 
@@ -69,9 +71,51 @@ class AuthAssociateView(AdminLoginMixin, View):
 
   def get(self, request, *args, **kwargs):
     token = AuthAssociationToken.objects.create(user=request.user)
-    return_url = reverse('register.user') + '?token=' + token.token
-    url = reverse('mepin.callback') + 'Shibboleth.sso/Login?forceAuthn=True&target={return_url}'.format(return_url=return_url)
+    # Shibboleth should return to login view for storing the SAML attributes to session
+    # then redirect to the callback view with the token in URL
+    return_url = reverse('login.user') + '?%s=' % REDIRECT_FIELD_NAME + reverse('auth.associate.callback', kwargs={'token': token.token})
+    url = reverse('login.user') + 'Shibboleth.sso/Login?forceAuthn=true&target={return_url}'.format(return_url=return_url)
     return HttpResponseRedirect(url)
+
+
+class AuthAssociateCallbackView(View):
+  """
+  Auth association flow callback. After completing new login in Auth Proxy,
+  user will return with the authn id SAML attribute to this view. The registration token is
+  used to connect the authentication method to the original user account and write that
+  attribute to auth-data service.
+  """
+
+  @method_decorator(login_required(login_url=reverse_lazy('login.admin')))
+  def dispatch(self, request, *args, **kwargs):
+    return super(AuthAssociateCallbackView, self).dispatch(request, *args, **kwargs)
+
+  def get(self, request, *args, **kwargs):
+    token = kwargs.get('token', None)
+    # user is returning from Auth Proxy with the token we generated and the new
+    # authentication method as a SAML attribute
+    try:
+      active_token = AuthAssociationToken.objects.get(token=token, is_used=False)
+    except AuthAssociationToken.DoesNotExist:
+      raise Http404
+    auth_method_name = request.session['request_meta'].get('HTTP_AUTHENTICATOR', None)
+    if not auth_method_name:
+      LOG.error('Authentication association attempted but authentication method missing', extra={'data': {'meta': request.session['request_meta'], 'user': request.user.username}})
+      return HttpResponse('Authentication method missing', status=400)
+    authn_id = request.session['request_meta'].get('HTTP_AUTHNID', None)
+    if not authn_id:
+      LOG.error('Authentication association attempted but authentication id missing', extra={'data': {'meta': request.session['request_meta'], 'user': request.user.username}})
+      return HttpResponse('Authentication id missing', status=400)
+
+    # Associate new authentication method to the active user account and redirect
+    # back to the profile view
+    associate_success = active_token.associate(request.user, auth_method_name, authn_id)
+    if not associate_success:
+      return redirect('auth.associate.failed')
+
+    return redirect('auth.associate.success')
+
+
 
 # vim: tabstop=2 expandtab shiftwidth=2 softtabstop=2
 

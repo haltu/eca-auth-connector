@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block nav-profile %}active{% endblock %}
+
+{% block content %}
+  <div class="block">
+    <div class="container">
+      <h1>{% trans "Associating services" %}</h1>
+      <p>{% trans "MPASS takes care of secure authentication using the accounts of other supported services. This is a safe way for you, as you do not need to tell MPASS any of the passwords to your existing services, but you can still use them for login." %}</p>
+      <p>{% trans "Press Continue and select a service of your choice. If you are not already logged in to the service, it requests you to log in. Then the service may confirm from you what you allow MPASS to do with your information. After this, you have associated the service, and can use it from now on for login!" %}</p>
+      <p><a class="btn btn-primary btn-lg" href="{% url 'auth.associate' %}" role="button">{% trans "Continue" %}</a></p>
+    </div>
+  </div>
+{% endblock %}

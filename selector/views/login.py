@@ -25,7 +25,7 @@
 
 
 import logging
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.template.response import TemplateResponse
 from django.utils.http import is_safe_url
 from django.views.decorators.cache import never_cache
@@ -76,6 +76,7 @@ def login(request, template_name='registration/login.html',
           'HTTP_MPASS_ROLE',
           'HTTP_MPASS_SCHOOL',
           'HTTP_MPASS_MUNICIPALITY',
+          'HTTP_MPASS_STRUCTUREDROLE',
           'HTTP_SHIB_AUTHENTICATION_METHOD',
         ]
         for k in keys:
@@ -93,6 +94,33 @@ def login(request, template_name='registration/login.html',
     if extra_context is not None:
         context.update(extra_context)
     return TemplateResponse(request, template_name, context, current_app=current_app)
+
+
+@sensitive_post_parameters()
+@never_cache
+def user_redirect(request, redirect_field_name=REDIRECT_FIELD_NAME):
+  """
+  Handles the /saml/user SAML endpoint. Does not log in the user, only saves
+  the SAML attributes to session and redirects to the next view.
+
+  """
+  redirect_to_request = request.REQUEST.get(redirect_field_name, '')
+
+  # Ensure the user-originating redirection url is safe.
+  if is_safe_url(url=redirect_to_request, host=request.get_host()):
+    redirect_to = redirect_to_request
+  else:
+    return HttpResponse('Invalid redirect url', status=400)
+
+  keys = [
+    'HTTP_AUTHENTICATOR',
+    'HTTP_AUTHNID',
+  ]
+  meta = request.session.get('request_meta', {})
+  for k in keys:
+    meta[k] = request.META.get(k, None)
+  request.session['request_meta'] = meta
+  return HttpResponseRedirect(redirect_to)
 
 # vim: tabstop=2 expandtab shiftwidth=2 softtabstop=2
 

@@ -25,15 +25,16 @@
 
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
+from django.views.generic import TemplateView
 from selector.forms import AuthenticationForm
 from selector.views.base import IndexView, PermissionView
 from selector.views.invitator import SearchView, InviteView
 from selector.views.invitator import DebugView
 from selector.views.invitee import RegisterTokenView, RegisterUserView, RegisterSuccessView, RegisterFailedView
-from selector.views.profile import ProfileView
+from selector.views.profile import ProfileView, AuthAssociateView, AuthAssociateCallbackView
 from selector.views.mepin import MePinInfoView, MePinAssociateView, MePinAssociateCallbackView
 from selector.views.api import AttributeAPIView
-from selector.views.login import login
+from selector.views.login import login, user_redirect
 
 admin.site.login_form = AuthenticationForm
 
@@ -43,6 +44,7 @@ urlpatterns = patterns('',
   url(r'^invite$', InviteView.as_view(), name='invite'),
   url(r'^profile$', ProfileView.as_view(), name='profile'),
   url(r'^register$', RegisterTokenView.as_view(), name='register'),
+  url(r'^register/associate$', RegisterUserView.as_view(), name='register.user'),
   url(r'^register/success$', RegisterSuccessView.as_view(), name='register.success'),
   url(r'^register/failed$', RegisterFailedView.as_view(), name='register.failed'),
   url(r'^register/(?P<token>.*)$', RegisterTokenView.as_view(), name='register.token'),
@@ -51,11 +53,17 @@ urlpatterns = patterns('',
   url(r'^permission$', PermissionView.as_view(), name='permission'),
   url(r'^debug$', DebugView.as_view()),
   url(r'^saml/admin/$', login, name='login.admin'),
-  url(r'^saml/user/$', RegisterUserView.as_view(), name='register.user'),
+  url(r'^saml/user/$', user_redirect, name='login.user'),
   url(r'^saml/mepin/$', MePinAssociateCallbackView.as_view(), name='mepin.callback'),
+  url(r'^auth$', TemplateView.as_view(template_name='auth_info.html'), name='auth.info'),
+  url(r'^auth/associate$', AuthAssociateView.as_view(), name='auth.associate'),
+  url(r'^auth/associate/callback/(?P<token>.*)$', AuthAssociateCallbackView.as_view(), name='auth.associate.callback'),
+  url(r'^auth/associate/failed$', TemplateView.as_view(template_name='associate_failed.html'), name='auth.associate.failed'),
+  url(r'^auth/success$', TemplateView.as_view(template_name='auth_associate_success.html'), name='auth.associate.success'),
   url(r'^sysadmin/', include(admin.site.urls)),
   url(r'^api/1/me/attributes', AttributeAPIView.as_view(), name='api.attributes'),
 )
+
 
 # vim: tabstop=2 expandtab shiftwidth=2 softtabstop=2
 

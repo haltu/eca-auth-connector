@@ -98,7 +98,16 @@ a:hover {
 .btn-primary:active,
 .btn-primary:focus,
 .btn-primary:hover,
-.open>.dropdown-toggle.btn-primary {
+.open>.dropdown-toggle.btn-primary,
+.btn-primary:active:hover,
+.btn-primary.active:hover,
+.open > .dropdown-toggle.btn-primary:hover,
+.btn-primary:active:focus,
+.btn-primary.active:focus,
+.open > .dropdown-toggle.btn-primary:focus,
+.btn-primary:active.focus,
+.btn-primary.active.focus,
+.open > .dropdown-toggle.btn-primary.focus {
   color: #fff;
   background: #0a77d1;
   text-decoration: underline;
@@ -117,7 +126,16 @@ a:hover {
 .btn-default:active,
 .btn-default:focus,
 .btn-default:hover,
-.open>.dropdown-toggle.btn-default {
+.open>.dropdown-toggle.btn-default,
+.btn-default:active:hover,
+.btn-default.active:hover,
+.open > .dropdown-toggle.btn-default:hover,
+.btn-default:active:focus,
+.btn-default.active:focus,
+.open > .dropdown-toggle.btn-default:focus,
+.btn-default:active.focus,
+.btn-default.active.focus,
+.open > .dropdown-toggle.btn-default.focus {
   color: #fff;
   background: #0d92ff;
   border: 0.3rem solid #0d92ff;
@@ -237,6 +255,52 @@ p {
 }
 ol, ul {
   padding-left: 2.0rem;
+}
+
+/* BS modal */
+
+.modal-content {
+  border-radius: 0;
+  border: 0.5rem solid #E02271;
+}
+.modal-header {
+  position: relative;
+  background: #e02271;
+  color: #fff;
+  border: 0;
+  margin-top: -5px;
+}
+.modal-footer .btn {
+  float: right;
+  margin: 0;
+  margin-left: 1rem;
+}
+.modal-header .close {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  margin: 0;
+  margin-top: -20px;
+  display: inline-block;
+  height: 40px;
+  width: 40px;
+  line-height: 40px;
+  padding: 0;
+  color: #fff;
+  font-size: 40px;
+  filter: alpha(opacity=70);
+  opacity: .7;
+  cursor: pointer;
+}
+.modal-header .close:hover,
+.modal-header .close:focus {
+  color: #fff;
+  filter: alpha(opacity=100);
+  opacity: 1;
+}
+.modal-header .close span {
+  display: inline-block;
+  vertical-align: top;
 }
 
 /* BS Navbar */
@@ -539,6 +603,12 @@ ol, ul {
 
 .delete-attribute {
   cursor: pointer;
+  font-size: 24px;
+}
+.delete-attribute:hover,
+.delete-attribute:focus {
+  text-decoration: none;
+  color: #e02271;
 }
 
 /* Block */

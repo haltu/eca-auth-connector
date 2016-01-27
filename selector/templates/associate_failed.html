@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block nav-profile %}active{% endblock %}
+
+{% block content %}
+  <div class="block">
+    <div class="container">
+      <h1>{% trans "Association failed" %}</h1>
+      <p>{% trans "There was some problem with your token, authentication server or data service." %}</p>
+    </div>
+  </div>
+{% endblock %}

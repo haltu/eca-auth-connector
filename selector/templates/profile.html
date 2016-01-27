@@ -22,18 +22,74 @@
               <tr>
                 <td>{{ attr.name }}</td>
                 <td>{{ attr.value }}</td>
-                <td><span class="glyphicon glyphicon-remove delete-attribute" aria-hidden="true" data-confirm-msg="{% trans 'Are you sure you want delete attribute ' %}" data-attribute="{{ attr.name }}" data-url="{% url 'api.attributes' %}"></span></td>
+                <td><span class="glyphicon glyphicon-remove-circle delete-attribute" aria-hidden="true" data-confirm-msg="{% trans 'Are you sure you want delete attribute ' %}" data-attribute="{{ attr.name }}" data-url="{% url 'api.attributes' %}"></span></td>
               </tr>
             {% endfor %}
           </tbody>
         </table>
 
-        <button type="button" class="btn btn-primary">{% trans 'Add' %}</button>
-        <a type="button" class="btn btn-primary" href="{% url 'mepin.info' %}">{% trans 'Associate MePin' %}</a>
+        <a type="button" class="open-authmodal btn btn-primary" href="{% url 'auth.info' %}" data-modal="#association-info">{% trans 'Add other association' %}</a>
+        <a type="button" class="open-authmodal btn btn-primary" href="{% url 'mepin.info' %}" data-modal="#mepin-info">{% trans 'Add MePIN association' %}</a>
 
       </div>
 
     </div>
   </div>
+
+  <div id="mepin-info" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="{% trans 'Close' %}"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title">{% trans "MePIN" %}</h4>
+        </div>
+        <div class="modal-body">
+          <p>{% trans "MPASS takes care of secure authentication using the accounts of other supported services. This is a safe way for you, as you do not need to tell MPASS any of the passwords to your existing services, but you can still use them for login." %}</p>
+          <p>{% trans "Press Continue to use MePIN service for login. If you are not already logged in to the service, it requests you to log in. Then the service may confirm from you what you allow MPASS to do with your information. After this, you have associated the service, and can use it from now on for login!" %}</p>
+        </div>
+        <div class="modal-footer clearfix">
+          <a class="btn btn-primary" href="{% url 'mepin.associate' %}">{% trans "Continue" %}</a>
+          <button type="button" class="btn btn-default" data-dismiss="modal">{% trans "Close" %}</button>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
+
+  <div id="association-info" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="{% trans 'Close' %}"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title">{% trans 'Associating services' %}</h4>
+        </div>
+        <div class="modal-body">
+          <p>{% trans "MPASS takes care of secure authentication using the accounts of other supported services. This is a safe way for you, as you do not need to tell MPASS any of the passwords to your existing services, but you can still use them for login." %}</p>
+          <p>{% trans "Press Continue and select a service of your choice. If you are not already logged in to the service, it requests you to log in. Then the service may confirm from you what you allow MPASS to do with your information. After this, you have associated the service, and can use it from now on for login!" %}</p>
+        </div>
+        <div class="modal-footer clearfix">
+          <a class="btn btn-primary" href="{% url 'auth.associate' %}">{% trans "Continue" %}</a>
+          <button type="button" class="btn btn-default" data-dismiss="modal">{% trans "Close" %}</button>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
+
 {% endblock %}
 
+{% block scripts-footer %}
+
+  {{ block.super }}
+
+  <script>
+    $(function () {
+      $('[data-modal]').on('click', function (e) {
+        var $modal = $($(this).attr('data-modal'));
+        if ($modal.length) {
+          e.preventDefault();
+          $modal.modal('show');
+        }
+      });
+    });
+  </script>
+
+{% endblock %}

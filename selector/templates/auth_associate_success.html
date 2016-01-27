@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block nav-profile %}active{% endblock %}
+
+{% block content %}
+  <div class="block">
+    <div class="container">
+      <h1>{% trans "Service association success" %}</h1>
+      <p>{% trans "Your authentication service was successfully associated. You may now log in using the service." %}</p>
+    </div>
+  </div>
+{% endblock %}
+

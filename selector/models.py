@@ -24,6 +24,7 @@
 
 
 import string
+import logging
 from random import choice
 from django.utils.translation import ugettext_lazy as _
 from django.db import models
@@ -31,7 +32,10 @@ from django.core import validators
 from django.core.mail import send_mail
 from django.utils import timezone
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, UserManager
-from selector.roledb import roledb_client
+from selector.roledb import roledb_client, APIResponse
+
+
+LOG = logging.getLogger(__name__)
 
 
 class User(AbstractBaseUser, PermissionsMixin):
@@ -180,14 +184,20 @@ class AuthAssociationToken(models.Model):
       self.token = ''.join([choice(string.letters + string.digits) for i in range(30)])
     return super(AuthAssociationToken, self).save(*args, **kwargs)
 
-  def associate(self, attr_name, attr_value):
+  def associate(self, user, attr_name, attr_value):
+    if not self.user == user:
+      LOG.warning('AuthAssociationToken.associate() called by user not owning the token', extra={'data': {'request.user': user, 'self.user': self.user}})
+      return False
     data = {
       'user': self.user.username,
       'attribute': attr_name,
       'value': attr_value,
     }
-    # TODO: error handling
-    r = roledb_client('post', 'userattribute', data=data)
+    try:
+      r = roledb_client('post', 'userattribute', data=data)
+    except APIResponse as e:
+      LOG.error('AuthAssocionToken.associate() failed', extra={'data': {'authdatapayload': data, 'authdataresponse_code': e.r.status_code, 'authdataresponse_text': e.r.text}})
+      return False
     self.is_used = True
     self.save()
     return True

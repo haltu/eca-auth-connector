@@ -56,7 +56,7 @@ class InviteForm(forms.Form):
 
 
 class RegisterForm(forms.Form):
-  token = forms.CharField()
+  token = forms.CharField(label=_(u"Token"))
 
   def clean_token(self):
     try:
