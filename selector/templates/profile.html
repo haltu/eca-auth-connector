@@ -28,25 +28,46 @@
           </tbody>
         </table>
 
-        <a type="button" class="open-authmodal btn btn-primary" href="{% url 'auth.info' %}">{% trans 'Add other association' %}</a>
-        <a type="button" class="open-authmodal btn btn-primary" href="{% url 'mepin.info' %}">{% trans 'Add MePIN association' %}</a>
+        <a type="button" class="open-authmodal btn btn-primary" href="{% url 'auth.info' %}" data-modal="#mepin-info">{% trans 'Add other association' %}</a>
+        <a type="button" class="open-authmodal btn btn-primary" href="{% url 'mepin.info' %}" data-modal="#association-info">{% trans 'Add MePIN association' %}</a>
 
       </div>
 
     </div>
   </div>
 
-  <div id="auth-modal" class="modal fade" tabindex="-1" role="dialog">
+  <div id="mepin-info" class="modal fade" tabindex="-1" role="dialog">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title">{% trans 'Add association' %}</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="{% trans 'Close' %}"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title">{% trans "MePin" %}</h4>
         </div>
         <div class="modal-body">
-          <div class="auth-iframe-container">
-            <iframe class="auth-iframe" src=""></iframe>
-          </div>
+          <p>{% trans "Associate your MePin ID to Educloud. You will be asked to log in to Educloud and then to MePin." %}</p>
+        </div>
+        <div class="modal-footer clearfix">
+          <a class="btn btn-primary" href="{% url 'mepin.associate' %}">{% trans "Continue" %}</a>
+          <button type="button" class="btn btn-default" data-dismiss="modal">{% trans "Close" %}</button>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
+
+  <div id="association-info" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="{% trans 'Close' %}"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title">{% trans 'Associating services' %}</h4>
+        </div>
+        <div class="modal-body">
+          <p>{% trans "MPASS takes care of authentication using other services such as Facebook, Twitter etc. This is a safe way for you, as you do not need to tell ECA any of the passwords to your existing services in order to use them for entering ECA." %}</p>
+          <p>{% trans "Press Continue and select a service of your choice. If you are not already logged in to the service, it requests you to log in. Then the service may confirm from you, what you allow ECA to do with your information. After this, you have associated the service, and can use it from now on for login into ECA." %}</p>
+        </div>
+        <div class="modal-footer clearfix">
+          <a class="btn btn-primary" href="{% url 'auth.associate' %}">{% trans "Continue" %}</a>
+          <button type="button" class="btn btn-default" data-dismiss="modal">{% trans "Close" %}</button>
         </div>
       </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
@@ -60,21 +81,13 @@
 
   <script>
     $(function () {
-
-      var $authModal = $('#auth-modal');
-      var $authIframe = $authModal.find('iframe');
-
-      $('.open-authmodal').on('click', function (e) {
-        e.preventDefault();
-        $authIframe.attr('src', $(this).attr('href'));
-        $authModal.modal('show');
+      $('[data-modal]').on('click', function (e) {
+        var $modal = $($(this).attr('data-modal'));
+        if ($modal.length) {
+          e.preventDefault();
+          $modal.modal('show');
+        }
       });
-
-      $authModal.on('hidden.bs.modal', function (e) {
-        $authIframe.attr('src', '');
-        location.reload();
-      });
-
     });
   </script>
 
