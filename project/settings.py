@@ -123,6 +123,12 @@ USE_TZ = True
 
 APPEND_SLASH = False
 
+#Some browsers (Chrome, for example) provide settings that allow users to
+#continue browsing sessions after closing and re-opening the browser. In some
+#cases, this can interfere with the SESSION_EXPIRE_AT_BROWSER_CLOSE setting and
+#prevent sessions from expiring on browser close.
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
 
