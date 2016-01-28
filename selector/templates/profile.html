@@ -45,7 +45,8 @@
         </div>
         <div class="modal-body">
           <p>{% trans "MPASS takes care of secure authentication using the accounts of other supported services. This is a safe way for you, as you do not need to tell MPASS any of the passwords to your existing services, but you can still use them for login." %}</p>
-          <p>{% trans "Press Continue to use MePIN service for login. If you are not already logged in to the service, it requests you to log in. Then the service may confirm from you what you allow MPASS to do with your information. After this, you have associated the service, and can use it from now on for login!" %}</p>
+          <p>{% trans "#mepin-auth-info-1" %}</p>
+          <p>{% trans "#mepin-auth-info-2" %}</p>
         </div>
         <div class="modal-footer clearfix">
           <a class="btn btn-primary" href="{% url 'mepin.associate' %}">{% trans "Continue" %}</a>
