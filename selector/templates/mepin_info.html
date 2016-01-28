@@ -7,7 +7,9 @@
   <div class="block">
     <div class="container">
       <h1>{% trans "MePin" %}</h1>
-      <p>{% trans "Associate your MePin ID to Educloud. You will be asked to log in to Educloud and then to MePin." %}</p>
+      <p>{% trans "MPASS takes care of secure authentication using the accounts of other supported services. This is a safe way for you, as you do not need to tell MPASS any of the passwords to your existing services, but you can still use them for login." %}</p>
+      <p>{% trans "#mepin-auth-info-1" %}</p>
+      <p>{% trans "#mepin-auth-info-2" %}</p>
       <p><a class="btn btn-primary btn-lg" href="{% url 'mepin.associate' %}" role="button">{% trans "Start association" %}</a></p>
     </div>
   </div>
