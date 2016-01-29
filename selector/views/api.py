@@ -51,7 +51,7 @@ class AttributeAPIView(UserLoginMixin, View):
     if action == 'delete':
       if name is None:
         return HttpResponse('Invalid request', status=400)
-      r = list(paged_query('get', 'userattribute', params={'user': user.username, 'attribute': name}))
+      r = list(roledb_client('get', 'userattribute', params={'user': user.username, 'attribute': name}))
       if len(r) > 1:
         LOG.error('User has duplicate attributes', extra={'data': {'user': user.username, 'attribute': name}})
         return HttpResponse('Multiple attributes error', status=500)
